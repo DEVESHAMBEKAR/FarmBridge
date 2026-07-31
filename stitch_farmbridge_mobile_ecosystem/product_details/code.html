@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>FarmBridge - Cherry Tomatoes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#a3f69c",
+                    "outline-variant": "#bfcaba",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-fixed": "#311300",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dcd9d9",
+                    "secondary-fixed-dim": "#9dd761",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#005312",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed": "#ffdcc6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-secondary-fixed": "#0e2000",
+                    "surface-container": "#f0edec",
+                    "primary-container": "#2e7d32",
+                    "surface-tint": "#1b6d24",
+                    "surface": "#fcf9f8",
+                    "secondary-fixed": "#b8f47a",
+                    "background": "#fcf9f8",
+                    "outline": "#707a6c",
+                    "surface-container-high": "#ebe7e7",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#884200",
+                    "surface-container-low": "#f6f3f2",
+                    "primary": "#0d631b",
+                    "inverse-primary": "#88d982",
+                    "primary-fixed-dim": "#88d982",
+                    "on-surface-variant": "#40493d",
+                    "tertiary-container": "#ad5600",
+                    "on-primary-container": "#cbffc2",
+                    "on-secondary-fixed-variant": "#2c5000",
+                    "on-primary": "#ffffff",
+                    "secondary": "#3c6a00",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-error": "#ffffff",
+                    "on-surface": "#1c1b1b",
+                    "on-tertiary-container": "#ffeee6",
+                    "secondary-container": "#b8f47a",
+                    "on-primary-fixed": "#002204",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#407100",
+                    "on-background": "#1c1b1b",
+                    "inverse-surface": "#313030",
+                    "surface-container-highest": "#e5e2e1",
+                    "inverse-on-surface": "#f3f0ef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "sm": "8px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "margin-mobile": "24px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            user-select: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(252, 249, 248, 0) 60%, rgba(252, 249, 248, 1) 100%);
+        }
+
+        @keyframes subtle-zoom {
+            from { transform: scale(1.0); }
+            to { transform: scale(1.05); }
+        }
+        .animate-zoom {
+            animation: subtle-zoom 20s infinite alternate ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top App Bar -->
+<header class="sticky top-0 w-full z-40 bg-surface/80 backdrop-blur-md shadow-sm h-14 flex justify-between items-center px-margin-mobile transition-all duration-300 border-b border-surface-variant/20">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-100 hover:bg-surface-container-low p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg font-bold text-primary">Cherry Tomatoes</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="active:scale-95 transition-transform duration-100 hover:bg-surface-container-low p-2 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">share</span>
+</button>
+<button class="active:scale-95 transition-transform duration-100 hover:bg-surface-container-low p-2 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">favorite</span>
+</button>
+</div>
+</header>
+<main class="pb-32">
+<!-- Hero Image Section -->
+<div class="relative w-full h-[397px] overflow-hidden">
+<div class="absolute inset-0 bg-surface-container-highest animate-pulse"></div>
+<div class="w-full h-full bg-cover bg-center animate-zoom" data-alt="Close-up cinematic shot of vibrant red cherry tomatoes still on the vine, glistening with fresh morning dew. The background features a soft-focus lush green organic farm field at sunrise with warm golden light spilling across the scene. The overall aesthetic is professional food photography, emphasizing freshness, natural textures, and a premium farm-to-table atmosphere. Lighting is soft and directional, highlighting the smooth, reflective skins of the tomatoes." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBnEd7QEh1R201BzZfB8MwUlZzSNkSWlTLru8vm2wIb-yxWYoewz0kcu8Puzvdiv1jy3sJ47W2GeFjLJ_lKNDtwpx9netBPJxVH2pnRLYGBgXj4S3ncOL2NMsFgd5K10TKtnRdpGyFZosGmYWRFrOH-6RlxUBPwtwCwnuWl5dyoR1JyPutbBySRpdQjratDDgbEulZVtBAz_DuEVdGjp4enXwTgxqfEkGY_pe95iXG98h1JdEaj4FQRt216HLNJaIKkHr6jlu26u7U')"></div>
+<div class="absolute inset-0 hero-gradient"></div>
+<!-- Floating Badges Overlay -->
+<div class="absolute bottom-6 left-margin-mobile flex flex-wrap gap-2 pr-margin-mobile">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">eco</span> Organic
+                </span>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">temp_preferences_custom</span> Fresh Today
+                </span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">back_hand</span> Hand-picked
+                </span>
+</div>
+</div>
+<!-- Product Content Canvas -->
+<div class="px-margin-mobile -mt-2 relative z-10">
+<!-- Header Info -->
+<div class="flex justify-between items-start mb-4">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Cherry Tomatoes</h2>
+<p class="text-on-surface-variant font-body-md">Premium Vine-Ripened</p>
+</div>
+<div class="text-right">
+<div class="text-primary font-headline-lg-mobile text-headline-lg-mobile">₹80</div>
+<div class="text-on-surface-variant font-label-md uppercase tracking-wider">Per Kilogram</div>
+</div>
+</div>
+<!-- Unit Selector -->
+<div class="bg-surface-container-low rounded-xl p-4 mb-8 flex items-center justify-between">
+<span class="font-label-md text-on-surface-variant">Select Quantity</span>
+<div class="flex items-center gap-4 bg-surface rounded-full border border-outline-variant p-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-full active:bg-surface-variant transition-colors" id="minus-btn">
+<span class="material-symbols-outlined text-primary">remove</span>
+</button>
+<span class="font-title-lg text-on-surface min-w-[32px] text-center" id="qty-text">1kg</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-on-primary active:scale-90 transition-transform" id="plus-btn">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Farmer Section -->
+<div class="mb-8">
+<h3 class="font-label-md text-on-surface-variant uppercase tracking-widest mb-4">Sourced From</h3>
+<div class="flex items-center p-4 bg-surface rounded-2xl border border-surface-variant hover:shadow-md transition-shadow">
+<div class="relative w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-primary-fixed shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of Suresh, a middle-aged, smiling Indian farmer wearing a traditional white cotton kurta, standing in a sunlit tomato greenhouse. He has a warm, trustworthy expression. The lighting is soft and natural, emphasizing a high-end agri-tech portrait style that feels modern and authentic. The background is slightly blurred showing healthy green tomato plants." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxNkVobLDEb029aXbjv2sEXlGay4VHydnUe6dNJuudvyZ1TG60OYlbbewqvFoyTCqycex9_tGmUtPvkpbNite47H_Xp9fvJFi3-oS0FIYrm0v_QpescH7NOl-Uf4J2VvyN3v--t-m-Wf9ePCk8rHB4R8x7T3XARVHdtnRt7t0oZcRg7mBQJKQHRB2UHcCr7fgdqCVrdtl_x6Yy9SModhUYUK1xcZ1Iy_VuEaGwIAdKYf2bP-nxToh17rcT3sdI12yWwy5jophi-6k"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-1">
+<span class="font-title-lg text-on-surface">Suresh's Farm</span>
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant font-body-md mt-0.5">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 4.2km away
+                            </span>
+<span class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.8
+                            </span>
+</div>
+</div>
+<button class="p-3 rounded-full bg-secondary-container text-on-secondary-container active:scale-95 transition-transform">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Description -->
+<div class="mb-8">
+<h3 class="font-label-md text-on-surface-variant uppercase tracking-widest mb-2">Description</h3>
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                    Grown with love in natural compost. Pesticide-free and harvested this morning at the crack of dawn to ensure maximum sweetness and crunch. These cherry tomatoes are perfect for gourmet salads, roasting, or just snacking.
+                </p>
+</div>
+<!-- Nutritional Info (Bento Style) -->
+<div class="mb-8">
+<h3 class="font-label-md text-on-surface-variant uppercase tracking-widest mb-4">Nutritional Profile</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container p-4 rounded-2xl flex flex-col items-center text-center">
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile">2.4g</span>
+<span class="text-on-surface-variant font-label-md">Fiber</span>
+</div>
+<div class="bg-surface-container p-4 rounded-2xl flex flex-col items-center text-center border-l-4 border-primary">
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile">15%</span>
+<span class="text-on-surface-variant font-label-md">Vit C (DV)</span>
+</div>
+<div class="bg-surface-container p-4 rounded-2xl flex flex-col items-center text-center">
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile">18</span>
+<span class="text-on-surface-variant font-label-md">Kcal / 100g</span>
+</div>
+<div class="bg-surface-container p-4 rounded-2xl flex flex-col items-center text-center">
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile">Low</span>
+<span class="text-on-surface-variant font-label-md">Glycemic Index</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Actions Container (Dual CTA) -->
+<div class="fixed bottom-16 left-0 w-full z-40 px-margin-mobile py-4 bg-surface/95 backdrop-blur-md flex gap-3 shadow-[0_-4px_16px_rgba(0,0,0,0.05)] border-t border-surface-variant/10">
+<button class="flex-1 h-14 rounded-2xl border-2 border-primary text-primary font-label-md hover:bg-surface-container-low active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">shopping_cart</span>
+            Add to Cart
+        </button>
+<button class="flex-[1.5] h-14 rounded-2xl bg-primary text-on-primary font-label-md shadow-lg shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">bolt</span>
+            Quick Buy
+        </button>
+</div>
+<!-- Navigation Shell (BottomNavBar) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base pt-2 pb-6 bg-surface-container-low dark:bg-surface-container-lowest rounded-t-xl shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="font-label-md text-label-md">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple Interaction Logic for Quantity Selector
+        let quantity = 1;
+        const minusBtn = document.getElementById('minus-btn');
+        const plusBtn = document.getElementById('plus-btn');
+        const qtyText = document.getElementById('qty-text');
+
+        minusBtn.addEventListener('click', () => {
+            if (quantity > 1) {
+                quantity--;
+                updateDisplay();
+            }
+        });
+
+        plusBtn.addEventListener('click', () => {
+            quantity++;
+            updateDisplay();
+        });
+
+        function updateDisplay() {
+            qtyText.textContent = `${quantity}kg`;
+            // Subtle feedback
+            qtyText.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                qtyText.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md', 'h-12');
+                header.classList.remove('shadow-sm', 'h-14');
+            } else {
+                header.classList.add('shadow-sm', 'h-14');
+                header.classList.remove('shadow-md', 'h-12');
+            }
+        });
+    </script>
+</body></html>

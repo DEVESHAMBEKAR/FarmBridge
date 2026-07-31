@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Order Tracking - FarmBridge</title>
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0d631b",
+                    "surface-container-highest": "#e5e2e1",
+                    "inverse-surface": "#313030",
+                    "on-background": "#1c1b1b",
+                    "on-tertiary-container": "#ffeee6",
+                    "on-surface-variant": "#40493d",
+                    "background": "#fcf9f8",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "outline-variant": "#bfcaba",
+                    "on-secondary-container": "#407100",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#ad5600",
+                    "tertiary": "#884200",
+                    "secondary-fixed-dim": "#9dd761",
+                    "on-primary-fixed": "#002204",
+                    "surface-container-low": "#f6f3f2",
+                    "outline": "#707a6c",
+                    "on-primary-container": "#cbffc2",
+                    "surface-tint": "#1b6d24",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "surface-variant": "#e5e2e1",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#88d982",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-primary": "#88d982",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#2e7d32",
+                    "on-surface": "#1c1b1b",
+                    "error": "#ba1a1a",
+                    "surface-container": "#f0edec",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dcd9d9",
+                    "primary-fixed": "#a3f69c",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#b8f47a",
+                    "tertiary-fixed": "#ffdcc6",
+                    "secondary": "#3c6a00",
+                    "on-tertiary-fixed": "#311300",
+                    "on-secondary-fixed-variant": "#2c5000",
+                    "on-primary-fixed-variant": "#005312",
+                    "secondary-fixed": "#b8f47a",
+                    "surface-container-high": "#ebe7e7",
+                    "on-secondary-fixed": "#0e2000",
+                    "surface": "#fcf9f8",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "margin-mobile": "24px",
+                    "gutter": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col font-body-md">
+<!-- Task-Focused Header (Suppressed global nav for linear tracking flow) -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-margin-mobile h-14 w-full bg-surface shadow-sm">
+<button class="text-on-surface-variant p-2 -ml-2 rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-primary tracking-tight">Order #FB-8924</h1>
+<button class="text-primary p-2 -mr-2 rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</header>
+<main class="flex-grow flex flex-col relative w-full max-w-3xl mx-auto md:border-x border-outline-variant md:bg-surface">
+<!-- Live Map Section -->
+<section class="relative w-full h-[397px] min-h-[300px] bg-surface-container-high overflow-hidden">
+<!-- Map Placeholder with Location Data -->
+<div class="absolute inset-0 bg-cover bg-center w-full h-full opacity-90" data-alt="A clean, minimalist digital map interface showing a rural agricultural area with green highlights. The style is modern, using subtle topographical lines and soft surface colors indicative of a premium agritech app in light mode." data-location="Willamette Valley, Oregon" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHpEcJBKxg4-5HtdBUrWhaEcFlXwVhbgBERx9RESP1ykjUcyisAq_mDmPD9AgtnnqKvnmP0pv5GAa2Ywn7lnMqe9wI5nXxrAzxaizj6ULYzNR4f0-eU033WcWHlO-lKqNXgBQa1haYqv_e6phJgE1RIqvwLooLGM6ADol_fOpZCbtk2_V1UbBgEBC16RnFebdvp_IxHWu0j5r4lJye-JeFNJhMiAhZCWcZ8RSQKX2PJakRQSjEsQcfjFxqa0qepwOvY4-UjvABRDw')"></div>
+<!-- Map Overlay Gradient for readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+<!-- ETA Badge -->
+<div class="absolute top-md left-1/2 transform -translate-x-1/2 bg-surface text-on-surface px-lg py-sm rounded-full shadow-lg flex flex-col items-center border border-surface-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Estimated Arrival</span>
+<span class="font-title-lg text-title-lg text-primary">14:30 PM</span>
+</div>
+<!-- Map Markers (Simulated) -->
+<div class="absolute top-1/3 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-lg border-4 border-surface">
+<span class="material-symbols-outlined filled">local_shipping</span>
+</div>
+<div class="w-1 h-8 border-l-2 border-dashed border-primary mt-1"></div>
+</div>
+<div class="absolute top-2/3 left-3/4 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-[32px] drop-shadow-md">location_on</span>
+<div class="w-4 h-2 bg-black/20 rounded-[100%] mt-1 blur-[2px]"></div>
+</div>
+</section>
+<!-- Content Canvas Container -->
+<div class="flex-grow flex flex-col gap-lg p-margin-mobile -mt-4 relative z-10">
+<!-- Delivery Partner Bento Card -->
+<div class="bg-surface rounded-xl p-md shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-surface-variant flex items-center justify-between">
+<div class="flex items-center gap-md">
+<img class="w-14 h-14 rounded-full object-cover border-2 border-surface-container" data-alt="A professional headshot of a friendly rural delivery driver wearing a green cap and vest, smiling warmly. The lighting is soft and natural, emphasizing trust and reliability within a modern agritech brand context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjFzBmoi7VxJ4Z0Xwx2LRj0Zb5gk6NDRnDWOkyVvF3fk_bb0NwQhmfYCqVfAwzr81gsZQjH6sghusMKRDJ2w83GvuyqYxdNRU3lN2dWu0A8otP1_Vd4wXKrMsPiZlJ9xcX4h5R5ruTGPXD7FHU2EiDV_kcNUnmBeG1t35aH3piAAl0Srb6ZNkamzEoj4qNkB--ANpWzbjj4SDZRfVCbkLuTNNnc1ajB2G3nqVfO__eCHchy4J6HPjY1CUDgWLhH5HowdjdwHWZ8xY"/>
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg text-on-surface">Elias Thorne</span>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="font-label-md text-label-md">Refrigerated Transit</span>
+<span class="text-[10px]">•</span>
+<div class="flex items-center text-secondary">
+<span class="material-symbols-outlined filled text-[16px]">star</span>
+<span class="font-label-md text-label-md ml-xs">4.9</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center hover:bg-surface-container-high transition-colors shadow-sm">
+<span class="material-symbols-outlined filled">call</span>
+</button>
+</div>
+<!-- Progress Stepper Card -->
+<div class="bg-surface-container-lowest rounded-xl p-lg border border-surface-variant">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-lg">Delivery Status</h3>
+<div class="relative flex flex-col gap-xl">
+<!-- Vertical Line connecting steps -->
+<div class="absolute left-3 top-4 bottom-4 w-0.5 bg-surface-container-highest"></div>
+<!-- Step 1: Placed (Done) -->
+<div class="relative flex gap-md items-start">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shrink-0 mt-1">
+<span class="material-symbols-outlined text-[14px] font-bold">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface">Order Placed</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Today, 08:15 AM</span>
+</div>
+</div>
+<!-- Step 2: Processing (Done) -->
+<div class="relative flex gap-md items-start">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shrink-0 mt-1">
+<span class="material-symbols-outlined text-[14px] font-bold">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface">Harvest &amp; Packed</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Today, 10:30 AM</span>
+</div>
+</div>
+<!-- Step 3: Out for Delivery (Active) -->
+<div class="relative flex gap-md items-start">
+<div class="absolute left-[-5px] top-[-5px] w-8 h-8 rounded-full bg-primary/20 animate-ping"></div>
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shrink-0 mt-1 shadow-md">
+<div class="w-2 h-2 rounded-full bg-surface-container-lowest"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-semibold text-primary">Out for Delivery</span>
+<span class="font-body-md text-body-md text-primary">Arriving soon (14:30 PM)</span>
+</div>
+</div>
+<!-- Step 4: Arrived (Pending) -->
+<div class="relative flex gap-md items-start opacity-50">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border-2 border-outline-variant flex items-center justify-center z-10 shrink-0 mt-1">
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface">Delivered</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Pending</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Order Summary Section -->
+<div class="bg-surface-container-lowest rounded-xl p-lg border border-surface-variant mb-xl">
+<div class="flex justify-between items-center mb-md border-b border-surface-container pb-sm">
+<h3 class="font-title-lg text-title-lg text-on-surface">Order Summary</h3>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest">3 Items</span>
+</div>
+<ul class="flex flex-col gap-sm">
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface">Organic Roma Tomatoes (50lb)</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">$45.00</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface">Hydroponic Butter Lettuce (10ct)</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">$22.50</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface">Cold-Pressed Olive Oil (1 Gal)</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">$68.00</span>
+</li>
+</ul>
+<div class="mt-md pt-md border-t border-surface-container flex justify-between items-center">
+<span class="font-title-lg text-title-lg text-on-surface">Total</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary">$135.50</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

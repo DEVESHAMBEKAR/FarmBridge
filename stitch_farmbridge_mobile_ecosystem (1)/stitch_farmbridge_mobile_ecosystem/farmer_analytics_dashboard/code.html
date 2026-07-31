@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FarmBridge Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#3c6a00",
+                        "on-tertiary-container": "#ffeee6",
+                        "tertiary": "#884200",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-variant": "#e5e2e1",
+                        "surface-dim": "#dcd9d9",
+                        "primary-container": "#2e7d32",
+                        "on-background": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#a3f69c",
+                        "secondary-fixed-dim": "#9dd761",
+                        "surface-tint": "#1b6d24",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "outline": "#707a6c",
+                        "inverse-surface": "#313030",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-container": "#b8f47a",
+                        "outline-variant": "#bfcaba",
+                        "primary-fixed-dim": "#88d982",
+                        "surface-container-high": "#ebe7e7",
+                        "on-surface-variant": "#40493d",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-secondary-container": "#407100",
+                        "inverse-primary": "#88d982",
+                        "primary": "#0d631b",
+                        "on-primary-container": "#cbffc2",
+                        "background": "#fcf9f8",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#002204",
+                        "surface": "#fcf9f8",
+                        "secondary-fixed": "#b8f47a",
+                        "surface-container-highest": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0edec",
+                        "on-secondary-fixed": "#0e2000",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-primary-fixed-variant": "#005312",
+                        "tertiary-container": "#ad5600",
+                        "on-tertiary-fixed": "#311300",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "surface-bright": "#fcf9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "margin-mobile": "24px",
+                        "base": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col md:flex-row pb-20 md:pb-0">
+<!-- Desktop SideNav -->
+<nav class="hidden md:flex flex-col h-full w-80 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant py-lg z-40">
+<div class="px-lg mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div>
+<div class="font-headline-lg text-headline-lg text-primary tracking-tight">FarmBridge</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Admin Panel</div>
+</div>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-md rounded-full hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-md rounded-full hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">agriculture</span>
+<span class="font-label-md text-label-md">Farmers</span>
+</a>
+<a class="bg-secondary-container text-on-secondary-container mx-2 my-1 px-4 py-3 flex items-center gap-md rounded-full transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-md rounded-full hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-md rounded-full hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Supply Chain</span>
+</a>
+<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-md rounded-full hover:bg-surface-container-high transition-colors duration-150 mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Mobile TopAppBar -->
+<header class="md:hidden w-full top-0 sticky bg-surface shadow-sm z-50 flex items-center justify-between px-margin-mobile h-14">
+<button class="text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-95 p-2 rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FarmBridge</div>
+<button class="text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-95 p-2 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-80 p-margin-mobile md:p-xl max-w-[1400px] w-full mx-auto">
+<!-- Header & Segmented Control -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<div>
+<h1 class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Analytics</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Deep insights into farm performance.</p>
+</div>
+<div class="flex bg-surface-container-high rounded-full p-1 w-full md:w-auto self-start">
+<button class="flex-1 md:flex-none px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-colors">Daily</button>
+<button class="flex-1 md:flex-none px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-colors">Weekly</button>
+<button class="flex-1 md:flex-none px-6 py-2 rounded-full bg-surface text-primary shadow-sm font-label-md text-label-md">Monthly</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Yield Overview Chart (Spans 8 cols on desktop) -->
+<div class="col-span-1 md:col-span-8 bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-surface-variant flex flex-col h-96">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-title-lg text-title-lg text-on-surface">Yield Overview</h2>
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex-1 relative flex items-end justify-between gap-2 md:gap-4 pb-8 pt-4 border-b border-surface-variant">
+<!-- Faux Bar Chart -->
+<div class="w-full bg-secondary-fixed-dim rounded-t-sm h-[40%] hover:bg-secondary-fixed transition-colors group relative cursor-pointer"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">4k kg</div></div>
+<div class="w-full bg-secondary-fixed-dim rounded-t-sm h-[55%] hover:bg-secondary-fixed transition-colors group relative cursor-pointer"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">5.5k kg</div></div>
+<div class="w-full bg-secondary-fixed-dim rounded-t-sm h-[30%] hover:bg-secondary-fixed transition-colors group relative cursor-pointer"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">3k kg</div></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[80%] hover:bg-primary transition-colors group relative cursor-pointer"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">8k kg</div></div>
+<div class="w-full bg-secondary-fixed-dim rounded-t-sm h-[65%] hover:bg-secondary-fixed transition-colors group relative cursor-pointer"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">6.5k kg</div></div>
+<div class="w-full bg-secondary-fixed-dim rounded-t-sm h-[90%] hover:bg-secondary-fixed transition-colors group relative cursor-pointer"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">9k kg</div></div>
+</div>
+<div class="flex justify-between mt-2 font-label-md text-label-md text-on-surface-variant">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+</div>
+</div>
+<!-- Key Metrics Column (Spans 4 cols on desktop) -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-6">
+<!-- Revenue Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-surface-variant bg-gradient-to-br from-surface-container-lowest to-secondary-container/20">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary">payments</span>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Revenue</h3>
+</div>
+<div class="font-display-lg text-display-lg md:font-headline-lg md:text-headline-lg font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">$124,500</div>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="font-label-md text-label-md">+12.5% from last month</span>
+</div>
+</div>
+<!-- Quality Grade -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-surface-variant">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-tertiary">star</span>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Avg. Quality Grade</h3>
+</div>
+<div class="font-display-lg text-display-lg md:font-headline-lg md:text-headline-lg font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">A-</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="font-label-md text-label-md">Top 15% of region</span>
+</div>
+</div>
+<!-- Market Demand -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-surface-variant">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary">moving</span>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Market Demand Index</h3>
+</div>
+<div class="font-display-lg text-display-lg md:font-headline-lg md:text-headline-lg font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">94/100</div>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-4">
+<div class="bg-primary h-2 rounded-full" style="width: 94%"></div>
+</div>
+</div>
+</div>
+<!-- Crop Performance List (Spans 6 cols on desktop) -->
+<div class="col-span-1 md:col-span-6 bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-surface-variant">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-title-lg text-title-lg text-on-surface">Crop Performance</h2>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Crop Item 1 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center">
+<img class="w-8 h-8 object-cover rounded-md" data-alt="A macro shot of a perfectly ripe, bright red tomato glistening with morning dew, resting on a bed of rich dark soil in a modern, well-lit greenhouse setting. The aesthetic is clean, premium agritech, emphasizing the vibrant red against the subtle greens and browns." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUaA8ruVvgZAlTRCosAwYo5_yFnHqwwO8XAkuBPa0t_AC30SQv0i_Kn6oF7TLOFUXYSiNrGyx8eOPzq-LTXgvIH6uKAnBhrZjUQPLogTc75NUHcGU0tRmNnfoDsQ1cYjPUsoT6JKsQ0iLQ6d6HRXKN9OkoKRgPyCkF5RDj3NXb9L5i34iuhVSk-ROhUDSCmyUktV4D5k2LCcaxzhCCGCfUMostxJkqQDwYNVrMDG9d4oQehHMx29G9naYKwLtmLtZJA_UWmtD7btQ"/>
+</div>
+<div>
+<div class="font-title-lg text-title-lg text-on-surface">Tomatoes</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Premium Grade</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-title-lg text-title-lg text-on-surface">$45,200</div>
+<div class="font-label-md text-label-md text-primary">+8.2%</div>
+</div>
+</div>
+<!-- Crop Item 2 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center">
+<img class="w-8 h-8 object-cover rounded-md" data-alt="A close up shot of crisp, vibrant green spinach leaves arranged neatly in a premium wooden crate. The lighting is bright and natural, highlighting the healthy texture of the leaves, suitable for a modern organic farming interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACIeJULcEYVmGAEPLtc8mHGzRI3uICwdXJTxzd8h-u2bZAavI1E_qqdHFzfaKG1wVceQjs_AkJ10e9PKBbBLOuS8gdNe68rpHe9gPLJxBlsqH_iS6lroeRpDCFmpD_AsPiqaldKIodatbPQ4nm6DUyxZXjXGtZrBdp-NoETDd7vIBL_lXahS4yOnspVi0NLXQIB8Xf3ywnMCMUagK6_TFMYQPvQJfS-BZxpOL2xhDf48aPsRDezZaX8rgAOjMLEi1N21_XFPQyGKE"/>
+</div>
+<div>
+<div class="font-title-lg text-title-lg text-on-surface">Spinach</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Organic</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-title-lg text-title-lg text-on-surface">$28,900</div>
+<div class="font-label-md text-label-md text-primary">+3.1%</div>
+</div>
+</div>
+<!-- Crop Item 3 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center">
+<img class="w-8 h-8 object-cover rounded-md" data-alt="A macro detail shot of pristine white garlic bulbs resting on a clean, light grey surface. The lighting is soft and studio-quality, emphasizing the papery texture and minimalist, high-end agricultural aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg0KpQs9Wp7R8FGo0Aj3RAXn1gN3hqqVrIYVpA0VmuDOIFEo_At0NRs5CmqYTjfVfmIJXQLyqZJoy9XuLANPBMAJLjBoMm7a3e9eYcy2LSiK89j72JmUCU004x8ym32uOBMlApsq-645HT9xyHGROWWe9kNsfcMVEg9Dx_0aCTrVQDTcJXx4icWW0PnaSNKGQPZQ0A7Zyq1mZ3YCWBPUYX0gwr6BiMdH9jF4YgxvSbWInk3M7LrOUySzYCLJyX772OIdsTiRpia5c"/>
+</div>
+<div>
+<div class="font-title-lg text-title-lg text-on-surface">Garlic</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Standard</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-title-lg text-title-lg text-on-surface">$15,400</div>
+<div class="font-label-md text-label-md text-error">-1.4%</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Price Trends (Spans 6 cols on desktop) -->
+<div class="col-span-1 md:col-span-6 bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-surface-variant flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-title-lg text-title-lg text-on-surface">Price Trends</h2>
+<span class="font-label-md text-label-md text-on-surface-variant">Current Market</span>
+</div>
+<div class="flex-1 flex flex-col justify-center gap-8">
+<!-- Trend Item 1 -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface">Tomatoes (per kg)</span>
+<span class="font-label-md text-label-md text-on-surface">$3.20</span>
+</div>
+<div class="w-full h-12 relative flex items-center">
+<!-- CSS Sparkline representation -->
+<div class="absolute inset-0 w-full h-full" style="background: linear-gradient(to top, transparent 40%, rgba(163, 246, 156, 0.2) 100%);"></div>
+<svg class="w-full h-full absolute" preserveaspectratio="none" viewbox="0 0 100 20">
+<polyline fill="none" points="0,15 20,12 40,16 60,8 80,10 100,2" stroke="#2e7d32" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+</svg>
+</div>
+</div>
+<!-- Trend Item 2 -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface">Spinach (per bunch)</span>
+<span class="font-label-md text-label-md text-on-surface">$1.85</span>
+</div>
+<div class="w-full h-12 relative flex items-center">
+<!-- CSS Sparkline representation -->
+<div class="absolute inset-0 w-full h-full" style="background: linear-gradient(to top, transparent 40%, rgba(255, 218, 214, 0.2) 100%);"></div>
+<svg class="w-full h-full absolute" preserveaspectratio="none" viewbox="0 0 100 20">
+<polyline fill="none" points="0,5 20,8 40,6 60,15 80,12 100,18" stroke="#ba1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-sm py-xs bg-surface shadow-[0_-1px_3px_rgba(0,0,0,0.05)] z-50 rounded-t-xl pb-6 pt-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-transform duration-200 ease-in-out active:scale-90 rounded-xl" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-transform duration-200 ease-in-out active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-transform duration-200 ease-in-out active:scale-90 rounded-xl" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-transform duration-200 ease-in-out active:scale-90 rounded-xl" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">Wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-transform duration-200 ease-in-out active:scale-90 rounded-xl" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard - FarmBridge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0d631b",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-surface": "#313030",
+                        "on-background": "#1c1b1b",
+                        "on-tertiary-container": "#ffeee6",
+                        "on-surface-variant": "#40493d",
+                        "background": "#fcf9f8",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "outline-variant": "#bfcaba",
+                        "on-secondary-container": "#407100",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#ad5600",
+                        "tertiary": "#884200",
+                        "secondary-fixed-dim": "#9dd761",
+                        "on-primary-fixed": "#002204",
+                        "surface-container-low": "#f6f3f2",
+                        "outline": "#707a6c",
+                        "on-primary-container": "#cbffc2",
+                        "surface-tint": "#1b6d24",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "surface-variant": "#e5e2e1",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#88d982",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-primary": "#88d982",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#2e7d32",
+                        "on-surface": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0edec",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "primary-fixed": "#a3f69c",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#b8f47a",
+                        "tertiary-fixed": "#ffdcc6",
+                        "secondary": "#3c6a00",
+                        "on-tertiary-fixed": "#311300",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "on-primary-fixed-variant": "#005312",
+                        "secondary-fixed": "#b8f47a",
+                        "surface-container-high": "#ebe7e7",
+                        "on-secondary-fixed": "#0e2000",
+                        "surface": "#fcf9f8",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "margin-mobile": "24px",
+                        "gutter": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- Shared Component: NavigationDrawer -->
+<nav class="h-full w-80 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-lg z-50">
+<!-- Header -->
+<div class="px-lg pb-md mb-md border-b border-outline-variant/50">
+<div class="flex items-center gap-md mb-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of an administrator for FarmBridge. The lighting is soft and natural, emphasizing trust and reliability. The subject is wearing modern, clean attire, fitting the 'Apple meets Material Design 3' AgriTech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBhRy5tQJF5UfZ8cvluW6w6is2DWGr8QJS4nSPaxuirHH0k19Bcs4aDDvF4fX1FbX8eBbDBvBJeeQ0UH2K1oPWNJvjjgounJqxP2kZiN5qKgfbvbDBxFGV_Fa7CE6SbOqeVOruZ3-gTWR2VlaLrVg5gS9UMCp8Cc9Fmh6wZPbr-wyZG7BZjqmDQJQbasEXz4KFcQoVOXqAiGoilXMyfkovLxOgJ1eKtX7-K0kwj23L86yfRwErtOvYl3bLGoUNGReSWZQrYQdfHX8"/>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight" style="font-size: 24px; line-height: 32px;">Admin Panel</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">FarmBridge Management</p>
+</div>
+</div>
+<div class="inline-block mt-xs bg-surface border border-outline-variant rounded px-2 py-0.5">
+<span class="font-label-md text-[11px] text-outline tracking-wider uppercase">v1.0.4</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto px-sm flex flex-col gap-xs">
+<!-- Active Tab -->
+<a class="bg-secondary-container text-on-secondary-container rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">agriculture</span>
+<span class="font-label-md text-label-md">Farmers</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Supply Chain</span>
+</a>
+<div class="mt-auto mb-sm">
+<div class="h-px w-full bg-outline-variant/50 my-sm"></div>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-80 flex-1 flex flex-col min-w-0">
+<!-- Top App Bar / Header Context -->
+<header class="px-xl py-lg flex justify-between items-center sticky top-0 bg-background/80 backdrop-blur-md z-40 border-b border-outline-variant/30">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Platform Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Real-time metrics and system health</p>
+</div>
+<div class="flex items-center gap-md">
+<button class="h-14 px-lg rounded-full bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-high flex items-center gap-sm transition-colors">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Today</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<button class="h-14 px-lg rounded-full bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container flex items-center gap-sm transition-all shadow-[0_4px_12px_rgba(13,99,27,0.2)]">
+<span class="material-symbols-outlined">download</span>
+<span class="font-label-md text-label-md">Export Data</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="p-xl flex-1 overflow-y-auto">
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-md mb-xl">
+<!-- KPI 1: Revenue -->
+<div class="bg-surface-container-low rounded-2xl p-lg flex flex-col justify-between border border-outline-variant/30 hover:bg-surface-container transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<span class="flex items-center text-secondary font-label-md text-label-md bg-secondary-container px-2 py-1 rounded-full gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +12.5%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Total Revenue</p>
+<h3 class="font-display-lg text-display-lg text-on-surface tracking-tighter">$84,200</h3>
+</div>
+</div>
+<!-- KPI 2: Active Orders -->
+<div class="bg-surface-container-low rounded-2xl p-lg flex flex-col justify-between border border-outline-variant/30 hover:bg-surface-container transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="flex items-center text-secondary font-label-md text-label-md bg-secondary-container px-2 py-1 rounded-full gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +4.2%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Active Orders</p>
+<h3 class="font-display-lg text-display-lg text-on-surface tracking-tighter">1,248</h3>
+</div>
+</div>
+<!-- KPI 3: New Farmers -->
+<div class="bg-surface-container-low rounded-2xl p-lg flex flex-col justify-between border border-outline-variant/30 hover:bg-surface-container transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined">group_add</span>
+</div>
+<span class="flex items-center text-on-surface-variant font-label-md text-label-md bg-surface-variant px-2 py-1 rounded-full gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_flat</span>
+                            0.0%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">New Farmer Signups</p>
+<h3 class="font-display-lg text-display-lg text-on-surface tracking-tighter">42</h3>
+</div>
+</div>
+<!-- KPI 4: Logistics Health -->
+<div class="bg-surface-container-low rounded-2xl p-lg flex flex-col justify-between border border-outline-variant/30 hover:bg-surface-container transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="flex items-center text-error font-label-md text-label-md bg-error-container/50 px-2 py-1 rounded-full gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+                            -2.1%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">On-Time Deliveries</p>
+<h3 class="font-display-lg text-display-lg text-on-surface tracking-tighter">94.8%</h3>
+</div>
+</div>
+</section>
+<!-- Main Split Content -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-xl">
+<!-- Recent Activity Feed (Spans 2 columns) -->
+<section class="xl:col-span-2">
+<div class="flex justify-between items-end mb-lg">
+<h3 class="font-title-lg text-title-lg text-on-surface">Recent Activity</h3>
+<button class="font-label-md text-label-md text-primary hover:text-primary-container transition-colors">View All</button>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden">
+<!-- Activity Item 1 -->
+<div class="flex gap-md p-md border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]">add_box</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="font-body-md text-body-md text-on-surface font-medium">New listing added in Grains</p>
+<span class="font-label-md text-label-md text-on-surface-variant text-sm">2m ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Farmer ID #8492 listed 500 tons of Premium Wheat. Awaiting quality verification.</p>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex gap-md p-md border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors bg-error-container/10">
+<div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="font-body-md text-body-md text-on-surface font-medium">Delivery delayed on Route RT-842</p>
+<span class="font-label-md text-label-md text-on-surface-variant text-sm">15m ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Weather disruption reported. Estimated delay: 4 hours. Buyers notified.</p>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex gap-md p-md border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="font-body-md text-body-md text-on-surface font-medium">Payment clearing completed</p>
+<span class="font-label-md text-label-md text-on-surface-variant text-sm">1h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Batch processing #9921 finished successfully. 142 transactions settled.</p>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="flex gap-md p-md hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="font-body-md text-body-md text-on-surface font-medium">New Cooperative onboarded</p>
+<span class="font-label-md text-label-md text-on-surface-variant text-sm">3h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">'Sunrise Valley Growers' profile created. Pending document review.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Pending Approvals Sidebar (Spans 1 column) -->
+<section class="xl:col-span-1 flex flex-col">
+<div class="flex justify-between items-end mb-lg">
+<h3 class="font-title-lg text-title-lg text-on-surface">Action Required</h3>
+<span class="bg-error text-on-error font-label-md text-[12px] px-2 py-0.5 rounded-full">3 Pending</span>
+</div>
+<div class="flex flex-col gap-md">
+<!-- Approval Card 1 -->
+<div class="bg-surface-container-low rounded-xl p-md border border-outline-variant/50 relative overflow-hidden group">
+<!-- Subtle decorative accent -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary rounded-l-xl"></div>
+<div class="flex items-center gap-md mb-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male farmer standing in a bright, modern greenhouse. The image uses a clean, high-key lighting style typical of contemporary AgriTech branding. He looks optimistic and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDs2fm3EZJz_p4mu7KHWJkn7pCfcijRtfwvMUY2wI27hHEgyniTq3L6HH-WS0sphGS6wj1BJNUS26OQKlgkzN42Zl235luzKpV_3l_feQ3If0WiDsqG6ai1bS0aAdybJ4IyN7Yg-DfKnhmdB9a6Ed00P8s_P7pdedaPD-2n62i6U6JiCihs0CdZdl7_Bm4deiz9RGkwRRpjXrZC_jXLvzpO4UA2mgM2A3rVqk67KgzpO-QRPmbSYbfRLxI3S2ax7ujz1hBOyY18So"/>
+</div>
+<div>
+<h4 class="font-title-lg text-[18px] leading-tight text-on-surface">Elias Thorne</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">New Farmer Application</p>
+</div>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mb-md line-clamp-2">
+                                Midwest region, 500 acres. Organic certification documents attached for review.
+                            </p>
+<div class="flex gap-sm">
+<button class="flex-1 h-12 rounded-full border border-outline text-on-surface hover:bg-surface-variant font-label-md text-label-md transition-colors">
+                                    Review
+                                </button>
+<button class="flex-1 h-12 rounded-full bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md transition-colors">
+                                    Approve
+                                </button>
+</div>
+</div>
+<!-- Approval Card 2 -->
+<div class="bg-surface-container-low rounded-xl p-md border border-outline-variant/50 relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary rounded-l-xl"></div>
+<div class="flex items-center gap-md mb-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-quality image of freshly harvested organic soybeans in a wooden crate. The lighting is crisp and the background is slightly blurred, emphasizing the premium quality of the produce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCwb8-omn71eud-zcAKLGvRQBw1m4XAc4B1UZc5sCyvNV5T7AZfei4SdnwcQOuTuh1o58MZL0deFan1Rj9iQ2V7lmzdDwRHFmJd9_pPfeYcHm8kPX3K1C2kKPehegxflwea6tbGReFoemJwFqhcyYDZzETEtHMA2S8bW9LNCsNIRtBJTFjrCWRrGPqzqyhMcgt-3eJj_yxh7JaL4XJ3U7UYX-xKarvdAsTv_mu1fNnZr9yRehnzkUHcuer6y9ZOE7Umfl89dJBk5A"/>
+</div>
+<div>
+<h4 class="font-title-lg text-[18px] leading-tight text-on-surface">Organic Soybeans</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">High-Volume Listing</p>
+</div>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mb-md line-clamp-2">
+                                200 tons listed by Coop #442. Price point is 15% below market average. Requires manual price validation.
+                            </p>
+<div class="flex gap-sm">
+<button class="flex-1 h-12 rounded-full border border-outline text-on-surface hover:bg-surface-variant font-label-md text-label-md transition-colors">
+                                    Reject
+                                </button>
+<button class="flex-1 h-12 rounded-full bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md transition-colors">
+                                    Approve
+                                </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

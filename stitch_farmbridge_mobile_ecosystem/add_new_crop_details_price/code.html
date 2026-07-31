@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Crop - Step 2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ffeee6",
+                        "on-secondary-container": "#407100",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline": "#707a6c",
+                        "tertiary": "#884200",
+                        "surface-dim": "#dcd9d9",
+                        "secondary-fixed": "#b8f47a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#005312",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdcc6",
+                        "surface-container": "#f0edec",
+                        "on-surface-variant": "#40493d",
+                        "on-tertiary-fixed": "#311300",
+                        "inverse-surface": "#313030",
+                        "surface-bright": "#fcf9f8",
+                        "background": "#fcf9f8",
+                        "surface-container-high": "#ebe7e7",
+                        "on-primary-container": "#cbffc2",
+                        "tertiary-container": "#ad5600",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#0e2000",
+                        "secondary-container": "#b8f47a",
+                        "primary-fixed-dim": "#88d982",
+                        "primary-fixed": "#a3f69c",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#1b6d24",
+                        "on-primary-fixed": "#002204",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-container": "#2e7d32",
+                        "inverse-primary": "#88d982",
+                        "on-surface": "#1c1b1b",
+                        "surface": "#fcf9f8",
+                        "secondary": "#3c6a00",
+                        "on-background": "#1c1b1b",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "primary": "#0d631b",
+                        "outline-variant": "#bfcaba",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#9dd761",
+                        "surface-container-highest": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "base": "8px",
+                        "margin-mobile": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0d631b;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0d631b;
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(100%);
+            border-color: white;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col relative">
+<header class="w-full top-0 sticky bg-surface z-50 flex items-center justify-between px-margin-mobile py-sm">
+<button aria-label="Go back" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors text-on-surface">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-on-surface font-semibold">Listing Details</h1>
+<div class="w-10 h-10"></div>
+</header>
+<main class="flex-1 w-full max-w-2xl mx-auto px-margin-mobile pt-md pb-32 flex flex-col gap-xl">
+<section class="bg-surface-container-low rounded-xl p-sm flex items-center gap-md shadow-sm border border-outline-variant/30">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container-highest">
+<img alt="Selected Crop" class="w-full h-full object-cover" data-alt="A close-up, high-quality photograph of freshly harvested, vibrant red tomatoes resting in a rustic wooden crate. The lighting is bright and natural, highlighting the dew drops on the smooth skin of the tomatoes. The scene is set in an outdoor agricultural environment with a soft, blurred background emphasizing freshness and organic farming. Clean, modern, trustworthy aesthetic suitable for an AgriTech platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsnLWEYuoeSLDgB2f2_ZuTsyLaQHqZSHEz9a_CY-I1PO7wWp5v_wbFpN6qwrdRVc-CKh4cEn6CCwtITaNDoLY0cAFY3_WTX2l-XNMMixfe8hc9rHcz7GDD0pj8sD1iedwoFxMr1jGICTWlkOMaKuJPf0Nh1EHsbmFpveNpijryoX0_4JJLC4bT_V0j5s99jx77GilCE_-mDj-h7DMJJyLuNL5-wyrxLJ6_B41e5z3S5FBlfv5Uv8O7Qm4H3GD_fWvxBy4B4HJevCE"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary tracking-wider uppercase mb-1">Selected Crop</span>
+<h2 class="font-title-lg text-title-lg text-on-surface">Heirloom Tomatoes</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Brandywine Variety</p>
+</div>
+<button class="ml-auto text-primary p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</section>
+<div class="w-full h-px bg-outline-variant/40"></div>
+<section class="flex flex-col gap-lg">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs">Inventory &amp; Pricing</h3>
+<div class="flex flex-col md:flex-row gap-md w-full">
+<div class="relative w-full group">
+<label class="absolute text-on-surface-variant font-label-md text-label-md top-2 left-4 z-10 transition-all">Total Available (kg)</label>
+<input class="w-full h-[64px] pt-6 px-4 bg-surface-container-highest border-0 border-b border-outline text-on-surface rounded-t-lg focus:ring-0 focus:border-primary focus:border-b-2 transition-colors font-body-md text-body-md" placeholder="e.g. 500" type="number"/>
+</div>
+<div class="relative w-full group">
+<label class="absolute text-on-surface-variant font-label-md text-label-md top-2 left-4 z-10 transition-all">Price per unit ($)</label>
+<input class="w-full h-[64px] pt-6 px-4 bg-surface-container-highest border-0 border-b border-outline text-on-surface rounded-t-lg focus:ring-0 focus:border-primary focus:border-b-2 transition-colors font-body-md text-body-md" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+<div class="relative w-full group">
+<label class="absolute text-on-surface-variant font-label-md text-label-md top-2 left-4 z-10 transition-all">Expected Harvest Date</label>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<input class="w-full h-[64px] pt-6 px-4 pr-12 bg-surface-container-highest border-0 border-b border-outline text-on-surface rounded-t-lg focus:ring-0 focus:border-primary focus:border-b-2 transition-colors font-body-md text-body-md appearance-none" type="date"/>
+</div>
+</section>
+<section class="flex flex-col gap-lg">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs">Quality &amp; Specifications</h3>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Quality Grade</label>
+<div class="flex bg-surface-container-highest p-1 rounded-xl w-full">
+<button class="flex-1 py-2 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all text-center">Grade A</button>
+<button class="flex-1 py-2 px-4 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all text-center">Grade B</button>
+<button class="flex-1 py-2 px-4 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all text-center">Processing</button>
+</div>
+</div>
+<div class="flex flex-col gap-0 border border-outline-variant/50 rounded-xl overflow-hidden bg-surface-container-low">
+<div class="flex items-center justify-between p-md border-b border-outline-variant/30">
+<div class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span class="font-body-md text-body-md">Organic Certified</span>
+</div>
+<div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out border-surface-variant checked:border-primary checked:translate-x-full" id="organic-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant cursor-pointer transition-colors duration-200 ease-in-out" for="organic-toggle"></label>
+</div>
+</div>
+<div class="flex items-center justify-between p-md">
+<div class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary">eco</span>
+<span class="font-body-md text-body-md">Pesticide Free</span>
+</div>
+<div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out border-surface-variant checked:border-primary checked:translate-x-full" id="pesticide-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant cursor-pointer transition-colors duration-200 ease-in-out" for="pesticide-toggle"></label>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-sm">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs flex justify-between items-end">
+                Media
+                <span class="font-body-md text-body-md text-on-surface-variant text-sm">Optional</span>
+</h3>
+<button class="w-full h-32 border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-2 text-on-surface-variant hover:bg-surface-container hover:border-primary hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_a_photo</span>
+<span class="font-label-md text-label-md">Add Photos</span>
+</button>
+</section>
+</main>
+<div class="fixed bottom-0 left-0 w-full bg-surface pt-4 pb-safe px-margin-mobile shadow-[0_-8px_24px_rgba(0,0,0,0.06)] border-t border-outline-variant/20 z-40">
+<div class="max-w-2xl mx-auto flex gap-4">
+<button class="flex-1 h-[56px] bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-[0.98] duration-150">
+                Publish Listing
+            </button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Confirmed | FarmBridge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#a3f69c",
+                    "outline-variant": "#bfcaba",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-fixed": "#311300",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dcd9d9",
+                    "secondary-fixed-dim": "#9dd761",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#005312",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed": "#ffdcc6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-secondary-fixed": "#0e2000",
+                    "surface-container": "#f0edec",
+                    "primary-container": "#2e7d32",
+                    "surface-tint": "#1b6d24",
+                    "surface": "#fcf9f8",
+                    "secondary-fixed": "#b8f47a",
+                    "background": "#fcf9f8",
+                    "outline": "#707a6c",
+                    "surface-container-high": "#ebe7e7",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#884200",
+                    "surface-container-low": "#f6f3f2",
+                    "primary": "#0d631b",
+                    "inverse-primary": "#88d982",
+                    "primary-fixed-dim": "#88d982",
+                    "on-surface-variant": "#40493d",
+                    "tertiary-container": "#ad5600",
+                    "on-primary-container": "#cbffc2",
+                    "on-secondary-fixed-variant": "#2c5000",
+                    "on-primary": "#ffffff",
+                    "secondary": "#3c6a00",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-error": "#ffffff",
+                    "on-surface": "#1c1b1b",
+                    "on-tertiary-container": "#ffeee6",
+                    "secondary-container": "#b8f47a",
+                    "on-primary-fixed": "#002204",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#407100",
+                    "on-background": "#1c1b1b",
+                    "inverse-surface": "#313030",
+                    "surface-container-highest": "#e5e2e1",
+                    "inverse-on-surface": "#f3f0ef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "sm": "8px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "margin-mobile": "24px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        @keyframes drawCheck {
+            0% { stroke-dashoffset: 48; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .checkmark-animate {
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: drawCheck 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        .success-bg-glow {
+            background: radial-gradient(circle at center, rgba(163, 246, 156, 0.2) 0%, transparent 70%);
+        }
+
+        /* Hide scrollbars for a clean focused look */
+        body::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- Top Navigation Anchor (Shared Component Logic) -->
+<!-- Suppressed TopAppBar for Transactional Success Screen to prioritize focus -->
+<main class="flex-grow flex items-center justify-center p-gutter relative overflow-hidden">
+<!-- Ambient Decorative Elements -->
+<div class="absolute top-0 left-0 w-full h-full success-bg-glow pointer-events-none"></div>
+<div class="max-w-md w-full z-10 flex flex-col items-center">
+<!-- Success Animation / Icon -->
+<div class="mb-xl relative">
+<div class="w-24 h-24 bg-primary-fixed rounded-full flex items-center justify-center shadow-sm">
+<svg class="w-16 h-16 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24">
+<polyline class="checkmark-animate" points="20 6 9 17 4 12"></polyline>
+</svg>
+</div>
+<!-- Subtle Ripple Effect -->
+<div class="absolute inset-0 rounded-full border-2 border-primary-fixed opacity-30 animate-ping"></div>
+</div>
+<!-- Main Message -->
+<div class="text-center mb-xl space-y-2">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface mb-2">Order Placed Successfully!</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[280px] mx-auto">Thank you for supporting local farmers.</p>
+</div>
+<!-- Bento Card Layout for Details -->
+<div class="w-full grid grid-cols-1 gap-md mb-xl">
+<!-- Order ID & Delivery Slot -->
+<div class="bg-surface-container-low p-lg rounded-xl border border-outline-variant/30 flex items-start gap-md">
+<div class="bg-primary-container/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Estimated Delivery</span>
+<span class="font-title-lg text-title-lg text-primary">Arriving Today</span>
+<span class="font-body-md text-body-md text-on-surface">5:00 PM - 7:00 PM</span>
+</div>
+</div>
+<!-- Secondary Detail Row -->
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-surface-container-low p-lg rounded-xl border border-outline-variant/30">
+<span class="font-label-md text-label-md text-on-surface-variant block mb-1">Order ID</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">#FB-827391</span>
+</div>
+<div class="bg-surface-container-low p-lg rounded-xl border border-outline-variant/30">
+<span class="font-label-md text-label-md text-on-surface-variant block mb-1">Payment</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">Wallet</span>
+</div>
+</div>
+<!-- Address Summary Card -->
+<div class="bg-surface-container-low p-lg rounded-xl border border-outline-variant/30 flex items-start gap-md">
+<div class="bg-secondary-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Delivery Address</span>
+<span class="font-body-md text-body-md text-on-surface mt-1 leading-relaxed">
+                            Green Valley Farmhouse, Sector 4<br/>
+                            Rural Hub, 560023
+                        </span>
+</div>
+</div>
+</div>
+<!-- Illustrative Element (Minimalist Farm Gate/Van) -->
+<div class="w-full h-40 mb-xl relative opacity-80 flex items-center justify-center">
+<img class="h-full object-contain" data-alt="A minimalist, clean 2D vector illustration of a modern delivery van with a small leaf logo on the side, parked next to a rustic wooden farm gate. The style is high-end flat design with a soft color palette of sage green, cream, and warm earth tones, matching a professional AgriTech brand aesthetic. The lighting is bright and cheerful, suggesting a sunny morning on a farm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi5Wr27nHmjhCxSNDSpsRRO0QR62JK2qma6BfSCF03i0fMDX9OaxX0wc_EPDai8j84vKvDcUZjRCKdLfDJFT-c0iu4FcvLADZ5Fm_iEMiNvHdzSv_f8XfcrJGwEZ-x6UzvQ5-Q7Z0EkfTeiF9wepgbE26WZc35xLjVV3m02SAWfoEMyoJuOJ0obOcrHtBMmRBdUO8pLkO9f3PRKwexD9trrnjfdfIivl7_Escx7bjwK3KjNnxFuPlDrRDgDGpJhWV6M8xeHLxUoDg"/>
+</div>
+<!-- Actions Section (Thumb Zone) -->
+<div class="w-full flex flex-col gap-md">
+<button class="w-full h-[56px] bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm hover:brightness-110 active:scale-95 transition-all">
+                    Track Order
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<a class="w-full h-[56px] flex items-center justify-center font-label-md text-label-md text-primary hover:bg-primary-container/10 rounded-full transition-colors" href="#">
+                    Back to Marketplace
+                </a>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell Suppression (Transactional Rule Applied) -->
+<!-- Navigation shell is excluded as per the "Destination" rule for transactional success screens. -->
+<script>
+        // Micro-interaction for feedback
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const ripple = document.createElement('div');
+                ripple.className = 'absolute w-2 h-2 bg-white/20 rounded-full animate-ping pointer-events-none';
+                ripple.style.left = e.clientX + 'px';
+                ripple.style.top = e.clientY + 'px';
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body></html>

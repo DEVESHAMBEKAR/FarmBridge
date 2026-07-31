@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FarmBridge - Farmer Profile Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#313030",
+                        "on-secondary-container": "#407100",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdcc6",
+                        "surface": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary": "#3c6a00",
+                        "outline": "#707a6c",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#ffeee6",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface": "#1c1b1b",
+                        "surface-container-high": "#ebe7e7",
+                        "on-tertiary-fixed": "#311300",
+                        "on-secondary-fixed": "#0e2000",
+                        "primary": "#0d631b",
+                        "on-primary-fixed": "#002204",
+                        "surface-tint": "#1b6d24",
+                        "primary-fixed-dim": "#88d982",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "outline-variant": "#bfcaba",
+                        "primary-fixed": "#a3f69c",
+                        "on-error": "#ffffff",
+                        "primary-container": "#2e7d32",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "secondary-fixed": "#b8f47a",
+                        "secondary-fixed-dim": "#9dd761",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-primary-fixed-variant": "#005312",
+                        "tertiary": "#884200",
+                        "secondary-container": "#b8f47a",
+                        "on-background": "#1c1b1b",
+                        "surface-container": "#f0edec",
+                        "inverse-primary": "#88d982",
+                        "tertiary-container": "#ad5600",
+                        "surface-bright": "#fcf9f8",
+                        "on-surface-variant": "#40493d",
+                        "background": "#fcf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-primary-container": "#cbffc2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "base": "8px",
+                        "margin-mobile": "24px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Form Field Specific Styles */
+        .input-field {
+            @apply w-full h-14 bg-surface-container-low border-b border-outline-variant text-on-surface font-body-md text-body-md px-4 rounded-t-lg focus:outline-none focus:border-primary focus:border-b-2 focus:bg-surface-container transition-all;
+        }
+        .input-label {
+            @apply block font-label-md text-label-md text-on-surface-variant mb-1;
+        }
+        .select-field {
+             @apply w-full h-14 bg-surface-container-low border-b border-outline-variant text-on-surface font-body-md text-body-md px-4 rounded-t-lg focus:outline-none focus:border-primary focus:border-b-2 focus:bg-surface-container transition-all appearance-none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top App Bar (Mobile Only) - Using Shared Component Specs -->
+<header class="md:hidden fixed top-0 w-full z-50 bg-surface shadow-sm h-16 flex items-center justify-between px-margin-mobile">
+<button class="text-on-surface-variant p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
+            FarmBridge
+        </div>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<!-- Sidebar (Desktop/Tablet) -->
+<aside class="hidden md:flex flex-col w-64 md:w-72 lg:w-80 fixed left-0 top-0 bottom-0 bg-surface-container-low border-r border-outline-variant z-40 p-lg overflow-y-auto shadow-sm">
+<div class="font-headline-lg text-headline-lg font-bold text-primary flex items-center gap-3 mb-12">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
+            FarmBridge
+        </div>
+<div class="flex flex-col gap-6 flex-1">
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md shrink-0 mt-1">1</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Profile Setup</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Personal &amp; Farm Details</p>
+</div>
+</div>
+<div class="w-0.5 h-8 bg-outline-variant ml-4"></div>
+<div class="flex items-start gap-4 opacity-50">
+<div class="w-8 h-8 rounded-full border-2 border-outline-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md shrink-0 mt-1">2</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Crop Data</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Yield &amp; History</p>
+</div>
+</div>
+<div class="w-0.5 h-8 bg-outline-variant ml-4 opacity-50"></div>
+<div class="flex items-start gap-4 opacity-50">
+<div class="w-8 h-8 rounded-full border-2 border-outline-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md shrink-0 mt-1">3</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Verification</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Security Check</p>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant">
+<p class="font-body-md text-body-md text-on-surface-variant">Need help? <a class="text-primary hover:underline font-label-md text-label-md" href="#">Contact Support</a></p>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full pt-20 md:pt-0 md:ml-64 md:ml-72 lg:ml-80 min-h-screen flex flex-col px-margin-mobile md:px-12 lg:px-24 xl:px-32 pb-32 md:pb-12 bg-background">
+<div class="max-w-3xl w-full mx-auto py-8 md:py-16 flex-1 flex flex-col">
+<!-- Mobile Progress Indicator -->
+<div class="md:hidden mb-8">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-md text-label-md text-primary">Step 1 of 3</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Profile Setup</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 33%"></div>
+</div>
+</div>
+<!-- Page Header -->
+<div class="mb-10">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2 tracking-tight">Welcome, Farmer</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Let's start by getting to know you and your farm.</p>
+</div>
+<form class="flex-1 flex flex-col space-y-8">
+<!-- Profile Picture Upload (Glassmorphism inspired container) -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant flex flex-col sm:flex-row items-center gap-6 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="relative w-28 h-28 shrink-0">
+<!-- Placeholder Image -->
+<div class="w-full h-full rounded-full bg-surface-container overflow-hidden border-2 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">add_a_photo</span>
+</div>
+<!-- Upload Button Overlay -->
+<button class="absolute bottom-0 right-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-on-primary shadow-md hover:bg-primary-container transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:outline-none" type="button">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">upload</span>
+</button>
+</div>
+<div class="text-center sm:text-left">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-1">Profile Photo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">Upload a clear photo to build trust with buyers on FarmBridge.</p>
+<div class="flex gap-3 justify-center sm:justify-start">
+<button class="font-label-md text-label-md text-primary bg-surface-container hover:bg-surface-container-high px-4 py-2 rounded-full transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:outline-none" type="button">Choose File</button>
+</div>
+</div>
+</div>
+<!-- Input Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Full Name -->
+<div class="col-span-1 md:col-span-2">
+<label class="input-label" for="fullName">Full Name</label>
+<input class="input-field" id="fullName" placeholder="e.g., John Doe" required="" type="text"/>
+</div>
+<!-- Farm Name -->
+<div class="col-span-1">
+<label class="input-label" for="farmName">Farm Name</label>
+<input class="input-field" id="farmName" placeholder="e.g., Sunrise Acres" required="" type="text"/>
+</div>
+<!-- Primary Crop Category -->
+<div class="col-span-1 relative">
+<label class="input-label" for="primaryCrop">Primary Crop Category</label>
+<select class="select-field" id="primaryCrop" required="">
+<option disabled="" selected="" value="">Select a category</option>
+<option value="grains">Grains &amp; Cereals</option>
+<option value="vegetables">Vegetables</option>
+<option value="fruits">Fruits &amp; Orchards</option>
+<option value="livestock">Livestock &amp; Dairy</option>
+<option value="other">Other / Mixed</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 pt-6 text-on-surface-variant">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+<!-- Farm Location -->
+<div class="col-span-1 md:col-span-2 relative">
+<label class="input-label" for="farmLocation">Farm Location</label>
+<div class="relative">
+<input class="input-field pl-12" id="farmLocation" placeholder="Search city or zip code" required="" type="text"/>
+<div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<button class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary hover:text-primary-container focus:outline-none font-label-md text-label-md" type="button">
+                                Locate Me
+                            </button>
+</div>
+</div>
+</div>
+<!-- Spacer to push button to bottom on mobile if content is short -->
+<div class="flex-1"></div>
+<!-- Action Button -->
+<div class="pt-6 border-t border-outline-variant/50 flex justify-end">
+<button class="w-full md:w-auto h-14 bg-primary text-on-primary font-label-md text-label-md px-10 rounded-full flex items-center justify-center gap-2 hover:bg-primary-container transition-all shadow-md active:scale-95 focus:ring-4 focus:ring-primary/30 focus:outline-none" type="submit">
+                        Next Step
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+</main>
+<script>
+        // Simple JS for interactive elements (if needed in a real scenario, mostly handled by standard HTML forms here)
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulation of next step
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<span class="material-symbols-outlined animate-spin" style="font-variation-settings: 'FILL' 0;">progress_activity</span> Processing...`;
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    alert('Proceeding to Step 2: Crop Data');
+                }, 800);
+            });
+        });
+    </script>
+</body></html>

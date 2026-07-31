@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "431550521264",
+    "project_id": "farmbridge-ac380",
+    "storage_bucket": "farmbridge-ac380.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431550521264:android:25c22e9f3b8b554c874075",
+        "android_client_info": {
+          "package_name": "com.example.farm_bridge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431550521264-ln6de6b2qkk5isjhph6t0l8b2bj9tqvl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.farm_bridge",
+            "certificate_hash": "e98b058532ac67670021946d23d575c5fa3961ca"
+          }
+        },
+        {
+          "client_id": "431550521264-a8vtgedfs5mgtaaa9kglb6d1vpmqav5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc5-M6nYGl_vqANL2aD3c8MT0BAL2oVbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431550521264-a8vtgedfs5mgtaaa9kglb6d1vpmqav5p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "431550521264-9unkk1k352cah9ndd6h5q2d6ngangkhk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.farmBridge"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

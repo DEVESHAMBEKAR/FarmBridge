@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Supply Chain Logistics - FarmBridge</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#88d982",
+                      "surface-variant": "#e5e2e1",
+                      "surface-tint": "#1b6d24",
+                      "on-primary-fixed-variant": "#005312",
+                      "on-surface": "#1c1b1b",
+                      "surface-dim": "#dcd9d9",
+                      "primary-container": "#2e7d32",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#fcf9f8",
+                      "secondary-fixed-dim": "#9dd761",
+                      "on-background": "#1c1b1b",
+                      "tertiary": "#884200",
+                      "secondary-container": "#b8f47a",
+                      "tertiary-fixed": "#ffdcc6",
+                      "secondary-fixed": "#b8f47a",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#723600",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed": "#002204",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "outline": "#707a6c",
+                      "secondary": "#3c6a00",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#40493d",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#0e2000",
+                      "on-secondary-container": "#407100",
+                      "on-tertiary-fixed": "#311300",
+                      "outline-variant": "#bfcaba",
+                      "surface-container": "#f0edec",
+                      "primary": "#0d631b",
+                      "background": "#fcf9f8",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#ad5600",
+                      "primary-fixed": "#a3f69c",
+                      "inverse-on-surface": "#f3f0ef",
+                      "primary-fixed-dim": "#88d982",
+                      "on-tertiary-container": "#ffeee6",
+                      "surface-container-highest": "#e5e2e1",
+                      "surface-container-low": "#f6f3f2",
+                      "surface": "#fcf9f8",
+                      "on-error": "#ffffff",
+                      "on-primary-container": "#cbffc2",
+                      "inverse-surface": "#313030",
+                      "on-secondary-fixed-variant": "#2c5000",
+                      "surface-container-high": "#ebe7e7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "xl": "32px",
+                      "margin-mobile": "24px",
+                      "lg": "24px",
+                      "gutter": "16px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "title-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen w-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-low dark:bg-surface-container-lowest z-50 shadow-sm border-r border-surface-variant flex flex-col p-4 gap-2">
+<!-- Header -->
+<div class="flex items-center gap-4 px-4 py-6 mb-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A small, professional circular avatar portrait of an administrative user in an agricultural technology platform, featuring a warm, trustworthy appearance in a modern, well-lit studio setting with a subtle green backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkcuW6-nd2ZcLyIbOm3F8fIzbXQN7ccK1hN1zwrgJH44fLZmCz8XP27EeNdl93FL9xDQnj9srMiY6_64LOyQ2bW3Qyep5b0446hIWCn_gWrZAPyvFiud8LNzax91o2xFbWUY-JR9OEUoVp6EwZO8OZgWQrnYNXCm_dCUGHTzWDrKzdfGZN_q4Jk2D9V7QFXvIa6un6vkiiDtSj-YqI3GkfkpcKtg_QuwTRxHd60MsWl7c9G_pnFjDkpQ3TPMxkr280wfMWVtC07Jw"/>
+<div>
+<h1 class="font-title-lg text-title-lg font-bold text-primary dark:text-inverse-primary">FarmBridge</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">AgriTech Admin</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-xl transition-colors font-label-md text-label-md transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-xl transition-colors font-label-md text-label-md transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="agriculture">agriculture</span>
+<span>Farmer Management</span>
+</a>
+<!-- ACTIVE TAB -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl font-bold transition-colors font-label-md text-label-md transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping" data-weight="fill" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span>Supply Chain</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-xl transition-colors font-label-md text-label-md transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-xl transition-colors font-label-md text-label-md transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analytics</span>
+</a>
+</div>
+<!-- Bottom CTA & Footer -->
+<div class="mt-auto flex flex-col gap-2 pt-4 border-t border-surface-variant">
+<button class="w-full h-14 bg-primary text-on-primary rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-colors mb-4">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                System Settings
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="h-20 fixed top-0 left-0 z-40 w-full bg-surface dark:bg-surface-dim shadow-sm dark:shadow-none transition-opacity duration-200">
+<div class="flex justify-between items-center px-lg ml-64 h-full">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface dark:text-inverse-on-surface">FarmBridge Admin</h2>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Placeholder (on left of actions as per JSON) -->
+<div class="hidden md:flex items-center bg-surface-container-high rounded-full px-4 py-2 w-64 border border-outline-variant focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-body-md w-full text-on-surface placeholder-on-surface-variant focus:ring-0" placeholder="Search routes, vehicles..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 mt-20 flex-1 flex overflow-hidden w-full h-[calc(100vh-5rem)] bg-surface-container-lowest">
+<!-- Left Pane: Map Visualization -->
+<section class="flex-1 relative bg-surface-container-lowest overflow-hidden">
+<!-- Map Background -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A clean, highly detailed, modern digital map interface displaying agricultural regions and logistics networks in the American Midwest. The map uses a light-mode color palette with subtle terrain greens, pristine off-white surfaces, and crisp grey infrastructure lines. Bright, vibrant green routing paths and modern vehicle marker icons overlay the terrain, evoking a high-tech, precise operational environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDKjasrkxfftl65BRpxadVUcRamYRlyqRoeTmUIreJLB_AcK5q0eM2ppvejgokd5IBKN6VEjPMF6cKS6SF6KlK4q-qr7JyKnGl5D2KwZQ8pD1pZxlwaOXkJSW_2LUZnLwB1DDeVKqfTGoAt23bsd6s8TdYmamLJNxF3np5BIGVUD7ueDwo8pAondN4NLKDYB-rUp7Ogk9xZjQweqtdNXx7R3923tOjSW0HU1yFbLhmwsF2Zt3_UoyImutzlkLJV1NeuBPNnX9JWKz0')"></div>
+<!-- Map Overlay Controls -->
+<div class="absolute top-6 left-6 flex flex-col gap-2">
+<button class="w-12 h-12 bg-surface text-on-surface rounded-xl shadow-md border border-surface-variant flex items-center justify-center hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button class="w-12 h-12 bg-surface text-on-surface rounded-xl shadow-md border border-surface-variant flex items-center justify-center hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="remove">remove</span>
+</button>
+<button class="w-12 h-12 bg-surface text-on-surface rounded-xl shadow-md border border-surface-variant flex items-center justify-center hover:bg-surface-variant transition-colors mt-4">
+<span class="material-symbols-outlined" data-icon="my_location">my_location</span>
+</button>
+</div>
+<!-- Floating Route Summary Card -->
+<div class="absolute bottom-8 left-8 right-8 xl:right-auto xl:w-[480px] bg-surface/95 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-surface-variant">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Live Network Status</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Midwest Region Alpha</p>
+</div>
+<span class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> Online
+                    </span>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-surface-container p-3 rounded-xl border border-surface-variant">
+<p class="text-on-surface-variant font-label-md text-label-md mb-1">Active Routes</p>
+<p class="font-headline-lg text-headline-lg text-primary">124</p>
+</div>
+<div class="bg-surface-container p-3 rounded-xl border border-surface-variant">
+<p class="text-on-surface-variant font-label-md text-label-md mb-1">Vehicles En Route</p>
+<p class="font-headline-lg text-headline-lg text-primary">87</p>
+</div>
+<div class="bg-surface-container p-3 rounded-xl border border-surface-variant">
+<p class="text-on-surface-variant font-label-md text-label-md mb-1">On-Time Rate</p>
+<p class="font-headline-lg text-headline-lg text-secondary">94%</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Pane: Logistics Sidebar -->
+<aside class="w-[480px] min-w-[400px] bg-surface border-l border-surface-variant flex flex-col h-full shadow-xl z-10 relative">
+<div class="p-6 border-b border-surface-variant bg-surface flex justify-between items-center sticky top-0 z-20">
+<h2 class="font-title-lg text-title-lg text-on-surface font-semibold">Logistics Command</h2>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6 flex flex-col gap-8 bg-surface-container-low">
+<!-- Priority Alerts Section -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">Priority Alerts</h3>
+<span class="ml-auto bg-error text-on-error px-2 py-0.5 rounded-full font-label-md text-xs">2 New</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Alert Card 1 -->
+<div class="bg-error-container text-on-error-container p-4 rounded-xl border border-error/20 flex gap-4 items-start">
+<span class="material-symbols-outlined mt-1" data-icon="route">route</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-1">Route Deviation Detected</h4>
+<p class="font-body-md text-body-md text-sm opacity-90">Vehicle T-492 has deviated from primary route to Silo 4 due to reported road closure.</p>
+<button class="mt-3 text-sm font-bold flex items-center gap-1 hover:underline">
+                                    Assess Route <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Alert Card 2 -->
+<div class="bg-surface p-4 rounded-xl border border-surface-variant flex gap-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-tertiary mt-1" data-icon="build">build</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-on-surface mb-1">Maintenance Overdue</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Harvester Unit B2 is 48 hours past scheduled maintenance window.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Fleet Health Summary (Bento Grid Style) -->
+<section>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4">Fleet Health</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface p-4 rounded-2xl border border-surface-variant shadow-sm flex flex-col">
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md">Total Fleet</span>
+</div>
+<span class="font-display-lg text-display-lg text-on-surface">248</span>
+</div>
+<div class="bg-surface p-4 rounded-2xl border border-surface-variant shadow-sm flex flex-col">
+<div class="flex items-center gap-2 text-primary mb-2">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+<span class="font-label-md text-label-md">Active</span>
+</div>
+<span class="font-display-lg text-display-lg text-primary">192</span>
+</div>
+<div class="bg-surface p-4 rounded-2xl border border-surface-variant shadow-sm flex flex-col">
+<div class="flex items-center gap-2 text-tertiary mb-2">
+<span class="material-symbols-outlined" data-icon="hourglass_empty">hourglass_empty</span>
+<span class="font-label-md text-label-md">Idle</span>
+</div>
+<span class="font-display-lg text-display-lg text-on-surface">41</span>
+</div>
+<div class="bg-surface p-4 rounded-2xl border border-surface-variant shadow-sm flex flex-col">
+<div class="flex items-center gap-2 text-error mb-2">
+<span class="material-symbols-outlined" data-icon="build_circle">build_circle</span>
+<span class="font-label-md text-label-md">Maintenance</span>
+</div>
+<span class="font-display-lg text-display-lg text-error">15</span>
+</div>
+</div>
+</section>
+<!-- Active Shipments List -->
+<section class="flex-1">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-title-lg text-title-lg text-on-surface">Active Shipments</h3>
+<a class="text-primary font-label-md text-label-md hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Shipment Item 1 -->
+<div class="bg-surface rounded-xl p-4 border border-surface-variant shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">SHP-8842-A</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Winter Wheat Load</p>
+</div>
+<span class="bg-primary-container text-on-primary-container px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="moving">moving</span> In Transit
+                                </span>
+</div>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant mb-3">
+<div class="flex flex-col">
+<span class="uppercase text-xs opacity-70">Origin</span>
+<span class="font-medium text-on-surface">Farm 42, ND</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="arrow_right_alt">arrow_right_alt</span>
+<div class="flex flex-col">
+<span class="uppercase text-xs opacity-70">Destination</span>
+<span class="font-medium text-on-surface">Silo Complex Alpha</span>
+</div>
+</div>
+<div class="bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary w-[65%] h-full"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs text-on-surface-variant">
+<span>ETA: 14:30 CST</span>
+<span>65% Complete</span>
+</div>
+</div>
+<!-- Shipment Item 2 -->
+<div class="bg-surface rounded-xl p-4 border border-surface-variant shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">SHP-8845-C</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Organic Soybeans</p>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="pending">pending</span> Loading
+                                </span>
+</div>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant mb-3">
+<div class="flex flex-col">
+<span class="uppercase text-xs opacity-70">Origin</span>
+<span class="font-medium text-on-surface">Sector 7 Co-op</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="arrow_right_alt">arrow_right_alt</span>
+<div class="flex flex-col">
+<span class="uppercase text-xs opacity-70">Destination</span>
+<span class="font-medium text-on-surface">Processing Plant 2</span>
+</div>
+</div>
+<div class="bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary w-[10%] h-full"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs text-on-surface-variant">
+<span>Est. Departure: 11:00 CST</span>
+<span>Loading Dock 4</span>
+</div>
+</div>
+<!-- Shipment Item 3 -->
+<div class="bg-surface rounded-xl p-4 border border-error/30 shadow-sm hover:shadow-md transition-shadow cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+<div class="flex justify-between items-start mb-3 pl-2">
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">SHP-8839-B</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Fertilizer Supply</p>
+</div>
+<span class="bg-error-container text-on-error-container px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="error">error</span> Delayed
+                                </span>
+</div>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant mb-3 pl-2">
+<div class="flex flex-col">
+<span class="uppercase text-xs opacity-70">Origin</span>
+<span class="font-medium text-on-surface">Central Hub</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="arrow_right_alt">arrow_right_alt</span>
+<div class="flex flex-col">
+<span class="uppercase text-xs opacity-70">Destination</span>
+<span class="font-medium text-on-surface">Farm 12, SD</span>
+</div>
+</div>
+<div class="pl-2">
+<div class="bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-error w-[40%] h-full"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs text-error">
+<span>Delayed by 2h 15m</span>
+<span>Awaiting Clearance</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</aside>
+</main>
+</body></html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>FarmBridge - Select Category</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#0e2000",
+                        "on-tertiary-container": "#ffeee6",
+                        "inverse-surface": "#313030",
+                        "surface-dim": "#dcd9d9",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary": "#884200",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-primary-fixed": "#002204",
+                        "on-primary-container": "#cbffc2",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#9dd761",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "surface-container-low": "#f6f3f2",
+                        "outline-variant": "#bfcaba",
+                        "surface-container-high": "#ebe7e7",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#1b6d24",
+                        "secondary": "#3c6a00",
+                        "outline": "#707a6c",
+                        "surface-container": "#f0edec",
+                        "primary": "#0d631b",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#b8f47a",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-container": "#407100",
+                        "tertiary-container": "#ad5600",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-primary": "#88d982",
+                        "primary-fixed-dim": "#88d982",
+                        "primary-fixed": "#a3f69c",
+                        "secondary-container": "#b8f47a",
+                        "on-tertiary-fixed": "#311300",
+                        "on-surface": "#1c1b1b",
+                        "primary-container": "#2e7d32",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary-fixed-variant": "#005312",
+                        "on-surface-variant": "#40493d",
+                        "on-error": "#ffffff",
+                        "background": "#fcf9f8",
+                        "on-background": "#1c1b1b",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "margin-mobile": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- Top Navigation for Transactional Step -->
+<header class="w-full sticky top-0 z-40 bg-surface flex items-center justify-between px-margin-mobile py-md">
+<button aria-label="Go back" class="flex items-center justify-center p-sm rounded-full hover:bg-surface-container-low active:scale-95 duration-100 text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-primary tracking-tight">Step 1 of 2</h1>
+<!-- Invisible spacer for flex balance -->
+<div class="w-10"></div>
+</header>
+<main class="flex-grow flex flex-col px-margin-mobile pt-lg pb-32 max-w-4xl mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-xl">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-sm">What are you listing?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Select the primary category for your produce to help buyers find it easily.</p>
+</div>
+<!-- Bento Grid Categories -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md md:gap-lg">
+<!-- Category Card 1: Vegetables -->
+<button class="group flex flex-col items-center justify-center p-xl rounded-[16px] bg-surface-container-lowest border border-outline-variant hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary-container transition-all shadow-[0_2px_4px_rgba(0,0,0,0.05)] active:scale-[0.98]">
+<div class="w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">eco</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">Vegetables</span>
+</button>
+<!-- Category Card 2: Fruits -->
+<button class="group flex flex-col items-center justify-center p-xl rounded-[16px] bg-surface-container-lowest border border-outline-variant hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary-container transition-all shadow-[0_2px_4px_rgba(0,0,0,0.05)] active:scale-[0.98]">
+<div class="w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">nutrition</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">Fruits</span>
+</button>
+<!-- Category Card 3: Grains -->
+<button class="group flex flex-col items-center justify-center p-xl rounded-[16px] bg-surface-container-lowest border border-outline-variant hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary-container transition-all shadow-[0_2px_4px_rgba(0,0,0,0.05)] active:scale-[0.98]">
+<div class="w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">grass</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">Grains</span>
+</button>
+<!-- Category Card 4: Dairy -->
+<button class="group flex flex-col items-center justify-center p-xl rounded-[16px] bg-surface-container-lowest border border-outline-variant hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary-container transition-all shadow-[0_2px_4px_rgba(0,0,0,0.05)] active:scale-[0.98]">
+<div class="w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">water_drop</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">Dairy</span>
+</button>
+<!-- Category Card 5: Poultry -->
+<button class="group flex flex-col items-center justify-center p-xl rounded-[16px] bg-surface-container-lowest border border-outline-variant hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary-container transition-all shadow-[0_2px_4px_rgba(0,0,0,0.05)] active:scale-[0.98]">
+<div class="w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">egg</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">Poultry</span>
+</button>
+<!-- Category Card 6: Other -->
+<button class="group flex flex-col items-center justify-center p-xl rounded-[16px] bg-surface-container-lowest border border-outline-variant hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary-container transition-all shadow-[0_2px_4px_rgba(0,0,0,0.05)] active:scale-[0.98]">
+<div class="w-16 h-16 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">more_horiz</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">Other</span>
+</button>
+</div>
+</main>
+<!-- Bottom Action Bar (Contextual to the flow, not the global nav) -->
+<div class="fixed bottom-0 w-full bg-surface border-t border-outline-variant/20 p-margin-mobile z-50">
+<div class="max-w-4xl mx-auto flex gap-md">
+<button class="flex-1 h-[56px] rounded-full bg-surface-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-dim transition-colors flex items-center justify-center">
+                Cancel
+            </button>
+<button class="flex-[2] h-[56px] rounded-full bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors flex items-center justify-center opacity-50 cursor-not-allowed">
+                Continue to Details
+                <span class="material-symbols-outlined ml-xs">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Route Details - FarmBridge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ffeee6",
+                        "on-secondary-container": "#407100",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline": "#707a6c",
+                        "tertiary": "#884200",
+                        "surface-dim": "#dcd9d9",
+                        "secondary-fixed": "#b8f47a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#005312",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdcc6",
+                        "surface-container": "#f0edec",
+                        "on-surface-variant": "#40493d",
+                        "on-tertiary-fixed": "#311300",
+                        "inverse-surface": "#313030",
+                        "surface-bright": "#fcf9f8",
+                        "background": "#fcf9f8",
+                        "surface-container-high": "#ebe7e7",
+                        "on-primary-container": "#cbffc2",
+                        "tertiary-container": "#ad5600",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#0e2000",
+                        "secondary-container": "#b8f47a",
+                        "primary-fixed-dim": "#88d982",
+                        "primary-fixed": "#a3f69c",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#1b6d24",
+                        "on-primary-fixed": "#002204",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-container": "#2e7d32",
+                        "inverse-primary": "#88d982",
+                        "on-surface": "#1c1b1b",
+                        "surface": "#fcf9f8",
+                        "secondary": "#3c6a00",
+                        "on-background": "#1c1b1b",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "primary": "#0d631b",
+                        "outline-variant": "#bfcaba",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#9dd761",
+                        "surface-container-highest": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "base": "8px",
+                        "margin-mobile": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            bottom: -24px;
+            left: 11px;
+            width: 2px;
+            background-color: #e5e2e1;
+            z-index: 0;
+        }
+        .timeline-item:last-child .timeline-line::before {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md antialiased pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim shadow-sm z-50 flex items-center justify-between px-margin-mobile py-sm">
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors active:scale-95 duration-100 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg font-bold text-primary dark:text-primary-fixed-dim">FarmBridge</h1>
+<button class="w-10 h-10 rounded-full overflow-hidden hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors active:scale-95 duration-100 border border-outline-variant">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A close-up portrait of an agricultural professional in a modern, light-filled environment. The lighting is soft and natural, emphasizing a trustworthy and capable persona. The background is slightly blurred, maintaining a clean, modern aesthetic suitable for a premium application profile photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA712Op4vKP6R6FXMW0x4qYAKrnRVY_R8BWQbDw40s40kX-Dfa4Jh8TvgcK0CKAIGqab98eZbd9xrz9za43G-AKkTMS4yohZqvr4eM_iqvVIWSWEx1z29KxwOT5R3pBiKzUSddFqPei3OuCA0ltjAo2b-7Ipyjf2pflfXHxCLpGylQcBmdlRYRPWm8Tb3SyGxVcWwTgL0kgZotGb-JXBSMqphyNIKHvdSFDl3PxdIIsqauAWEYnTTCR8RFLWq67fQRX7nVc4vU8jM8"/>
+</button>
+</header>
+<main class="max-w-3xl mx-auto px-margin-mobile pt-lg pb-xl flex flex-col gap-lg">
+<!-- Header & Status Card -->
+<div class="bg-surface-container-low rounded-xl p-lg shadow-sm border border-surface-variant">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-md">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Route ID</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mt-xs">RT-8492-BX</h2>
+</div>
+<div class="inline-flex items-center gap-xs bg-tertiary-container/20 text-tertiary px-md py-xs rounded-full self-start">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span class="font-label-md text-label-md font-bold">In Transit</span>
+</div>
+</div>
+<div class="mt-lg grid grid-cols-2 gap-md pt-md border-t border-surface-variant">
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-xs">Cargo Type</span>
+<span class="font-title-lg text-title-lg text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">eco</span>
+                        Organic Produce
+                    </span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-xs">Est. Arrival</span>
+<span class="font-title-lg text-title-lg text-on-surface">14:30 PM Today</span>
+</div>
+</div>
+</div>
+<!-- Map Snippet -->
+<div class="w-full h-64 rounded-xl overflow-hidden shadow-sm relative border border-surface-variant">
+<img alt="Route Map" class="w-full h-full object-cover" data-alt="A clean, highly stylized digital map snippet showing an agricultural route. The map features a minimalist light mode aesthetic with subtle tonal shifts of white and pale green. A vibrant primary green line traces a route across the terrain, indicating the delivery path. The visual is crisp, modern, and perfectly aligned with a premium tech interface." data-location="Sacramento Valley" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdg1TS3P-WPtCVwnGbwGv9Bgh1tEK_FPlVYG-a9waZB1rVM7M9SRnE2AsXg01ZHXo3J1AJPq4gbvHZ5hWBWgR82DOdULCjXfPOpi5II8Ak26kwRt7Sqc3E_FL8aT2DNIYDvxZkBUbAXDCm-CvkvglB2la3Lc3Ks6SFsW77gdfLyDCBlOnV_tNT_YcLdAfSwHar1RyvRlGC9t5PeadC3zpnabqEaGNvLuKsK_pSK4jzFYgV2ut8RQKXMDG1AdrTkfRetEnr6lmHGvw"/>
+<div class="absolute bottom-4 right-4 bg-surface rounded-full p-2 shadow-lg flex items-center justify-center text-primary cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">my_location</span>
+</div>
+</div>
+<!-- Vertical Timeline -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-sm border border-surface-variant">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-lg">Journey Details</h3>
+<div class="flex flex-col gap-md">
+<!-- Step 1 -->
+<div class="timeline-item flex gap-md relative">
+<div class="timeline-line relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-on-primary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="pb-lg">
+<h4 class="font-label-md text-label-md text-on-surface font-bold">Pickup from Farmer</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Sunrise Farms, Plot 4A</p>
+<span class="font-label-md text-label-md text-outline mt-xs block">06:00 AM - Completed</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="timeline-item flex gap-md relative">
+<div class="timeline-line relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-tertiary-container flex items-center justify-center shadow-sm border-2 border-surface">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+</div>
+</div>
+<div class="pb-lg">
+<h4 class="font-label-md text-label-md text-tertiary font-bold">Transit</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Highway 99 Northbound</p>
+<span class="font-label-md text-label-md text-outline mt-xs block">Currently near Modesto, CA</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="timeline-item flex gap-md relative">
+<div class="timeline-line relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center shadow-sm border-2 border-surface">
+</div>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface-variant font-bold">Delivery to Buyer</h4>
+<p class="font-body-md text-body-md text-outline mt-xs">Valley Fresh Distribution Center</p>
+<span class="font-label-md text-label-md text-outline mt-xs block">Expected 14:30 PM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-md mt-sm">
+<button class="flex-1 h-[56px] bg-primary text-on-primary font-label-md text-label-md rounded-full shadow-md flex items-center justify-center gap-sm hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined">call</span>
+                Contact Driver
+            </button>
+<button class="flex-1 h-[56px] border border-outline-variant text-primary font-label-md text-label-md rounded-full flex items-center justify-center gap-sm hover:bg-surface-container-low transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined">description</span>
+                View Manifest
+            </button>
+</div>
+</main>
+</body></html>

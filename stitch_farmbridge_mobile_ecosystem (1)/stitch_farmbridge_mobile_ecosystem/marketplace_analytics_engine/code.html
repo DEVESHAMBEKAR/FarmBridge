@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FarmBridge Admin - Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-on-surface": "#f3f0ef",
+                        "inverse-primary": "#88d982",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#1b6d24",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "outline": "#707a6c",
+                        "on-secondary-fixed": "#0e2000",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#884200",
+                        "on-primary-fixed-variant": "#005312",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-tertiary-container": "#ffeee6",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-background": "#1c1b1b",
+                        "secondary-container": "#b8f47a",
+                        "outline-variant": "#bfcaba",
+                        "on-surface": "#1c1b1b",
+                        "inverse-surface": "#313030",
+                        "surface-container": "#f0edec",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcd9d9",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#ebe7e7",
+                        "on-tertiary-fixed": "#311300",
+                        "surface": "#fcf9f8",
+                        "surface-bright": "#fcf9f8",
+                        "secondary": "#3c6a00",
+                        "on-surface-variant": "#40493d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#002204",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "secondary-fixed-dim": "#9dd761",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#407100",
+                        "secondary-fixed": "#b8f47a",
+                        "primary-fixed-dim": "#88d982",
+                        "background": "#fcf9f8",
+                        "primary-container": "#2e7d32",
+                        "surface-container-low": "#f6f3f2",
+                        "tertiary-container": "#ad5600",
+                        "on-primary-container": "#cbffc2",
+                        "primary": "#0d631b",
+                        "primary-fixed": "#a3f69c",
+                        "surface-variant": "#e5e2e1"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "margin-mobile": "24px",
+                        "base": "8px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xs": "4px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "title-lg": ["22px", { lineHeight: "28px", fontWeight: "500" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "26px", fontWeight: "400" }],
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.1px", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom Scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dcd9d9;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bfcaba;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden flex h-screen">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface-container dark:bg-surface-container-high h-screen w-72 flex flex-col fixed left-0 top-0 z-40">
+<!-- Header -->
+<div class="p-lg flex items-center gap-md border-b border-surface-variant dark:border-outline-variant/20">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden shrink-0">
+<img alt="FarmBridge Logo" class="w-full h-full object-cover" data-alt="A minimalist, modern vector logo of a stylized leaf or abstract farm field in white against a primary green background. The style is flat, precise, and tech-forward." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAqAMebnBFajxEDz-ivGCvmJB-Spu8nQlM6HeVBqMcHA84EtQuxVE-o1FMrZG_FikIMajtQhUdkmVdeXAwBzMlGy_AMTtprQTA5jNPn7jiJG45WP4g4RaACrjDBVpdjaGkghZ6-muKKGneocEAPNft8Xh1uGvQuREUaGllbfFZ_d2cNsSox3dfK3-mFOymZCVb7og1HxKW7RftVT8Jr8w_ZDbuZvAMW2CtDmjKD4UWyJFqkz0A_ARFCGVh18vOlg6JXy4P_O5xUgo"/>
+</div>
+<div>
+<h1 class="font-headline-lg text-[20px] leading-tight font-black text-primary dark:text-inverse-primary tracking-tight">FarmBridge</h1>
+<p class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant font-normal">Admin Console</p>
+</div>
+</div>
+<!-- Main Nav -->
+<div class="flex-1 overflow-y-auto py-md flex flex-col gap-sm">
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Farmer Management</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Supply Chain</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-md bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-md py-3 mx-sm cursor-pointer active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+</div>
+<!-- Footer Nav -->
+<div class="p-md border-t border-surface-variant dark:border-outline-variant/20 flex flex-col gap-sm">
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-2 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[20px]">info</span>
+<span class="font-label-md text-[13px] font-normal">System Status</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-2 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-label-md text-[13px] font-normal">Documentation</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-72 flex flex-col h-screen overflow-hidden bg-surface-container-lowest">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-inverse-surface shadow-sm h-16 flex justify-between items-center px-lg w-full sticky top-0 z-30 shrink-0">
+<!-- Search (Left) -->
+<div class="flex-1 max-w-md">
+<div class="relative flex items-center w-full h-10 rounded-full bg-surface-container-low border border-surface-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all overflow-hidden">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+<input class="w-full h-full pl-10 pr-4 bg-transparent border-none focus:outline-none focus:ring-0 font-body-md text-[14px] text-on-surface placeholder-on-surface-variant/70" placeholder="Search analytics, markets..." type="text"/>
+</div>
+</div>
+<!-- Title (Center - Visual Anchor) -->
+<div class="absolute left-1/2 transform -translate-x-1/2 hidden lg:block">
+<h2 class="font-title-lg text-title-lg font-bold text-on-surface">Marketplace Analytics</h2>
+</div>
+<!-- Actions (Right) -->
+<div class="flex items-center gap-sm shrink-0">
+<button aria-label="notifications" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="settings" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button aria-label="help" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 transition-transform mr-md">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-sm"></div>
+<div class="flex items-center gap-md ml-sm cursor-pointer group">
+<div class="text-right hidden md:block">
+<p class="font-label-md text-[13px] text-on-surface leading-tight">Admin User</p>
+<p class="font-body-md text-[11px] text-on-surface-variant leading-tight">Operations</p>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-container shrink-0 border border-outline-variant group-hover:border-primary transition-colors">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A professional headshot of an administrator, modern office setting, bright natural lighting, confident and approachable expression, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYZWRan8sJ8pK7DkFyPWTxuCht3XNL304RPXK4ruDY9CQCOElh-lbxMGBNhOyn6wlkcS01D_TrozLeqbtOj6uPOAhuQQblE9lTLImg2-3Ti9dEFZnHlgOm6A2UMrpD_2CH2mxqH03bF8YUjBHoO4TkJB0FYQMxad2b1QWzpvUXdXDYk4NdxFXf7u-1L3xOxu0am24WS1CvKJALlnjKeuU183wJ_1RVu116Pdt03lG_7BuIOKCaJrUBLWZk4i-8Q3vdR8hD1i9LDto"/>
+</div>
+</div>
+<button class="ml-lg font-label-md text-label-md text-primary dark:text-inverse-primary hover:bg-surface-container dark:hover:bg-surface-container-high px-4 py-2 rounded-full transition-colors cursor-pointer active:scale-95 transition-transform border border-transparent hover:border-outline-variant">
+                    Logout
+                </button>
+</div>
+</header>
+<!-- Scrollable Dashboard Content -->
+<div class="flex-1 overflow-y-auto p-lg">
+<!-- Page Header & Controls -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Market Demand Insights</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Deep dive into buyer behavior, pricing trends, and supply gaps.</p>
+</div>
+<!-- Date Filters -->
+<div class="flex bg-surface-container-low rounded-lg p-1 border border-surface-variant shadow-sm">
+<button class="px-4 py-1.5 rounded-md font-label-md text-[13px] text-on-surface-variant hover:bg-surface-container-high transition-colors">Weekly</button>
+<button class="px-4 py-1.5 rounded-md font-label-md text-[13px] bg-surface shadow-sm text-primary font-semibold border border-outline-variant/30">Monthly</button>
+<button class="px-4 py-1.5 rounded-md font-label-md text-[13px] text-on-surface-variant hover:bg-surface-container-high transition-colors">Quarterly</button>
+<div class="w-px bg-outline-variant mx-1 my-1"></div>
+<button class="px-3 py-1.5 rounded-md flex items-center gap-1 text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+<span class="font-label-md text-[13px]">Custom</span>
+</button>
+</div>
+</div>
+<!-- Key Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md mb-xl">
+<!-- Metric 1 -->
+<div class="bg-surface-container-low rounded-xl p-md border border-surface-variant shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-[14px] text-on-surface-variant">Total GMV</p>
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-1.5 rounded-md text-[20px]">payments</span>
+</div>
+<h3 class="font-display-lg text-[32px] leading-tight text-on-surface">$2.4M</h3>
+<div class="flex items-center gap-1 mt-2 text-primary font-label-md text-[13px]">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+14.5% from last month</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-low rounded-xl p-md border border-surface-variant shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/5 rounded-full blur-xl group-hover:bg-tertiary/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-[14px] text-on-surface-variant">Average Order Value</p>
+<span class="material-symbols-outlined text-tertiary bg-tertiary-container/20 p-1.5 rounded-md text-[20px]">receipt_long</span>
+</div>
+<h3 class="font-display-lg text-[32px] leading-tight text-on-surface">$14,250</h3>
+<div class="flex items-center gap-1 mt-2 text-primary font-label-md text-[13px]">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+3.2% from last month</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-low rounded-xl p-md border border-surface-variant shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full blur-xl group-hover:bg-secondary/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-[14px] text-on-surface-variant">Top Demand Crop</p>
+<span class="material-symbols-outlined text-secondary bg-secondary-container/30 p-1.5 rounded-md text-[20px]">eco</span>
+</div>
+<h3 class="font-display-lg text-[28px] leading-tight text-on-surface mt-1">Soybeans</h3>
+<div class="flex items-center gap-1 mt-2 text-on-surface-variant font-label-md text-[13px]">
+<span>42% of total volume</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-container-low rounded-xl p-md border border-surface-variant shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-[14px] text-on-surface-variant">Buyer Acquisition</p>
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-1.5 rounded-md text-[20px]">person_add</span>
+</div>
+<h3 class="font-display-lg text-[32px] leading-tight text-on-surface">128</h3>
+<div class="flex items-center gap-1 mt-2 text-error font-label-md text-[13px]">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+<span>-2.1% from last month</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout for Charts -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md mb-xl">
+<!-- Main Line Chart: Price vs Volume -->
+<div class="lg:col-span-2 bg-surface rounded-xl border border-surface-variant shadow-sm flex flex-col h-[400px]">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface-container-low/50 rounded-t-xl">
+<div>
+<h3 class="font-title-lg text-[18px] text-on-surface">Market Trends: Price vs. Volume</h3>
+<p class="font-body-md text-[13px] text-on-surface-variant">Aggregated data across top 5 commodities.</p>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="p-md flex-1 relative w-full h-full">
+<canvas id="marketTrendsChart"></canvas>
+</div>
+</div>
+<!-- Supply vs Demand Gap (Doughnut/Bar) -->
+<div class="bg-surface rounded-xl border border-surface-variant shadow-sm flex flex-col h-[400px]">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface-container-low/50 rounded-t-xl">
+<h3 class="font-title-lg text-[18px] text-on-surface">Supply Gap Analysis</h3>
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</button>
+</div>
+<div class="p-md flex-1 flex flex-col justify-center relative">
+<div class="h-48 w-full relative">
+<canvas id="supplyGapChart"></canvas>
+</div>
+<div class="mt-6 space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="font-body-md text-[14px] text-on-surface-variant">Met Demand</span>
+</div>
+<span class="font-label-md text-[14px] text-on-surface">68%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<span class="font-body-md text-[14px] text-on-surface-variant">Unfulfilled Demand (Gap)</span>
+</div>
+<span class="font-label-md text-[14px] text-on-surface">32%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Geographic Heatmap (Stylized Map placeholder) -->
+<div class="lg:col-span-2 bg-surface rounded-xl border border-surface-variant shadow-sm flex flex-col h-[400px]">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface-container-low/50 rounded-t-xl">
+<div>
+<h3 class="font-title-lg text-[18px] text-on-surface">Demand by Region</h3>
+<p class="font-body-md text-[13px] text-on-surface-variant">Concentration of high-value orders.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded-md bg-surface-container border border-outline-variant font-label-md text-[12px]">Domestic</button>
+<button class="px-3 py-1 rounded-md hover:bg-surface-container font-label-md text-[12px] text-on-surface-variant">Export</button>
+</div>
+</div>
+<div class="p-md flex-1 relative overflow-hidden bg-[#eef2f5] rounded-b-xl flex items-center justify-center">
+<!-- Stylized Map Image Placeholder -->
+<div class="absolute inset-0 opacity-80" data-alt="A stylized, minimalist vector map of the United States. The map is pale grey/blue with glowing data 'heat' points in primary green and tertiary orange indicating agricultural demand hubs in the midwest and west coast. Clean, modern, data-viz style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-Susy8TFfnZ0GGyIB-FVb7UMfo4CS2h3xrN6L2Mgz9lIPGZPW0P9CilsZxigKSyFzSl4QbpjoWNvpK-AKmvf0bKbA1KbbIO4EC_LAUaum_nJhBFYzgCrp4mxg_TUFlourUheosCKKGom3Bf8vvoQx5id8f_mxFbZGYrV47QwKGRmUzRHCHdGQW9KEWPt3_BZ3MGc2HOQPYLQjiJpr76486tClXOasKAT77sYmbxqHjSCNDK5CqgMmlWwOcFKX7jroNCvoO9zh7uE')"></div>
+<!-- Overlay Legend -->
+<div class="absolute bottom-4 right-4 bg-surface/90 backdrop-blur-sm p-3 rounded-lg border border-surface-variant shadow-sm flex flex-col gap-2">
+<span class="font-label-md text-[11px] uppercase tracking-wider text-on-surface-variant">Demand Intensity</span>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-on-surface-variant">Low</span>
+<div class="w-24 h-2 bg-gradient-to-r from-surface-container to-primary rounded-full"></div>
+<span class="text-[10px] text-on-surface-variant">High</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Top Buyers Leaderboard -->
+<div class="bg-surface rounded-xl border border-surface-variant shadow-sm flex flex-col h-[400px]">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface-container-low/50 rounded-t-xl">
+<h3 class="font-title-lg text-[18px] text-on-surface">Top Buyers</h3>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="divide-y divide-surface-variant">
+<!-- Buyer 1 -->
+<li class="p-md flex items-center justify-between hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-label-md font-bold">
+                                        AG
+                                    </div>
+<div>
+<p class="font-label-md text-[14px] text-on-surface">AgriCorp Foods</p>
+<p class="font-body-md text-[12px] text-on-surface-variant">42 Orders • Midwest</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-[14px] text-on-surface">$450k</p>
+<p class="font-body-md text-[11px] text-primary">18% Share</p>
+</div>
+</li>
+<!-- Buyer 2 -->
+<li class="p-md flex items-center justify-between hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-label-md font-bold">
+                                        GF
+                                    </div>
+<div>
+<p class="font-label-md text-[14px] text-on-surface">Global Fresh Dist.</p>
+<p class="font-body-md text-[12px] text-on-surface-variant">28 Orders • West Coast</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-[14px] text-on-surface">$320k</p>
+<p class="font-body-md text-[11px] text-primary">12% Share</p>
+</div>
+</li>
+<!-- Buyer 3 -->
+<li class="p-md flex items-center justify-between hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-label-md font-bold">
+                                        NH
+                                    </div>
+<div>
+<p class="font-label-md text-[14px] text-on-surface">Nature's Harvest</p>
+<p class="font-body-md text-[12px] text-on-surface-variant">15 Orders • Northeast</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-[14px] text-on-surface">$180k</p>
+<p class="font-body-md text-[11px] text-primary">7% Share</p>
+</div>
+</li>
+<!-- Buyer 4 -->
+<li class="p-md flex items-center justify-between hover:bg-surface-container-lowest transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-label-md font-bold">
+                                        SF
+                                    </div>
+<div>
+<p class="font-label-md text-[14px] text-on-surface">Sunrise Farms Co.</p>
+<p class="font-body-md text-[12px] text-on-surface-variant">19 Orders • South</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-[14px] text-on-surface">$145k</p>
+<p class="font-body-md text-[11px] text-primary">5% Share</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="p-3 border-t border-surface-variant text-center bg-surface-container-lowest rounded-b-xl">
+<button class="font-label-md text-[13px] text-primary hover:underline">View Full Leaderboard</button>
+</div>
+</div>
+</div>
+<!-- Bottom spacing -->
+<div class="h-8"></div>
+</div>
+</main>
+<!-- Chart.js Initialization -->
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tailwind Colors (approximated for canvas)
+            const colorPrimary = '#0d631b';
+            const colorPrimaryContainer = 'rgba(46, 125, 50, 0.2)';
+            const colorTertiary = '#884200';
+            const colorSurfaceVariant = '#e5e2e1';
+            const colorOnSurfaceVariant = '#40493d';
+            
+            // 1. Market Trends (Line Chart)
+            const ctxTrends = document.getElementById('marketTrendsChart').getContext('2d');
+            
+            // Create gradient for volume area
+            const gradientVolume = ctxTrends.createLinearGradient(0, 0, 0, 400);
+            gradientVolume.addColorStop(0, colorPrimaryContainer);
+            gradientVolume.addColorStop(1, 'rgba(255,255,255,0)');
+
+            new Chart(ctxTrends, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                    datasets: [
+                        {
+                            label: 'Avg Market Price ($/ton)',
+                            data: [320, 310, 340, 380, 360, 390, 410, 405],
+                            borderColor: colorTertiary,
+                            borderWidth: 2,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 6,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Order Volume (k tons)',
+                            data: [15, 18, 14, 22, 28, 24, 32, 35],
+                            borderColor: colorPrimary,
+                            backgroundColor: gradientVolume,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 6,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            align: 'end',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 8,
+                                font: {
+                                    family: 'Inter',
+                                    size: 12
+                                },
+                                color: colorOnSurfaceVariant
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1c1b1b',
+                            titleFont: { family: 'Inter', size: 13 },
+                            bodyFont: { family: 'Inter', size: 13 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: true
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: { font: { family: 'Inter' }, color: colorOnSurfaceVariant }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            grid: { color: colorSurfaceVariant, drawBorder: false },
+                            ticks: { font: { family: 'Inter' }, color: colorOnSurfaceVariant }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { display: false, drawBorder: false },
+                            ticks: { font: { family: 'Inter' }, color: colorOnSurfaceVariant }
+                        }
+                    }
+                }
+            });
+
+            // 2. Supply Gap (Doughnut Chart)
+            const ctxGap = document.getElementById('supplyGapChart').getContext('2d');
+            new Chart(ctxGap, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Met Demand', 'Unfulfilled Gap'],
+                    datasets: [{
+                        data: [68, 32],
+                        backgroundColor: [colorPrimary, colorTertiary],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1c1b1b',
+                            bodyFont: { family: 'Inter', size: 13 },
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

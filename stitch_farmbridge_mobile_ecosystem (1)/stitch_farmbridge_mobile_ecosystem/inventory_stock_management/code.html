@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FarmBridge Admin - Inventory Management</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f3f0ef",
+                    "inverse-primary": "#88d982",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#1b6d24",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "outline": "#707a6c",
+                    "on-secondary-fixed": "#0e2000",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#884200",
+                    "on-primary-fixed-variant": "#005312",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-tertiary-container": "#ffeee6",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-background": "#1c1b1b",
+                    "secondary-container": "#b8f47a",
+                    "outline-variant": "#bfcaba",
+                    "on-surface": "#1c1b1b",
+                    "inverse-surface": "#313030",
+                    "surface-container": "#f0edec",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dcd9d9",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#ebe7e7",
+                    "on-tertiary-fixed": "#311300",
+                    "surface": "#fcf9f8",
+                    "surface-bright": "#fcf9f8",
+                    "secondary": "#3c6a00",
+                    "on-surface-variant": "#40493d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#002204",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-secondary-fixed-variant": "#2c5000",
+                    "secondary-fixed-dim": "#9dd761",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#407100",
+                    "secondary-fixed": "#b8f47a",
+                    "primary-fixed-dim": "#88d982",
+                    "background": "#fcf9f8",
+                    "primary-container": "#2e7d32",
+                    "surface-container-low": "#f6f3f2",
+                    "tertiary-container": "#ad5600",
+                    "on-primary-container": "#cbffc2",
+                    "primary": "#0d631b",
+                    "primary-fixed": "#a3f69c",
+                    "surface-variant": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "24px",
+                    "base": "8px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen w-full flex overflow-hidden antialiased">
+<!-- SideNavBar (from JSON) -->
+<aside class="hidden md:flex flex-col h-screen w-72 fixed left-0 top-0 z-40 bg-surface-container dark:bg-surface-container-high border-r border-outline-variant/30">
+<!-- Header -->
+<div class="px-lg py-xl flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined icon-fill">agriculture</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-title-lg font-black text-primary dark:text-inverse-primary leading-tight">FarmBridge</h1>
+<p class="font-label-md text-label-md text-on-surface-variant font-normal">Admin Console</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-sm mt-md font-label-md text-label-md">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Farmer Management (Inactive) -->
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Farmer Management</span>
+</a>
+<!-- Supply Chain (Inactive) -->
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span>Supply Chain</span>
+</a>
+<!-- Inventory (Active - Intent match) -->
+<a class="flex items-center gap-md bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-md py-3 mx-sm cursor-pointer active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined icon-fill">inventory_2</span>
+<span>Inventory</span>
+</a>
+<!-- Analytics (Inactive) -->
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</a>
+</nav>
+<!-- Footer Links -->
+<div class="mb-lg font-label-md text-label-md flex flex-col gap-sm">
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">info</span>
+<span>System Status</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant px-md py-3 mx-sm rounded-lg hover:bg-surface-variant dark:hover:bg-inverse-surface transition-colors cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Documentation</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 ml-0 md:ml-72 flex flex-col h-screen">
+<!-- TopNavBar (from JSON) -->
+<header class="flex justify-between items-center px-lg w-full sticky top-0 z-50 h-16 bg-surface dark:bg-inverse-surface shadow-sm font-body-md text-body-md text-primary dark:text-inverse-primary border-b border-outline-variant/20">
+<!-- Left: Search (from JSON search_bar: on_left) -->
+<div class="flex items-center gap-sm bg-surface-container-highest rounded-full px-4 py-2 w-96 max-w-md focus-within:ring-2 focus-within:ring-primary transition-shadow">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none outline-none text-on-surface placeholder:text-on-surface-variant w-full font-body-md focus:ring-0" placeholder="Search inventory, batches..." type="text"/>
+</div>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<button class="p-2 rounded-full hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<button class="font-label-md text-label-md text-primary hover:bg-primary-container/10 px-4 py-2 rounded-full transition-colors">
+                    Logout
+                </button>
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full object-cover border-2 border-surface shadow-sm cursor-pointer" data-alt="A professional headshot of a female administrator with a warm smile, wearing a subtle green blazer, lit by soft natural light against a neutral grey studio background, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfqwY51sV6qCWi0_FeK4G9sL3K34uIOsJAdV7VpEy1pJPIJei6CDaWvJIaceIk4LGpQehYsWyXKiLvbj-Y0QpJ9bdwIMushdDjPuMgSJ8_SVcDAt3o5N0M_D7A36BTR0Wc3dHiIgkNOToq0086zRwhA2PNZj8DWsMViGIOVC5FKBKSmriEfeTdiKIvdOtban7oNSC3nwnoG91t_eS-tf45iuPihUQyhNVNLUONZquqjAA4KphKFqk2ZFQdsOVNTrHegzfMIuW6XvA"/>
+</div>
+</header>
+<!-- Page Content Canvas -->
+<main class="flex-1 overflow-y-auto p-xl space-y-xl bg-surface-container-lowest">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Inventory &amp; Stock</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage platform-wide crop storage, monitor expiry, and coordinate logistics.</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-2 border border-outline text-on-surface font-label-md text-label-md px-lg h-14 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">download</span>
+                        Export Inventory Report
+                    </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary font-label-md text-label-md px-lg h-14 rounded-full shadow-md hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined">swap_horiz</span>
+                        Move Stock
+                    </button>
+</div>
+</div>
+<!-- KPI Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Total Stock Volume -->
+<div class="bg-surface rounded-xl p-lg border border-outline-variant shadow-[0_2px_4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-36">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Stock Volume</p>
+<div class="p-2 bg-secondary-container/30 rounded-lg text-secondary">
+<span class="material-symbols-outlined">warehouse</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">42,500 <span class="text-title-lg text-on-surface-variant font-normal">Tons</span></h3>
+<p class="text-sm text-primary mt-1 flex items-center gap-1 font-medium"><span class="material-symbols-outlined text-[16px]">trending_up</span> +4% vs last month</p>
+</div>
+</div>
+<!-- Expiring Soon -->
+<div class="bg-surface rounded-xl p-lg border border-outline-variant shadow-[0_2px_4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-36 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error-container/20 rounded-bl-full -mr-4 -mt-4"></div>
+<div class="flex justify-between items-start relative z-10">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Expiring Soon (30d)</p>
+<div class="p-2 bg-error-container/30 rounded-lg text-error">
+<span class="material-symbols-outlined">event_busy</span>
+</div>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline-lg text-headline-lg text-error">1,240 <span class="text-title-lg text-error/70 font-normal">Tons</span></h3>
+<p class="text-sm text-on-surface-variant mt-1 font-medium">Requires immediate action</p>
+</div>
+</div>
+<!-- Low Stock Alerts -->
+<div class="bg-surface rounded-xl p-lg border border-outline-variant shadow-[0_2px_4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-36">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Low Stock Alerts</p>
+<div class="p-2 bg-tertiary-container/20 rounded-lg text-tertiary">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">12 <span class="text-title-lg text-on-surface-variant font-normal">Batches</span></h3>
+<p class="text-sm text-tertiary mt-1 font-medium">Below minimum threshold</p>
+</div>
+</div>
+<!-- Storage Utilization -->
+<div class="bg-surface rounded-xl p-lg border border-outline-variant shadow-[0_2px_4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-36">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Storage Capacity</p>
+<div class="p-2 bg-surface-variant rounded-lg text-on-surface-variant">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">84%</h3>
+<span class="text-sm text-on-surface-variant font-medium">1.2M Tons Cap.</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 84%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Data Table Container -->
+<div class="bg-surface rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
+<!-- Table Toolbar (Filters & Search) -->
+<div class="p-md bg-surface border-b border-outline-variant flex flex-col sm:flex-row gap-md justify-between items-center">
+<!-- Filters -->
+<div class="flex items-center gap-sm w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
+<!-- Category Dropdown -->
+<div class="relative min-w-[140px]">
+<select class="w-full appearance-none bg-surface-container text-on-surface font-body-md py-3 pl-4 pr-10 rounded-lg border border-transparent focus:border-primary focus:ring-1 focus:ring-primary outline-none cursor-pointer hover:bg-surface-container-high transition-colors">
+<option value="all">All Categories</option>
+<option value="grains">Grains</option>
+<option value="vegetables">Vegetables</option>
+<option value="fruits">Fruits</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<!-- Location Dropdown -->
+<div class="relative min-w-[140px]">
+<select class="w-full appearance-none bg-surface-container text-on-surface font-body-md py-3 pl-4 pr-10 rounded-lg border border-transparent focus:border-primary focus:ring-1 focus:ring-primary outline-none cursor-pointer hover:bg-surface-container-high transition-colors">
+<option value="all">All Locations</option>
+<option value="n-wh">North Warehouse</option>
+<option value="s-silo">South Silos</option>
+<option value="e-cold">East Cold Storage</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<!-- Status Dropdown -->
+<div class="relative min-w-[140px]">
+<select class="w-full appearance-none bg-surface-container text-on-surface font-body-md py-3 pl-4 pr-10 rounded-lg border border-transparent focus:border-primary focus:ring-1 focus:ring-primary outline-none cursor-pointer hover:bg-surface-container-high transition-colors">
+<option value="all">All Statuses</option>
+<option value="available">Available</option>
+<option value="reserved">Reserved</option>
+<option value="expired">Expired</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Secondary Search / Action -->
+<div class="flex items-center gap-sm">
+<button class="text-primary font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors">
+                            Clear Filters
+                        </button>
+</div>
+</div>
+<!-- The Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container/50">
+<tr>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Crop Type</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Source / Farmer</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Location</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant whitespace-nowrap text-right">Quantity</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Dates</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Status</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant whitespace-nowrap text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 text-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#FDF1E3] flex items-center justify-center text-[#E08A26] border border-[#E08A26]/20">
+<span class="material-symbols-outlined icon-fill">grain</span>
+</div>
+<div>
+<p class="font-medium">Organic Wheat</p>
+<p class="text-sm text-on-surface-variant">Batch: #WH-092</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-on-surface-variant">E</div>
+<span>Eldorado Farms</span>
+</div>
+</td>
+<td class="py-4 px-6">North Warehouse<br/><span class="text-sm text-on-surface-variant">Silo 4</span></td>
+<td class="py-4 px-6 text-right font-medium">850 <span class="text-on-surface-variant font-normal text-sm">Tons</span></td>
+<td class="py-4 px-6 text-sm">
+<p><span class="text-on-surface-variant">H:</span> Oct 12, 2023</p>
+<p><span class="text-on-surface-variant">E:</span> Oct 12, 2024</p>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                        Available
+                                    </span>
+</td>
+<td class="py-4 px-6 text-center">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/5 rounded-full transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#E8F5E9] flex items-center justify-center text-[#2E7D32] border border-[#2E7D32]/20">
+<span class="material-symbols-outlined icon-fill">nutrition</span>
+</div>
+<div>
+<p class="font-medium">Premium Soybeans</p>
+<p class="text-sm text-on-surface-variant">Batch: #SB-114</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-on-surface-variant">V</div>
+<span>Valley Agrico</span>
+</div>
+</td>
+<td class="py-4 px-6">South Silos<br/><span class="text-sm text-on-surface-variant">Silo 2</span></td>
+<td class="py-4 px-6 text-right font-medium text-error">45 <span class="text-error/70 font-normal text-sm">Tons</span></td>
+<td class="py-4 px-6 text-sm">
+<p><span class="text-on-surface-variant">H:</span> Nov 05, 2023</p>
+<p class="text-error font-medium"><span class="text-error/70">E:</span> May 05, 2024</p>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error/10 text-error border border-error/20">
+                                        Expiring Soon
+                                    </span>
+</td>
+<td class="py-4 px-6 text-center">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/5 rounded-full transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group bg-surface-container-lowest/50">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#E3F2FD] flex items-center justify-center text-[#1565C0] border border-[#1565C0]/20">
+<span class="material-symbols-outlined icon-fill">water_drop</span>
+</div>
+<div>
+<p class="font-medium text-on-surface-variant">Irrigation Corn</p>
+<p class="text-sm text-on-surface-variant/70">Batch: #CR-002</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold text-on-surface-variant">C</div>
+<span>Coop Network</span>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">East Cold Storage<br/><span class="text-sm">Zone A</span></td>
+<td class="py-4 px-6 text-right font-medium text-on-surface-variant">1,200 <span class="font-normal text-sm">Tons</span></td>
+<td class="py-4 px-6 text-sm text-on-surface-variant">
+<p><span>H:</span> Sep 20, 2023</p>
+<p><span>E:</span> Mar 20, 2024</p>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant border border-outline-variant">
+                                        Reserved
+                                    </span>
+</td>
+<td class="py-4 px-6 text-center">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/5 rounded-full transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 border-t border-outline-variant bg-surface flex items-center justify-between">
+<p class="text-sm text-on-surface-variant">Showing 1 to 3 of 45 entries</p>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-md border border-outline-variant text-on-surface-variant hover:bg-surface-container disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-md bg-primary text-on-primary font-medium text-sm flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded-md hover:bg-surface-container text-on-surface font-medium text-sm flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded-md hover:bg-surface-container text-on-surface font-medium text-sm flex items-center justify-center transition-colors">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="p-2 rounded-md border border-outline-variant text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

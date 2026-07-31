@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FarmBridge Farmer Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-tint": "#1b6d24",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "primary-fixed-dim": "#88d982",
+                    "inverse-surface": "#313030",
+                    "secondary": "#3c6a00",
+                    "on-primary": "#ffffff",
+                    "primary": "#0d631b",
+                    "surface-container-highest": "#e5e2e1",
+                    "outline-variant": "#bfcaba",
+                    "surface-bright": "#fcf9f8",
+                    "on-error": "#ffffff",
+                    "tertiary": "#884200",
+                    "outline": "#707a6c",
+                    "surface": "#fcf9f8",
+                    "on-primary-container": "#cbffc2",
+                    "surface-container": "#f0edec",
+                    "secondary-container": "#b8f47a",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-tertiary-container": "#ffeee6",
+                    "on-surface-variant": "#40493d",
+                    "on-secondary-fixed-variant": "#2c5000",
+                    "tertiary-container": "#ad5600",
+                    "secondary-fixed": "#b8f47a",
+                    "background": "#fcf9f8",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#a3f69c",
+                    "on-secondary-container": "#407100",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#005312",
+                    "primary-container": "#2e7d32",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#0e2000",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "secondary-fixed-dim": "#9dd761",
+                    "surface-container-high": "#ebe7e7",
+                    "on-tertiary-fixed": "#311300",
+                    "surface-variant": "#e5e2e1",
+                    "on-surface": "#1c1b1b",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-primary-fixed": "#002204",
+                    "surface-dim": "#dcd9d9",
+                    "inverse-primary": "#88d982",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1c1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "24px",
+                    "gutter": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "base": "8px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary-container">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-40 bg-surface flex items-center justify-between px-margin-mobile py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of an Indian farmer in his late 40s, smiling warmly at the camera. He is outdoors in a sun-drenched organic farm field at golden hour. The lighting is soft and warm, casting a natural glow on his face, emphasizing a trustworthy and successful personality. High-resolution photography with a shallow depth of field, minimalist and modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXsAo-b-CGxU5XeqTuBLuuOyC7O-s6jmWfVlXoQatRSBr7WGWA4w7YnDQqiQWKCdFrzZDbWba-KkyOg5XOEIb8KZRQzI7bve958fvzvkgFuXDHV8aFRQ0sPWhfb9XIpnev4KE6OzQSRCge9A53GEu37NoBOeV-S1P_Lip6PEJ11bhbig2Zr5ZlDgx8jnO4G6WxqMa_81iQm5tOoYhesFCYeoagl8L_VzteIkyltX-Xs68_xWpdvECraqvjFRafl_AwyTu1QKzw-gw"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">FarmBridge</h1>
+</div>
+<button class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="max-w-xl mx-auto px-margin-mobile pb-32">
+<!-- Personalized Greeting -->
+<section class="mt-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Good morning, Rajesh</h2>
+<p class="font-body-md text-on-surface-variant">Here's what's happening on your farm today.</p>
+</section>
+<!-- Wallet Balance Card (Premium Gradient) -->
+<section class="mt-xl">
+<div class="relative overflow-hidden rounded-xl p-lg bg-gradient-to-br from-primary-container to-primary text-on-primary shadow-lg">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-md text-white/80">Total Balance</span>
+<div class="font-display-lg text-display-lg mt-xs">₹42,850</div>
+</div>
+<span class="material-symbols-outlined text-white/40 text-[32px]">account_balance_wallet</span>
+</div>
+<div class="mt-xl flex gap-md">
+<button class="flex-1 py-sm bg-white/20 hover:bg-white/30 rounded-lg font-label-md text-center transition-colors">
+                        Withdraw
+                    </button>
+<button class="flex-1 py-sm bg-white/20 hover:bg-white/30 rounded-lg font-label-md text-center transition-colors">
+                        Statement
+                    </button>
+</div>
+</div>
+</section>
+<!-- Quick Stats Grid -->
+<section class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-primary">potted_plant</span>
+<span class="text-label-md text-primary font-bold">+2</span>
+</div>
+<div class="text-title-lg font-title-lg text-on-surface">12</div>
+<div class="text-label-md text-on-surface-variant">Active Listings</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-tertiary">receipt_long</span>
+<span class="text-label-md text-tertiary font-bold">4</span>
+</div>
+<div class="text-title-lg font-title-lg text-on-surface">Pending Orders</div>
+<div class="text-label-md text-on-surface-variant">Action Required</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+<span class="text-label-md text-secondary font-bold">15%</span>
+</div>
+<div class="text-title-lg font-title-lg text-on-surface">₹8,400</div>
+<div class="text-label-md text-on-surface-variant">Earnings This Week</div>
+</div>
+</section>
+<!-- Add New Crop Card -->
+<section class="mt-xl">
+<button class="w-full group relative flex items-center gap-lg p-lg rounded-xl bg-secondary-container text-on-secondary-container hover:shadow-md transition-all active:scale-[0.98]">
+<div class="w-14 h-14 rounded-full bg-white/40 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</div>
+<div class="text-left">
+<div class="font-title-lg text-title-lg">Add New Crop</div>
+<div class="font-body-md opacity-80">List your harvest for the market</div>
+</div>
+<span class="material-symbols-outlined absolute right-lg opacity-40 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</section>
+<!-- Recent Orders (Horizontal Scroll) -->
+<section class="mt-xl">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-title-lg text-title-lg text-on-surface">Recent Orders</h3>
+<button class="text-primary font-label-md">View All</button>
+</div>
+<div class="flex overflow-x-auto gap-md no-scrollbar pb-sm -mx-margin-mobile px-margin-mobile">
+<!-- Order Card 1 -->
+<div class="min-w-[240px] bg-surface-container rounded-xl p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-lg bg-white overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A top-down aesthetic studio shot of fresh organic red tomatoes with green stems on a clean white background. High-key lighting, minimalist product photography, vibrant colors, premium quality, sharp focus, modern agri-tech catalog style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnG1ofitOkt4zHJZ3qamqZdKAWdcim-7zc42eVZEPEm7UBJG1q9-Cov5f4afVSLWfvcJBlwm-9SQLUKE1nmgCmKMjyTs3OXzBKkuKQntmjd7eV9_5vhgQf_GJo8Mk1DdPemy16lgw4DC3D32bSVmNZZ8XrmpnIjUJgHu8_MdlFGfXcgNvkuhFj996CXufXbj-qh0jfFKZRK_hQGUhmfs0Kj8ZxVRER2D7-ijDoMqvWwJzoMmO8ei8zAitr6iKdGB_ZMah0iQnepyI"/>
+</div>
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase">New</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">Organic Tomatoes</div>
+<div class="text-body-md font-bold text-on-surface">₹1,200 <span class="font-normal text-on-surface-variant text-[12px]">/ 20kg</span></div>
+</div>
+<div class="pt-sm border-t border-outline-variant/20 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span class="text-[12px] text-on-surface-variant">Buyer: Anita S.</span>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="min-w-[240px] bg-surface-container rounded-xl p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-lg bg-white overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist and high-quality photo of whole organic cauliflowers with crisp green leaves on a soft neutral light background. Clean, modern, bright lighting reflecting a premium agri-tech marketplace vibe. Professional food photography, sharp details, natural textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhYf5wOax3p2iZ8c_QSoSHBiBQyOfizYmhOZf7CMCTVdlda724hnsEHdAUqQAwZeUBFZFhxziT9AZdEf_vwz9zyxQWfvvGtxUW0FoKWvw08T-5_rA4VOmP-ZnzzQJ21L03arxk14d_3eVvciSdxxaKqxhsEy6HIHmnrkE79iZUGEPzncIrB-uB7K7hyllDWz0DfOVSnHMwTHwRt-3LaeejauxI89WZUU3g4nMbsbekFa1logfTNQnKxJRvN8OXJGo-54C_UeQwBWs"/>
+</div>
+<span class="px-sm py-xs bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-bold uppercase">Pending</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">Fresh Cauliflower</div>
+<div class="text-body-md font-bold text-on-surface">₹850 <span class="font-normal text-on-surface-variant text-[12px]">/ 15kg</span></div>
+</div>
+<div class="pt-sm border-t border-outline-variant/20 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span class="text-[12px] text-on-surface-variant">Buyer: Market Hub</span>
+</div>
+</div>
+<!-- Order Card 3 -->
+<div class="min-w-[240px] bg-surface-container rounded-xl p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-lg bg-white overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A beautiful bunch of vibrant yellow bananas in a minimalist setting with bright, even studio lighting. The background is white and clean. High-resolution, professional product photography for a high-end agricultural platform. Focus on freshness and quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Rn9-O9eViP_4ScVhBYh2aeQi0pSwZNVgMUHUnDocowmCf5i6t18r3sy4RaPqj0gjn5aFl0_GVijD_76cvrYpLn--deCNinjXgBWtsZ2IZXtSyVX6ADadzoyh2DDHo2D5kE64eM5wSRgmwy8SQ_w9MrHE3YbhM2i9aG40CdBChzCw6f8gaYQOSTEMtQPhAPbm3nd6FuUd7Al3-OyR2imoGDW1j6P5y3H7Raz9x9Xts1T7xxVDNyPJecgPT_GLVa2uHcyvUbXpWNQ"/>
+</div>
+<span class="px-sm py-xs bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-bold uppercase">Pending</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">Yellow Bananas</div>
+<div class="text-body-md font-bold text-on-surface">₹2,100 <span class="font-normal text-on-surface-variant text-[12px]">/ 50kg</span></div>
+</div>
+<div class="pt-sm border-t border-outline-variant/20 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span class="text-[12px] text-on-surface-variant">Buyer: Fresh Mart</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Insights / Tips Section (Asymmetric / Bento Lite) -->
+<section class="mt-xl">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-md">Insights for you</h3>
+<div class="grid grid-cols-2 gap-md">
+<div class="col-span-2 p-lg rounded-xl bg-tertiary-container text-on-tertiary-container relative overflow-hidden">
+<div class="relative z-10">
+<div class="font-title-lg text-title-lg mb-xs">Market Alert</div>
+<p class="font-body-md opacity-90">Wheat prices are expected to rise by 8% next week. Consider holding your stock.</p>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-[120px] opacity-10">trending_up</span>
+</div>
+<div class="p-md rounded-xl bg-primary-fixed text-on-primary-fixed-variant flex flex-col justify-between aspect-square">
+<span class="material-symbols-outlined">wb_sunny</span>
+<div class="font-label-md">Perfect weather for harvesting Potatoes this Friday.</div>
+</div>
+<div class="p-md rounded-xl bg-surface-variant text-on-surface-variant flex flex-col justify-between aspect-square">
+<span class="material-symbols-outlined">school</span>
+<div class="font-label-md">New guide: Organic Pest Control for Winter Crops.</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for Create/Add (Material 3 Style) -->
+<button class="fixed bottom-24 right-margin-mobile w-14 h-14 bg-primary text-on-primary rounded-xl shadow-lg flex items-center justify-center active:scale-90 transition-transform duration-200 z-50">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container shadow-sm flex justify-around items-center px-sm pb-safe pt-sm">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-lg py-xs transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-label-md mt-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-md text-label-md mt-xs">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md mt-xs">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md mt-xs">Wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md mt-xs">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('click', (e) => {
+                // Prevent default for demo purposes if it's a hash link
+                if(el.getAttribute('href') === '#') e.preventDefault();
+            });
+        });
+
+        // Sticky header background transition on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm');
+                header.classList.add('bg-surface/90');
+                header.classList.add('backdrop-blur-md');
+            } else {
+                header.classList.remove('shadow-sm');
+                header.classList.remove('bg-surface/90');
+                header.classList.remove('backdrop-blur-md');
+            }
+        });
+    </script>
+</body></html>

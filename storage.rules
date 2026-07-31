@@ -1,0 +1,57 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isImageType() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isUnder10MB() {
+      return request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // ─── User Profile Photos ─────────────────────────────────
+    // Path: users/{uid}/profile/*
+    match /users/{uid}/profile/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(uid) && isImageType() && isUnder10MB();
+    }
+
+    // ─── Product Images ──────────────────────────────────────
+    // Path: products/{farmerId}/{productId}/{fileName}
+    match /products/{farmerId}/{productId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(farmerId) && isImageType() && isUnder10MB();
+    }
+
+    // ─── Chat Attachments ────────────────────────────────────
+    // Path: chats/{chatId}/{fileName}
+    match /chats/{chatId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isImageType() && isUnder10MB();
+    }
+
+    // ─── Review Images ───────────────────────────────────────
+    // Path: reviews/{reviewId}/{fileName}
+    match /reviews/{reviewId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isImageType() && isUnder10MB();
+    }
+
+    // ─── KYC / Verification Documents ────────────────────────
+    // Path: verification/{uid}/{fileName}
+    match /verification/{uid}/{fileName} {
+      allow read: if isOwner(uid);
+      allow write: if isOwner(uid) && isUnder10MB();
+    }
+  }
+}

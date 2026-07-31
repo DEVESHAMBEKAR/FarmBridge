@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FarmBridge Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-tint": "#1b6d24",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "primary-fixed-dim": "#88d982",
+                        "inverse-surface": "#313030",
+                        "secondary": "#3c6a00",
+                        "on-primary": "#ffffff",
+                        "primary": "#0d631b",
+                        "surface-container-highest": "#e5e2e1",
+                        "outline-variant": "#bfcaba",
+                        "surface-bright": "#fcf9f8",
+                        "on-error": "#ffffff",
+                        "tertiary": "#884200",
+                        "outline": "#707a6c",
+                        "surface": "#fcf9f8",
+                        "on-primary-container": "#cbffc2",
+                        "surface-container": "#f0edec",
+                        "secondary-container": "#b8f47a",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-tertiary-container": "#ffeee6",
+                        "on-surface-variant": "#40493d",
+                        "on-secondary-fixed-variant": "#2c5000",
+                        "tertiary-container": "#ad5600",
+                        "secondary-fixed": "#b8f47a",
+                        "background": "#fcf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#a3f69c",
+                        "on-secondary-container": "#407100",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#005312",
+                        "primary-container": "#2e7d32",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#0e2000",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#9dd761",
+                        "surface-container-high": "#ebe7e7",
+                        "on-tertiary-fixed": "#311300",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface": "#1c1b1b",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-primary-fixed": "#002204",
+                        "surface-dim": "#dcd9d9",
+                        "inverse-primary": "#88d982",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1c1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "base": "8px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="w-full sticky top-0 z-40 bg-surface dark:bg-surface flex items-center justify-between px-margin-mobile py-md w-full">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a friendly Indian farmer in a sunlit field, wearing a traditional kurta, smiling warmly at the camera. The photography style is high-end and clean with a soft bokeh background of green crops, consistent with a modern, trustworthy agri-tech brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAguW6NQqtNWx0Pv5BoiZpqod5VGkJdsBG0SqZiP5RKd6nE8-HLPJ-jDH9WKjmpfNGZUcCli5ZdZ_yZln0Pr6OgZtbVeOLTeppyIrNUpnsAseO3RoOZS3XuI7CoLTGXDxNlLAtyeEjAdN8qbETh9__Yp32Op-mFwKWcTryjngxcDDZ3dBEq6-gBVvdowqdVSnjkBmvoQnn79hhuv-F4COC2YQJPPHki-ObnHWRv1cdsjWB_Z6zloqU4d3PTV_cmauVcl5gyU3hVa5w"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">FarmBridge</h1>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-xs rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined text-[28px]">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile mt-sm">
+<!-- Search Bar Section -->
+<div class="relative group mt-md">
+<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</div>
+<input class="w-full h-[56px] bg-surface-container-low border-none rounded-xl pl-[48px] pr-[112px] font-body-md text-on-surface placeholder-on-surface-variant/60 focus:ring-2 focus:ring-primary transition-all" placeholder="Search fresh produce..." type="text"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-sm gap-xs">
+<button class="p-xs text-primary hover:bg-primary/5 rounded-full">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-xs text-primary hover:bg-primary/5 rounded-full">
+<span class="material-symbols-outlined">photo_camera</span>
+</button>
+</div>
+</div>
+<!-- Categories Section -->
+<div class="flex gap-sm overflow-x-auto hide-scrollbar py-lg">
+<button class="flex-shrink-0 px-lg py-xs bg-primary text-on-primary rounded-full font-label-md transition-all active:scale-95">All</button>
+<button class="flex-shrink-0 px-lg py-xs bg-surface-container-high text-on-surface-variant rounded-full font-label-md hover:bg-surface-container-highest transition-all active:scale-95">Vegetables</button>
+<button class="flex-shrink-0 px-lg py-xs bg-surface-container-high text-on-surface-variant rounded-full font-label-md hover:bg-surface-container-highest transition-all active:scale-95">Fruits</button>
+<button class="flex-shrink-0 px-lg py-xs bg-surface-container-high text-on-surface-variant rounded-full font-label-md hover:bg-surface-container-highest transition-all active:scale-95">Grains</button>
+<button class="flex-shrink-0 px-lg py-xs bg-surface-container-high text-on-surface-variant rounded-full font-label-md hover:bg-surface-container-highest transition-all active:scale-95">Organic</button>
+</div>
+<!-- Marketplace Grid -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Product Card 1 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm border border-outline-variant/10 group">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="High-fidelity macro shot of vibrant, vine-ripened red tomatoes on a wooden rustic table. Natural outdoor lighting highlights the dew drops and fresh green stems. The style is clean, editorial food photography with deep natural greens and saturated reds, reflecting premium agricultural quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA-YWOryboW17kns_dYOd8bU-qrMjYpKOTY_xBP-m6TcC9_yMeWs8weMiu99BgFVvVlpV2CHY479mINsnIvs8fZmAy06HBBYQgufAGXAzcQVOIAd8NGOOl4RIE-QhmYBB6zPbHJ0rsLjWzH65pFvBgvD_vTR8ouvX0oS1DooMCXw4hpQ0gOx0ErbcutaJPjoYz2dC1RkQlIOcQmTIRxfnX38EbuWQGTxGQjOgpboYezwZo-21586iRMfMvhGPdS7Oq19B-WLZZ7bs"/>
+<div class="absolute top-xs left-xs flex flex-col gap-1">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-sm py-[2px] rounded-full uppercase tracking-wider">Organic</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex items-center gap-xs">
+<p class="font-label-md text-on-surface-variant truncate">Suresh's Farm</p>
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<h3 class="font-title-lg text-on-surface leading-tight truncate">Cherry Tomatoes</h3>
+<div class="flex items-end justify-between mt-sm">
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-primary">₹80</span>
+<span class="text-[12px] text-on-surface-variant">per kg</span>
+</div>
+<button class="w-10 h-10 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center active:scale-90 transition-transform shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm border border-outline-variant/10 group">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Close-up of fresh, crisp baby spinach leaves in a woven basket, under soft morning sunlight. The vibrant leaf green color is accentuated by a slightly moody, earthy background. High-resolution texture showing organic veins of the leaves, presented in a minimal and modern farm-to-table aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4nsuk-VqCt0rsq1KaMwDDlcvYxoIaW1AflNFC7BD7MUa2pmSKj6tlAYGbnORaxrt9shDrJALqypLM4xn47rZTdXHZcGuBR5iWBz8suXKIy7ftQZMX5yh8B7zo2wvEaA9XotjIPoYOlu2BBIDch1wPdLlQMeX-WBSbkN__KyVLoIDFyz7_3rBGPGbhP6cYhFb3tkkMafxuuxwo7p0x12sPKD0kEwqIzKL588LXiCekPHx5fItZestMlRVl7teu3miwijQSYdPE6Nc"/>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex items-center gap-xs">
+<p class="font-label-md text-on-surface-variant truncate">Green Valley</p>
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<h3 class="font-title-lg text-on-surface leading-tight truncate">Baby Spinach</h3>
+<div class="flex items-end justify-between mt-sm">
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-primary">₹45</span>
+<span class="text-[12px] text-on-surface-variant">per bunch</span>
+</div>
+<button class="w-10 h-10 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center active:scale-90 transition-transform shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm border border-outline-variant/10 group">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="A collection of diverse heritage carrots in colors of orange, purple, and yellow, freshly pulled from the earth with some soil remaining. Bright, high-key lighting on a minimalist light stone surface. The image emphasizes organic authenticity and variety, shot with a professional shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6Xy3xzwDOFCJu3fgoS--n1UDirb46suL7KaGjofpCEfZiNwqsdsmgaxWW5i8DiUb32ltUk0KHVsybS34cRNW_qivXNutzk_oiuTkRSMExiDknwGisekg1iBkDsmroQvYbBOVZgm3kZwl8-tzaSuBcEjOE1cdykjOQVTCTuswISiyoV-KdWbkQF9qxTXDXfEE0wO6ccCFCp3WiTlU38E66lCdjjS98I8UT4EBGCxoUsWKUlOXUb2AVJE3-VUazLZcRtt1Z7Y_UKpo"/>
+<div class="absolute top-xs left-xs flex flex-col gap-1">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-sm py-[2px] rounded-full uppercase tracking-wider">Organic</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex items-center gap-xs">
+<p class="font-label-md text-on-surface-variant truncate">Hilltop Organics</p>
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<h3 class="font-title-lg text-on-surface leading-tight truncate">Rainbow Carrots</h3>
+<div class="flex items-end justify-between mt-sm">
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-primary">₹120</span>
+<span class="text-[12px] text-on-surface-variant">per kg</span>
+</div>
+<button class="w-10 h-10 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center active:scale-90 transition-transform shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm border border-outline-variant/10 group">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Premium golden wheat grains spilling out of a simple canvas sack onto a dark basalt surface. Dramatic side lighting highlights the texture and golden hues of the individual grains. The mood is sophisticated and grounded, communicating essential food security and traditional farming excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvkK17SSZ5lJqGGbahkelquqNn5btwEICvxfOt_jS-VOgXzH9aUw6_ehHIbfKHRGp88BfoYKl79NkU8cec-jkFpC1X7nPKYFSKeADkk7Eq9cuPtvFRxJn_oDqtO7ucEfsojmx7tXmW3TGpqZw6NmDpxXmqAaQAu4Y9jwT4kbrPJ8kW63_Z014FZP0v9F1cOo05dSp16nJlvkwTzXCUj6vZ0hnBVfnV8bHNef4PgLsqCo0IRD4KkN1mgDx0GrCM2RS2WGfu2ks2J7g"/>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex items-center gap-xs">
+<p class="font-label-md text-on-surface-variant truncate">Kisan Cooperative</p>
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<h3 class="font-title-lg text-on-surface leading-tight truncate">Premium Wheat</h3>
+<div class="flex items-end justify-between mt-sm">
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-primary">₹38</span>
+<span class="text-[12px] text-on-surface-variant">per kg</span>
+</div>
+<button class="w-10 h-10 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center active:scale-90 transition-transform shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for quick actions (Contextual) -->
+<button class="fixed bottom-24 right-margin-mobile w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg flex items-center justify-center z-40 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[28px]">shopping_cart</span>
+<div class="absolute -top-1 -right-1 w-5 h-5 bg-tertiary text-on-tertiary rounded-full text-[10px] flex items-center justify-center font-bold">2</div>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container dark:bg-surface-container shadow-sm flex justify-around items-center w-full px-sm pb-safe pt-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-full px-lg py-xs active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="font-label-md text-label-md">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-lg py-xs hover:bg-surface-container-high transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for Add buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.querySelector('.material-symbols-outlined')?.textContent === 'add') {
+                    const icon = this.querySelector('.material-symbols-outlined');
+                    icon.textContent = 'check';
+                    this.classList.replace('bg-primary-container', 'bg-secondary');
+                    this.classList.replace('text-on-primary-container', 'text-on-primary');
+                    
+                    setTimeout(() => {
+                        icon.textContent = 'add';
+                        this.classList.replace('bg-secondary', 'bg-primary-container');
+                        this.classList.replace('text-on-primary', 'text-on-primary-container');
+                    }, 1500);
+                }
+            });
+        });
+
+        // Category chips active state toggle
+        const categoryButtons = document.querySelectorAll('.flex.gap-sm.overflow-x-auto button');
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary');
+                    b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                });
+                btn.classList.add('bg-primary', 'text-on-primary');
+                btn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

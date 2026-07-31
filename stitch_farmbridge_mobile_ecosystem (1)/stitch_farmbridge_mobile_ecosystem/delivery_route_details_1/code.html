@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Route Details - FarmBridge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#0e2000",
+                      "on-tertiary-container": "#ffeee6",
+                      "inverse-surface": "#313030",
+                      "surface-dim": "#dcd9d9",
+                      "inverse-on-surface": "#f3f0ef",
+                      "tertiary": "#884200",
+                      "on-tertiary-fixed-variant": "#723600",
+                      "on-primary-fixed": "#002204",
+                      "on-primary-container": "#cbffc2",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#2c5000",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed-dim": "#9dd761",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "surface-container-low": "#f6f3f2",
+                      "outline-variant": "#bfcaba",
+                      "surface-container-high": "#ebe7e7",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#1b6d24",
+                      "secondary": "#3c6a00",
+                      "outline": "#707a6c",
+                      "surface-container": "#f0edec",
+                      "primary": "#0d631b",
+                      "tertiary-fixed": "#ffdcc6",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#b8f47a",
+                      "surface-variant": "#e5e2e1",
+                      "on-secondary-container": "#407100",
+                      "tertiary-container": "#ad5600",
+                      "surface-container-highest": "#e5e2e1",
+                      "inverse-primary": "#88d982",
+                      "primary-fixed-dim": "#88d982",
+                      "primary-fixed": "#a3f69c",
+                      "secondary-container": "#b8f47a",
+                      "on-tertiary-fixed": "#311300",
+                      "on-surface": "#1c1b1b",
+                      "primary-container": "#2e7d32",
+                      "surface-bright": "#fcf9f8",
+                      "on-primary-fixed-variant": "#005312",
+                      "on-surface-variant": "#40493d",
+                      "on-error": "#ffffff",
+                      "background": "#fcf9f8",
+                      "on-background": "#1c1b1b",
+                      "on-secondary": "#ffffff",
+                      "surface": "#fcf9f8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "md": "16px",
+                      "xl": "32px",
+                      "gutter": "16px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "margin-mobile": "24px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "title-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Mobile Specific Overrides */
+        @media (max-width: 768px) {
+            .mobile-bottom-padding { padding-bottom: 80px; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md antialiased mobile-bottom-padding md:pb-0">
+<!-- Top Navigation (Visible on Desktop) -->
+<header class="hidden md:flex items-center justify-between px-lg py-md w-full bg-surface sticky top-0 z-40">
+<div class="flex items-center gap-md">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">FarmBridge</h1>
+</div>
+<nav class="flex gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors px-md py-sm rounded-full" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors px-md py-sm rounded-full" href="#">Market</a>
+<a class="font-label-md text-label-md text-primary bg-secondary-container text-on-secondary-container px-md py-sm rounded-full flex items-center gap-sm" href="#">
+<span class="material-symbols-outlined icon-filled text-lg">receipt_long</span> Orders
+            </a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors px-md py-sm rounded-full" href="#">Wallet</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors px-md py-sm rounded-full" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="p-sm hover:bg-surface-container-low rounded-full transition-colors text-primary active:scale-95 duration-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A small circular profile picture of a female logistics driver wearing a casual green jacket, smiling warmly against a blurred natural background. The image is brightly lit, modern, and trustworthy, matching a clean tech-enabled agricultural platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxmu2yRX69MtkrCUzHCYKKHBNfdPlNBQZMCLc5galt7m-8-qAFXYDbwoIAhR1G0ucdwo9TKixXV0NX9pdSRNz-AcMu89PZzN8Mv-aAla_lzMxcz53tx-8mkJS3hrLDxBqFsG2gSa_8PPFFn5ObGBIJVazghkQNUkzQJMwtecPnbskbRkd1jx-8SsFcSEaOK7zrO9O-NaLich-Y01pgR3xlQiUlusnYyD4pKJDXKaidiq8OeCSGynjkJuoaJN_rVqhrG_CQJvZnVZE"/>
+</div>
+</div>
+</header>
+<!-- Mobile Top Header (Secondary Page Style) -->
+<header class="md:hidden flex items-center px-margin-mobile py-md w-full bg-surface sticky top-0 z-40 bg-opacity-90 backdrop-blur-sm">
+<button class="mr-md text-on-surface p-sm -ml-sm rounded-full hover:bg-surface-container-low active:scale-95">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-on-surface">Route RT-842</h1>
+</header>
+<main class="max-w-4xl mx-auto px-margin-mobile md:px-lg py-md md:py-xl flex flex-col gap-lg">
+<!-- Map Visualization Container -->
+<div class="w-full h-64 md:h-96 bg-surface-container-low rounded-xl overflow-hidden relative shadow-sm">
+<img alt="Route Map" class="w-full h-full object-cover" data-alt="A clean, modern satellite map view showing a rural delivery route. A bright green line traces a path from a farmland area to an urban center. The map style is minimalist, matching Material Design aesthetics, with subtle terrain details and clear waypoints marked by modern pin icons." data-location="Sacramento Valley" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFYl-R8UUYLEAs2crs0vc8gewCJCHp7tLFqtCm3utszYKNw7pN2mgWf6LQubyC3lRPU6GhMbVvJ7wU6J8K0QDqUWsU1o3JI0fLzeH7aebwftejFB867zuFiuac_baRe5Zo-u0-DqFPw_Vgb-IfMTgSHbOq5P_EhAXU5xsSM7X6F_4Cx3dHU50m9zKg9gt2bkyZadwL2GzTieFVM94mxkLBZ9xicqF2fx6NTn1PZgAJuIPR_fEpfQIRN3cxuAHph6JcfnvJTT12Eok"/>
+<!-- Map Overlay Info -->
+<div class="absolute top-md right-md bg-surface p-sm rounded-lg shadow-sm flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="font-label-md text-label-md text-on-surface">1h 45m</span>
+<div class="w-px h-4 bg-outline-variant mx-xs"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">42 mi</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Main Content Area -->
+<div class="md:col-span-2 flex flex-col gap-lg">
+<!-- Route Waypoints -->
+<section class="bg-surface p-lg rounded-xl shadow-sm border border-surface-variant">
+<h2 class="font-title-lg text-title-lg mb-md text-on-surface">Route Details</h2>
+<div class="relative pl-xl border-l-2 border-primary border-dashed ml-sm pb-xl">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<div class="w-2 h-2 bg-on-primary rounded-full"></div>
+</div>
+<h3 class="font-label-md text-label-md text-primary mb-xs uppercase tracking-wider">Pickup</h3>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Green Valley Organics</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-sm">1240 Farm Road, Davis, CA</p>
+<div class="flex items-center gap-sm bg-surface-container-low p-sm rounded-lg inline-flex">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
+<span class="font-body-md text-body-md text-on-surface">Contact: Sarah Jenkins</span>
+</div>
+</div>
+<div class="relative pl-xl ml-sm">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[14px]">flag</span>
+</div>
+<h3 class="font-label-md text-label-md text-secondary mb-xs uppercase tracking-wider">Drop-off</h3>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Fresh Foods Co-op Hub</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-sm">890 Market St, Sacramento, CA</p>
+<p class="font-body-md text-body-md text-tertiary">Note: Use loading bay B, call ahead 15 mins.</p>
+</div>
+</section>
+<!-- Load Manifest -->
+<section class="bg-surface p-lg rounded-xl shadow-sm border border-surface-variant">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-title-lg text-title-lg text-on-surface">Load Manifest</h2>
+<span class="font-label-md text-label-md bg-surface-container-high text-on-surface-variant px-sm py-xs rounded-lg">Total: 700 kg</span>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-md border border-surface-container-high rounded-lg bg-surface-bright">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Organic Baby Spinach</p>
+<p class="font-body-md text-body-md text-on-surface-variant">40 Crates • Chilled transport required</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface bg-surface-container px-sm py-xs rounded">200 kg</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-md border border-surface-container-high rounded-lg bg-surface-bright">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">grass</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Winter Wheat</p>
+<p class="font-body-md text-body-md text-on-surface-variant">10 Sacks • Dry storage</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface bg-surface-container px-sm py-xs rounded">500 kg</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar / Action Area -->
+<div class="flex flex-col gap-lg">
+<!-- Action Card (Sticky on Desktop) -->
+<div class="bg-surface p-lg rounded-xl shadow-sm border border-surface-variant md:sticky md:top-[88px]">
+<h3 class="font-title-lg text-title-lg mb-md text-on-surface">Ready to go?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Ensure your vehicle temperature is set correctly before pickup.</p>
+<button class="w-full h-[56px] bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center gap-sm hover:bg-primary-fixed-variant transition-colors active:scale-95 mb-md shadow-[0_4px_8px_rgba(13,99,27,0.2)]">
+<span class="material-symbols-outlined">local_shipping</span>
+                        Start Route
+                    </button>
+<button class="w-full h-[56px] bg-surface-container border border-outline text-primary rounded-full font-label-md text-label-md flex items-center justify-center hover:bg-surface-container-low transition-colors active:scale-95">
+                        Report Issue
+                    </button>
+</div>
+<!-- Weather/Conditions Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-surface-variant flex items-start gap-md">
+<span class="material-symbols-outlined text-tertiary text-3xl">sunny</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Route Conditions</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Clear skies, 72°F. Moderate traffic near drop-off zone.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) - Using exact JSON specs but suppressed as per 'Task-Focused' rule?
+         Wait, the rules say: "Automatic Suppression: You MUST exclude the navigation shell if the page intent is... Task-Focused: Any sub-page featuring a "Close" or "Back" action that implies a temporary departure from the main navigation flow."
+         Since this is a "Detailed view of a specific delivery route", it's a sub-page (RT-842) with a back button. 
+         Therefore, I should SUPPRESS the bottom nav bar on mobile to prioritize the canvas. 
+         (I included top nav on desktop as a standard shell, but it could arguably be a modal there too. I'll leave desktop header, but omit bottom nav to strictly follow the "Task-Focused" exclusion rule). -->
+</body></html>
