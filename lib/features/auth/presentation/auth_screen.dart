@@ -71,9 +71,23 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 
                 if (authState.error != null) ...[
                   const SizedBox(height: 16),
-                  Text(
-                    authState.error!,
-                    style: const TextStyle(color: Colors.red),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(color: Colors.red.shade50, borderRadius: BorderRadius.circular(8)),
+                    child: Text(
+                      '${authState.error!}\n\nTip: If you are not receiving the OTP, this is likely due to Firebase SMS quota limits or browser popup blockers on the web. Please use "Continue with Google" below for seamless testing.',
+                      style: TextStyle(color: Colors.red.shade900),
+                    ),
+                  ),
+                ] else ...[
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)),
+                    child: const Text(
+                      'Demo Mode: If you experience issues receiving the OTP SMS due to network limits, please use "Continue with Google" to bypass phone verification.',
+                      style: TextStyle(color: Colors.blue, fontSize: 13),
+                    ),
                   ),
                 ],
 
