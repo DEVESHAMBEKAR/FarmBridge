@@ -10,17 +10,17 @@ final consumerProductsProvider = StreamProvider<List<ProductModel>>((ref) {
   final firestoreRepo = ref.watch(firestoreRepositoryProvider);
   return firestoreRepo.firestore
       .collection(FirestoreCollections.products)
-      .where(FirestoreFields.status, isEqualTo: ProductStatus.active)
-      .where(FirestoreFields.listingType, isEqualTo: 'retail')
-      // Note: Ordering requires a composite index in Firestore. We remove orderBy for now to prevent index errors,
-      // or we can sort them locally in Dart.
       .snapshots()
       .map((snapshot) {
     final docs = snapshot.docs.map((doc) {
       final data = doc.data();
       data['product_id'] = doc.id;
       return ProductModel.fromJson(data);
-    }).toList();
+    }).where((p) => 
+      p.status.toUpperCase() == ProductStatus.active.toUpperCase() && 
+      p.listingType.toLowerCase() == 'retail'
+    ).toList();
+    
     // Sort locally to avoid needing a Firestore composite index immediately
     docs.sort((a, b) => (b.createdAt ?? DateTime.now()).compareTo(a.createdAt ?? DateTime.now()));
     return docs;
@@ -32,15 +32,17 @@ final dealerProductsProvider = StreamProvider<List<ProductModel>>((ref) {
   final firestoreRepo = ref.watch(firestoreRepositoryProvider);
   return firestoreRepo.firestore
       .collection(FirestoreCollections.products)
-      .where(FirestoreFields.status, isEqualTo: ProductStatus.active)
-      .where(FirestoreFields.listingType, isEqualTo: 'bulk')
       .snapshots()
       .map((snapshot) {
     final docs = snapshot.docs.map((doc) {
       final data = doc.data();
       data['product_id'] = doc.id;
       return ProductModel.fromJson(data);
-    }).toList();
+    }).where((p) => 
+      p.status.toUpperCase() == ProductStatus.active.toUpperCase() && 
+      p.listingType.toLowerCase() == 'bulk'
+    ).toList();
+    
     docs.sort((a, b) => (b.createdAt ?? DateTime.now()).compareTo(a.createdAt ?? DateTime.now()));
     return docs;
   });
