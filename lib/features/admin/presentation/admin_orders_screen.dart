@@ -5,6 +5,8 @@ import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
 import 'providers/admin_providers.dart';
 import '../../../../core/models/order_model.dart';
+import '../../../../core/constants/firestore_collections.dart';
+import '../../../../core/providers/providers.dart';
 
 class AdminOrdersScreen extends ConsumerStatefulWidget {
   const AdminOrdersScreen({super.key});
@@ -118,17 +120,77 @@ class _AdminOrdersScreenState extends ConsumerState<AdminOrdersScreen> {
                                             data: {'status': 'cancelled'},
                                           );
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Order Cancelled: ${o.orderId}')));
-                                        } else {
-                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Action "$action" needs navigation to details page.')));
+                                        } else if (action == 'update_status') {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: const Text('Update Order Status'),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: ['placed', 'confirmed', 'packed', 'in_transit', 'delivered', 'cancelled'].map((status) {
+                                                  return ListTile(
+                                                    title: Text(status.toUpperCase()),
+                                                    onTap: () async {
+                                                      Navigator.pop(context);
+                                                      await firestore.updateDocument(
+                                                        collection: FirestoreCollections.orders,
+                                                        documentId: o.orderId,
+                                                        data: {'status': status},
+                                                      );
+                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Status updated to $status')));
+                                                    },
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ),
+                                          );
+                                        } else if (action == 'assign') {
+                                          // Fetch logistics users
+                                          final logisticsUsers = await firestore.firestore.collection(FirestoreCollections.users).where('role', isEqualTo: 'logistics').get();
+                                          if (context.mounted) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: const Text('Assign Logistics Partner'),
+                                                content: SizedBox(
+                                                  width: 300,
+                                                  height: 300,
+                                                  child: ListView.builder(
+                                                    itemCount: logisticsUsers.docs.length,
+                                                    itemBuilder: (context, index) {
+                                                      final logistics = logisticsUsers.docs[index].data();
+                                                      return ListTile(
+                                                        leading: const Icon(Icons.local_shipping),
+                                                        title: Text(logistics['display_name'] ?? 'Unknown Partner'),
+                                                        subtitle: Text(logistics['phone'] ?? ''),
+                                                        onTap: () async {
+                                                          Navigator.pop(context);
+                                                          await firestore.updateDocument(
+                                                            collection: FirestoreCollections.orders,
+                                                            documentId: o.orderId,
+                                                            data: {
+                                                              'delivery_partner_id': logisticsUsers.docs[index].id,
+                                                              'status': 'confirmed' // move to confirmed when assigned
+                                                            },
+                                                          );
+                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Assigned to ${logistics['display_name']}')));
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }
                                         }
                                       } catch (e) {
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
                                       }
                                     },
                                     itemBuilder: (context) => [
-                                      const PopupMenuItem(value: 'track', child: Text('Track Order')),
+                                      const PopupMenuItem(value: 'update_status', child: Text('Update Status')),
                                       const PopupMenuItem(value: 'assign', child: Text('Assign Delivery')),
-                                      if (o.status != 'cancelled') const PopupMenuItem(value: 'cancel', child: Text('Cancel/Refund', style: TextStyle(color: Colors.red))),
+                                      if (o.status != 'cancelled') const PopupMenuItem(value: 'cancel', child: Text('Cancel Order', style: TextStyle(color: Colors.red))),
                                     ],
                                   )
                                 ),
