@@ -131,11 +131,11 @@ class CheckoutNotifier extends StateNotifier<CheckoutState> {
       final cartRef = FirebaseFirestore.instance
           .collection(FirestoreCollections.carts)
           .doc(user.uid);
-      batch.update(cartRef, {
+      batch.set(cartRef, {
         'item_count': 0,
         'subtotal': 0.0,
         'updated_at': FieldValue.serverTimestamp(),
-      });
+      }, SetOptions(merge: true));
       
       // Commit the transaction
       await batch.commit();
