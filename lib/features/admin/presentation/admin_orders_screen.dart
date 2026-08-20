@@ -108,13 +108,27 @@ class _AdminOrdersScreenState extends ConsumerState<AdminOrdersScreen> {
                                 ),
                                 DataCell(
                                   PopupMenuButton<String>(
-                                    onSelected: (action) {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$action: ${o.orderId}')));
+                                    onSelected: (action) async {
+                                      final firestore = ref.read(firestoreRepositoryProvider);
+                                      try {
+                                        if (action == 'cancel') {
+                                          await firestore.updateDocument(
+                                            collection: FirestoreCollections.orders,
+                                            documentId: o.orderId,
+                                            data: {'status': 'cancelled'},
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Order Cancelled: ${o.orderId}')));
+                                        } else {
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Action "$action" needs navigation to details page.')));
+                                        }
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+                                      }
                                     },
                                     itemBuilder: (context) => [
                                       const PopupMenuItem(value: 'track', child: Text('Track Order')),
                                       const PopupMenuItem(value: 'assign', child: Text('Assign Delivery')),
-                                      const PopupMenuItem(value: 'cancel', child: Text('Cancel/Refund', style: TextStyle(color: Colors.red))),
+                                      if (o.status != 'cancelled') const PopupMenuItem(value: 'cancel', child: Text('Cancel/Refund', style: TextStyle(color: Colors.red))),
                                     ],
                                   )
                                 ),

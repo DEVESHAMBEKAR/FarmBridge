@@ -123,12 +123,40 @@ class _AdminProductsScreenState extends ConsumerState<AdminProductsScreen> {
                                 ),
                                 DataCell(
                                   PopupMenuButton<String>(
-                                    onSelected: (action) {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$action: ${p.title}')));
+                                    onSelected: (action) async {
+                                      final firestore = ref.read(firestoreRepositoryProvider);
+                                      try {
+                                        if (action == 'hide') {
+                                          await firestore.updateDocument(
+                                            collection: FirestoreCollections.products,
+                                            documentId: p.productId,
+                                            data: {'status': ProductStatus.inactive},
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Unlisted: ${p.title}')));
+                                        } else if (action == 'unhide') {
+                                          await firestore.updateDocument(
+                                            collection: FirestoreCollections.products,
+                                            documentId: p.productId,
+                                            data: {'status': ProductStatus.active},
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Listed: ${p.title}')));
+                                        } else if (action == 'feature') {
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Feature functionality not implemented yet.')));
+                                        } else if (action == 'delete') {
+                                          await firestore.deleteDocument(
+                                            collection: FirestoreCollections.products,
+                                            documentId: p.productId,
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deleted: ${p.title}')));
+                                        }
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+                                      }
                                     },
                                     itemBuilder: (context) => [
                                       const PopupMenuItem(value: 'feature', child: Text('Feature Product')),
-                                      const PopupMenuItem(value: 'hide', child: Text('Hide/Unlist')),
+                                      if (p.status == ProductStatus.active) const PopupMenuItem(value: 'hide', child: Text('Hide/Unlist')),
+                                      if (p.status != ProductStatus.active) const PopupMenuItem(value: 'unhide', child: Text('Unhide/List')),
                                       const PopupMenuItem(value: 'delete', child: Text('Delete', style: TextStyle(color: Colors.red))),
                                     ],
                                   )
