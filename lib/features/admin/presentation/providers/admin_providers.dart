@@ -52,6 +52,11 @@ final adminBuyersListProvider = Provider<AsyncValue<List<UserModel>>>((ref) {
   return usersAsync.whenData((users) => users.where((u) => u.role == UserRoles.buyer).toList());
 });
 
+final adminRegularUsersListProvider = Provider<AsyncValue<List<UserModel>>>((ref) {
+  final usersAsync = ref.watch(adminAllUsersProvider);
+  return usersAsync.whenData((users) => users.where((u) => u.role != UserRoles.farmer && u.role != UserRoles.logistics).toList());
+});
+
 final adminLogisticsListProvider = Provider<AsyncValue<List<UserModel>>>((ref) {
   final usersAsync = ref.watch(adminAllUsersProvider);
   return usersAsync.whenData((users) => users.where((u) => u.role == UserRoles.logistics).toList());

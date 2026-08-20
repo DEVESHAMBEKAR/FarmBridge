@@ -47,6 +47,42 @@ class DeliveryDashboardScreen extends ConsumerWidget {
     }
   }
 
+  Future<void> _updateJobStatus(WidgetRef ref, BuildContext context, String jobId, String dealId, String newStatus) async {
+    try {
+      final firestoreRepo = ref.read(firestoreRepositoryProvider);
+      final batch = <BatchOperation>[];
+      
+      batch.add(BatchOperation.update(
+        collection: FirestoreCollections.logisticsRequests,
+        documentId: jobId,
+        data: {
+          'status': newStatus,
+          'updated_at': FieldValue.serverTimestamp(),
+        },
+      ));
+
+      // Also update the underlying deal tracking status
+      batch.add(BatchOperation.update(
+        collection: FirestoreCollections.deals,
+        documentId: dealId,
+        data: {
+          'transport_status': newStatus,
+          'updated_at': FieldValue.serverTimestamp(),
+        }
+      ));
+
+      await firestoreRepo.batchWrite(batch);
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Status updated to: $newStatus')));
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider);
@@ -62,7 +98,7 @@ class DeliveryDashboardScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Your Active Loads', style: Theme.of(context).textTheme.titleLarge),
+            Text('Your Active Loads (Tracking)', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             AsyncValueWidget(
               value: activeJobsAsync,
@@ -75,11 +111,93 @@ class DeliveryDashboardScreen extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final job = jobs[index];
                     return Card(
-                      color: AppColors.primaryContainer,
-                      child: ListTile(
-                        leading: const Icon(Icons.local_shipping),
-                        title: Text('${job.pickupLocation} -> ${job.dropLocation}'),
-                        subtitle: Text('Status: ${job.status}\nFreight: ₹${job.offeredFreightAmount}'),
+                      margin: const EdgeInsets.only(bottom: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Job #${job.jobId.substring(0,6).toUpperCase()}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(color: AppColors.primaryContainer, borderRadius: BorderRadius.circular(12)),
+                                  child: Text(job.status, style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 12)),
+                                )
+                              ],
+                            ),
+                            const Divider(height: 24),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_on, color: Colors.green, size: 20),
+                                const SizedBox(width: 8),
+                                Expanded(child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Pickup', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                                    Text(job.pickupLocation, style: const TextStyle(fontWeight: FontWeight.w500)),
+                                  ],
+                                )),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_on, color: Colors.red, size: 20),
+                                const SizedBox(width: 8),
+                                Expanded(child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Drop-off', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                                    Text(job.dropLocation, style: const TextStyle(fontWeight: FontWeight.w500)),
+                                  ],
+                                )),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Distance: ${job.distanceKm} KM', style: const TextStyle(color: Colors.grey)),
+                                Text('Freight: ₹${job.offeredFreightAmount}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            // Tracking Actions
+                            if (job.status != 'DELIVERED') ...[
+                              const Text('Update Tracking Status:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                              const SizedBox(height: 8),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: [
+                                  if (job.status == 'ACCEPTED')
+                                    ElevatedButton(
+                                      onPressed: () => _updateJobStatus(ref, context, job.jobId, job.dealId, 'PICKED_UP'),
+                                      child: const Text('Mark as Picked Up'),
+                                    ),
+                                  if (job.status == 'PICKED_UP')
+                                    ElevatedButton(
+                                      onPressed: () => _updateJobStatus(ref, context, job.jobId, job.dealId, 'IN_TRANSIT'),
+                                      child: const Text('Mark as In Transit'),
+                                    ),
+                                  if (job.status == 'IN_TRANSIT')
+                                    ElevatedButton(
+                                      onPressed: () => _updateJobStatus(ref, context, job.jobId, job.dealId, 'DELIVERED'),
+                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white),
+                                      child: const Text('Mark as Delivered'),
+                                    ),
+                                ],
+                              ),
+                            ]
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -87,7 +205,7 @@ class DeliveryDashboardScreen extends ConsumerWidget {
               },
             ),
             const Divider(height: 48),
-            Text('Available Loads', style: Theme.of(context).textTheme.titleLarge),
+            Text('Available Loads', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             AsyncValueWidget(
               value: pendingJobsAsync,

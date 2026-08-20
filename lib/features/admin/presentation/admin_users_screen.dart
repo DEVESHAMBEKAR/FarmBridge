@@ -5,6 +5,8 @@ import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
 import 'providers/admin_providers.dart';
 import '../../../../core/models/user_model.dart';
+import '../../../../core/constants/firestore_collections.dart';
+import '../../../../core/providers/providers.dart';
 
 class AdminUsersScreen extends ConsumerStatefulWidget {
   const AdminUsersScreen({super.key});
@@ -18,7 +20,7 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
   
   @override
   Widget build(BuildContext context) {
-    final usersAsync = ref.watch(adminAllUsersProvider);
+    final usersAsync = ref.watch(adminRegularUsersListProvider);
 
     return Scaffold(
       backgroundColor: AppColors.background,
