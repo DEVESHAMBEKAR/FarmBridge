@@ -21,9 +21,11 @@ class FirestoreCollections {
   
   // Logistics
   static const String logisticsRequests = 'logistics_requests';
+  static const String transportRequests = 'transport_requests'; // Phase 4 addition
   static const String transportQuotes = 'transport_quotes';
   static const String transportBookings = 'transport_bookings';
   static const String deliveries = 'deliveries';
+  static const String logisticsProviders = 'logistics_providers'; // Phase 4 addition
 
   // Cross-Cutting
   static const String chats = 'chats';

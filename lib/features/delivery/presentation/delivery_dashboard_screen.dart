@@ -81,6 +81,8 @@ class DeliveryDashboardScreen extends ConsumerWidget {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     }
+  }
+
   Future<void> _updateOrderStatus(WidgetRef ref, BuildContext context, String orderId, String newStatus) async {
     try {
       final firestoreRepo = ref.read(firestoreRepositoryProvider);
