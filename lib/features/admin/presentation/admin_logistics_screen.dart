@@ -117,12 +117,28 @@ class _AdminLogisticsScreenState extends ConsumerState<AdminLogisticsScreen> {
                                 ),
                                 DataCell(
                                   PopupMenuButton<String>(
-                                    onSelected: (action) {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$action: ${user.displayName}')));
+                                    onSelected: (action) async {
+                                      if (action == 'verify' || action == 'suspend') {
+                                        final isVerified = action == 'verify';
+                                        try {
+                                          await ref.read(firestoreRepositoryProvider).updateDocument(
+                                            collection: FirestoreCollections.users,
+                                            documentId: user.uid,
+                                            data: {'is_verified': isVerified},
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Successfully ${isVerified ? "verified" : "suspended"} ${user.displayName}')),
+                                          );
+                                        } catch (e) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Error updating logistics driver: $e')),
+                                          );
+                                        }
+                                      }
                                     },
                                     itemBuilder: (context) => [
-                                      const PopupMenuItem(value: 'verify', child: Text('Verify Documents')),
-                                      const PopupMenuItem(value: 'suspend', child: Text('Suspend Driver')),
+                                      if (!user.isVerified) const PopupMenuItem(value: 'verify', child: Text('Verify Documents')),
+                                      if (user.isVerified) const PopupMenuItem(value: 'suspend', child: Text('Suspend Driver')),
                                     ],
                                   )
                                 ),

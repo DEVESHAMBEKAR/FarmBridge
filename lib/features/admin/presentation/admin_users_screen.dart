@@ -126,13 +126,34 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
                                 DataCell(Text(user.createdAt != null ? DateFormat.yMMMd().format(user.createdAt!) : 'N/A')),
                                 DataCell(
                                   PopupMenuButton<String>(
-                                    onSelected: (action) {
-                                      // Handle actions
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$action: ${user.displayName}')));
+                                    onSelected: (action) async {
+                                      if (action == 'verify' || action == 'suspend') {
+                                        final isVerified = action == 'verify';
+                                        try {
+                                          await ref.read(firestoreRepositoryProvider).updateDocument(
+                                            collection: FirestoreCollections.users,
+                                            documentId: user.uid,
+                                            data: {'is_verified': isVerified},
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Successfully ${isVerified ? "verified" : "suspended"} ${user.displayName}')),
+                                          );
+                                        } catch (e) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Error updating user: $e')),
+                                          );
+                                        }
+                                      } else if (action == 'delete') {
+                                        // Deleting requires more care, usually cloud function, 
+                                        // but for now we just show a message or do a soft delete.
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Delete requires Admin Cloud Function.')),
+                                        );
+                                      }
                                     },
                                     itemBuilder: (context) => [
-                                      const PopupMenuItem(value: 'verify', child: Text('Verify User')),
-                                      const PopupMenuItem(value: 'suspend', child: Text('Suspend')),
+                                      if (!user.isVerified) const PopupMenuItem(value: 'verify', child: Text('Verify User')),
+                                      if (user.isVerified) const PopupMenuItem(value: 'suspend', child: Text('Suspend')),
                                       const PopupMenuItem(value: 'delete', child: Text('Delete', style: TextStyle(color: Colors.red))),
                                     ],
                                   )
