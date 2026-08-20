@@ -9,8 +9,6 @@ final pendingFarmersProvider = StreamProvider.autoDispose<List<UserModel>>((ref)
   return firestoreRepo.firestore
       .collection(FirestoreCollections.users)
       .where('role', isEqualTo: 'farmer')
-      .where('is_profile_complete', isEqualTo: true)
-      .where('is_verified', isEqualTo: false)
       .snapshots()
       .map((snapshot) {
     return snapshot.docs.map((doc) {
@@ -20,7 +18,7 @@ final pendingFarmersProvider = StreamProvider.autoDispose<List<UserModel>>((ref)
         data['uid'] = doc.id;
       }
       return UserModel.fromJson(data);
-    }).toList();
+    }).where((user) => user.isProfileComplete && !user.isVerified).toList();
   });
 });
 

@@ -56,11 +56,11 @@ final farmerProductsProvider = StreamProvider.family<List<ProductModel>, String>
         collection: FirestoreCollections.products,
         field: FirestoreFields.farmerId,
         value: farmerId,
-        orderByField: FirestoreFields.createdAt,
-        descending: true,
       )
       .map((snapshot) {
-    return snapshot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList();
+    final docs = snapshot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList();
+    docs.sort((a, b) => (b.createdAt ?? DateTime.now()).compareTo(a.createdAt ?? DateTime.now()));
+    return docs;
   });
 });
 
