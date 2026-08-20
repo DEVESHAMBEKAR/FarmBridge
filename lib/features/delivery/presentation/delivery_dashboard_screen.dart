@@ -81,6 +81,25 @@ class DeliveryDashboardScreen extends ConsumerWidget {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     }
+  Future<void> _updateOrderStatus(WidgetRef ref, BuildContext context, String orderId, String newStatus) async {
+    try {
+      final firestoreRepo = ref.read(firestoreRepositoryProvider);
+      await firestoreRepo.updateDocument(
+        collection: FirestoreCollections.orders,
+        documentId: orderId,
+        data: {
+          'status': newStatus,
+          'updated_at': FieldValue.serverTimestamp(),
+        },
+      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Order Status Updated!')));
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      }
+    }
   }
 
   @override
@@ -90,6 +109,7 @@ class DeliveryDashboardScreen extends ConsumerWidget {
 
     final pendingJobsAsync = ref.watch(pendingLogisticsJobsProvider);
     final activeJobsAsync = ref.watch(activeLogisticsJobsProvider(user.uid));
+    final activeOrdersAsync = ref.watch(deliveryOrdersProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Logistics Load Board')),
@@ -190,6 +210,79 @@ class DeliveryDashboardScreen extends ConsumerWidget {
                                   if (job.status == 'IN_TRANSIT')
                                     ElevatedButton(
                                       onPressed: () => _updateJobStatus(ref, context, job.jobId, job.dealId, 'DELIVERED'),
+                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white),
+                                      child: const Text('Mark as Delivered'),
+                                    ),
+                                ],
+                              ),
+                            ]
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 24),
+            Text('Assigned Retail Orders', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            AsyncValueWidget(
+              value: activeOrdersAsync,
+              data: (orders) {
+                if (orders.isEmpty) return const Text('No assigned retail orders.');
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: orders.length,
+                  itemBuilder: (context, index) {
+                    final order = orders[index];
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.blue.withOpacity(0.3)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Order #${order.orderId.substring(0,6).toUpperCase()}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(color: Colors.blue.shade100, borderRadius: BorderRadius.circular(12)),
+                                  child: Text(order.status.toUpperCase(), style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 12)),
+                                )
+                              ],
+                            ),
+                            const Divider(height: 24),
+                            Text('Buyer: ${order.buyerName}', style: const TextStyle(fontWeight: FontWeight.w500)),
+                            Text('Delivery: ${order.deliveryAddress} - ${order.deliveryPincode}', style: const TextStyle(color: Colors.grey)),
+                            const SizedBox(height: 16),
+                            if (order.status != 'delivered') ...[
+                              const Text('Update Tracking Status:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                              const SizedBox(height: 8),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: [
+                                  if (order.status == 'confirmed')
+                                    ElevatedButton(
+                                      onPressed: () => _updateOrderStatus(ref, context, order.orderId, 'packed'),
+                                      child: const Text('Mark as Packed'),
+                                    ),
+                                  if (order.status == 'packed')
+                                    ElevatedButton(
+                                      onPressed: () => _updateOrderStatus(ref, context, order.orderId, 'in_transit'),
+                                      child: const Text('Mark as In Transit'),
+                                    ),
+                                  if (order.status == 'in_transit')
+                                    ElevatedButton(
+                                      onPressed: () => _updateOrderStatus(ref, context, order.orderId, 'delivered'),
                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white),
                                       child: const Text('Mark as Delivered'),
                                     ),

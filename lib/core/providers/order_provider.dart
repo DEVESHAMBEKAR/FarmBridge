@@ -19,11 +19,11 @@ final buyerOrdersProvider = StreamProvider<List<OrderModel>>((ref) {
         collection: FirestoreCollections.orders,
         field: FirestoreFields.buyerId,
         value: authUser.uid,
-        orderByField: FirestoreFields.placedAt,
-        descending: true,
       )
       .map((snapshot) {
-    return snapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList();
+    final docs = snapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList();
+    docs.sort((a, b) => (b.placedAt ?? DateTime.now()).compareTo(a.placedAt ?? DateTime.now()));
+    return docs;
   });
 });
 
@@ -40,11 +40,11 @@ final farmerOrdersProvider = StreamProvider<List<OrderModel>>((ref) {
         collection: FirestoreCollections.orders,
         field: FirestoreFields.farmerId,
         value: authUser.uid,
-        orderByField: FirestoreFields.placedAt,
-        descending: true,
       )
       .map((snapshot) {
-    return snapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList();
+    final docs = snapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList();
+    docs.sort((a, b) => (b.placedAt ?? DateTime.now()).compareTo(a.placedAt ?? DateTime.now()));
+    return docs;
   });
 });
 
@@ -61,11 +61,11 @@ final deliveryOrdersProvider = StreamProvider<List<OrderModel>>((ref) {
         collection: FirestoreCollections.orders,
         field: FirestoreFields.deliveryPartnerId,
         value: authUser.uid,
-        orderByField: FirestoreFields.placedAt,
-        descending: true,
       )
       .map((snapshot) {
-    return snapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList();
+    final docs = snapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList();
+    docs.sort((a, b) => (b.placedAt ?? DateTime.now()).compareTo(a.placedAt ?? DateTime.now()));
+    return docs;
   });
 });
 
@@ -107,14 +107,14 @@ final availableOrdersProvider = StreamProvider<List<OrderModel>>((ref) {
         collection: FirestoreCollections.orders,
         field: 'status',
         value: 'shipped',
-        orderByField: FirestoreFields.placedAt,
-        descending: true,
       )
       .map((snapshot) {
     // Filter out orders that already have a delivery partner assigned
-    return snapshot.docs
+    final docs = snapshot.docs
         .map((doc) => OrderModel.fromJson(doc.data()))
         .where((order) => order.deliveryPartnerId == null || order.deliveryPartnerId!.isEmpty)
         .toList();
+    docs.sort((a, b) => (b.placedAt ?? DateTime.now()).compareTo(a.placedAt ?? DateTime.now()));
+    return docs;
   });
 });
