@@ -36,6 +36,7 @@ mixin _$UserModel {
   String? get fcmToken => throw _privateConstructorUsedError;
   @JsonKey(name: 'verification_status')
   String get verificationStatus => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'farmer_profile')
   FarmerProfile? get farmerProfile => throw _privateConstructorUsedError;
   @JsonKey(name: 'buyer_profile')
@@ -78,6 +79,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'fcm_token') String? fcmToken,
       @JsonKey(name: 'verification_status') String verificationStatus,
+      String status,
       @JsonKey(name: 'farmer_profile') FarmerProfile? farmerProfile,
       @JsonKey(name: 'buyer_profile') BuyerProfile? buyerProfile,
       @JsonKey(name: 'dealer_profile') DealerProfile? dealerProfile,
@@ -118,6 +120,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? isVerified = null,
     Object? fcmToken = freezed,
     Object? verificationStatus = null,
+    Object? status = null,
     Object? farmerProfile = freezed,
     Object? buyerProfile = freezed,
     Object? dealerProfile = freezed,
@@ -167,6 +170,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       verificationStatus: null == verificationStatus
           ? _value.verificationStatus
           : verificationStatus // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
       farmerProfile: freezed == farmerProfile
           ? _value.farmerProfile
@@ -295,6 +302,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'fcm_token') String? fcmToken,
       @JsonKey(name: 'verification_status') String verificationStatus,
+      String status,
       @JsonKey(name: 'farmer_profile') FarmerProfile? farmerProfile,
       @JsonKey(name: 'buyer_profile') BuyerProfile? buyerProfile,
       @JsonKey(name: 'dealer_profile') DealerProfile? dealerProfile,
@@ -339,6 +347,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? isVerified = null,
     Object? fcmToken = freezed,
     Object? verificationStatus = null,
+    Object? status = null,
     Object? farmerProfile = freezed,
     Object? buyerProfile = freezed,
     Object? dealerProfile = freezed,
@@ -388,6 +397,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
       verificationStatus: null == verificationStatus
           ? _value.verificationStatus
           : verificationStatus // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
       farmerProfile: freezed == farmerProfile
           ? _value.farmerProfile
@@ -439,6 +452,7 @@ class _$UserModelImpl implements _UserModel {
       @JsonKey(name: 'is_verified') this.isVerified = false,
       @JsonKey(name: 'fcm_token') this.fcmToken,
       @JsonKey(name: 'verification_status') this.verificationStatus = 'PENDING',
+      this.status = 'ACTIVE',
       @JsonKey(name: 'farmer_profile') this.farmerProfile,
       @JsonKey(name: 'buyer_profile') this.buyerProfile,
       @JsonKey(name: 'dealer_profile') this.dealerProfile,
@@ -479,6 +493,9 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey(name: 'verification_status')
   final String verificationStatus;
   @override
+  @JsonKey()
+  final String status;
+  @override
   @JsonKey(name: 'farmer_profile')
   final FarmerProfile? farmerProfile;
   @override
@@ -507,7 +524,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, phone: $phone, email: $email, displayName: $displayName, photoUrl: $photoUrl, role: $role, isProfileComplete: $isProfileComplete, isVerified: $isVerified, fcmToken: $fcmToken, verificationStatus: $verificationStatus, farmerProfile: $farmerProfile, buyerProfile: $buyerProfile, dealerProfile: $dealerProfile, wholesalerProfile: $wholesalerProfile, retailerProfile: $retailerProfile, logisticsProfile: $logisticsProfile, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserModel(uid: $uid, phone: $phone, email: $email, displayName: $displayName, photoUrl: $photoUrl, role: $role, isProfileComplete: $isProfileComplete, isVerified: $isVerified, fcmToken: $fcmToken, verificationStatus: $verificationStatus, status: $status, farmerProfile: $farmerProfile, buyerProfile: $buyerProfile, dealerProfile: $dealerProfile, wholesalerProfile: $wholesalerProfile, retailerProfile: $retailerProfile, logisticsProfile: $logisticsProfile, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -531,6 +548,7 @@ class _$UserModelImpl implements _UserModel {
                 other.fcmToken == fcmToken) &&
             (identical(other.verificationStatus, verificationStatus) ||
                 other.verificationStatus == verificationStatus) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.farmerProfile, farmerProfile) ||
                 other.farmerProfile == farmerProfile) &&
             (identical(other.buyerProfile, buyerProfile) ||
@@ -551,26 +569,28 @@ class _$UserModelImpl implements _UserModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      uid,
-      phone,
-      email,
-      displayName,
-      photoUrl,
-      role,
-      isProfileComplete,
-      isVerified,
-      fcmToken,
-      verificationStatus,
-      farmerProfile,
-      buyerProfile,
-      dealerProfile,
-      wholesalerProfile,
-      retailerProfile,
-      logisticsProfile,
-      createdAt,
-      updatedAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        uid,
+        phone,
+        email,
+        displayName,
+        photoUrl,
+        role,
+        isProfileComplete,
+        isVerified,
+        fcmToken,
+        verificationStatus,
+        status,
+        farmerProfile,
+        buyerProfile,
+        dealerProfile,
+        wholesalerProfile,
+        retailerProfile,
+        logisticsProfile,
+        createdAt,
+        updatedAt
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -598,6 +618,7 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: 'is_verified') final bool isVerified,
       @JsonKey(name: 'fcm_token') final String? fcmToken,
       @JsonKey(name: 'verification_status') final String verificationStatus,
+      final String status,
       @JsonKey(name: 'farmer_profile') final FarmerProfile? farmerProfile,
       @JsonKey(name: 'buyer_profile') final BuyerProfile? buyerProfile,
       @JsonKey(name: 'dealer_profile') final DealerProfile? dealerProfile,
@@ -642,6 +663,8 @@ abstract class _UserModel implements UserModel {
   @override
   @JsonKey(name: 'verification_status')
   String get verificationStatus;
+  @override
+  String get status;
   @override
   @JsonKey(name: 'farmer_profile')
   FarmerProfile? get farmerProfile;

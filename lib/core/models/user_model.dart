@@ -18,6 +18,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'is_verified') @Default(false) bool isVerified,
     @JsonKey(name: 'fcm_token') String? fcmToken,
     @JsonKey(name: 'verification_status') @Default('PENDING') String verificationStatus,
+    @Default('ACTIVE') String status,
     @JsonKey(name: 'farmer_profile') FarmerProfile? farmerProfile,
     @JsonKey(name: 'buyer_profile') BuyerProfile? buyerProfile,
     @JsonKey(name: 'dealer_profile') DealerProfile? dealerProfile,

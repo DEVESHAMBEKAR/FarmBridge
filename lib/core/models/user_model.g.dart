@@ -18,6 +18,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       isVerified: json['is_verified'] as bool? ?? false,
       fcmToken: json['fcm_token'] as String?,
       verificationStatus: json['verification_status'] as String? ?? 'PENDING',
+      status: json['status'] as String? ?? 'ACTIVE',
       farmerProfile: json['farmer_profile'] == null
           ? null
           : FarmerProfile.fromJson(
@@ -60,6 +61,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'is_verified': instance.isVerified,
       'fcm_token': instance.fcmToken,
       'verification_status': instance.verificationStatus,
+      'status': instance.status,
       'farmer_profile': instance.farmerProfile,
       'buyer_profile': instance.buyerProfile,
       'dealer_profile': instance.dealerProfile,
