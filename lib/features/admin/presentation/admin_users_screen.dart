@@ -7,6 +7,7 @@ import 'providers/admin_providers.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/constants/firestore_collections.dart';
 import '../../../../core/providers/providers.dart';
+import 'widgets/admin_inspect_profile_dialog.dart';
 
 class AdminUsersScreen extends ConsumerStatefulWidget {
   const AdminUsersScreen({super.key});
@@ -129,6 +130,13 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
                                 DataCell(
                                   PopupMenuButton<String>(
                                     onSelected: (action) async {
+                                      if (action == 'inspect') {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AdminInspectProfileDialog(user: user),
+                                        );
+                                        return;
+                                      }
                                       if (action == 'verify' || action == 'suspend') {
                                         final isVerified = action == 'verify';
                                         try {
@@ -146,14 +154,13 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
                                           );
                                         }
                                       } else if (action == 'delete') {
-                                        // Deleting requires more care, usually cloud function, 
-                                        // but for now we just show a message or do a soft delete.
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(content: Text('Delete requires Admin Cloud Function.')),
                                         );
                                       }
                                     },
                                     itemBuilder: (context) => [
+                                      const PopupMenuItem(value: 'inspect', child: Text('Inspect Profile')),
                                       if (!user.isVerified) const PopupMenuItem(value: 'verify', child: Text('Verify User')),
                                       if (user.isVerified) const PopupMenuItem(value: 'suspend', child: Text('Suspend')),
                                       const PopupMenuItem(value: 'delete', child: Text('Delete', style: TextStyle(color: Colors.red))),

@@ -4,6 +4,9 @@ import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
 import 'providers/admin_providers.dart';
 import '../../../../core/models/user_model.dart';
+import '../../../../core/constants/firestore_collections.dart';
+import '../../../../core/providers/providers.dart';
+import 'widgets/admin_inspect_profile_dialog.dart';
 
 class AdminLogisticsScreen extends ConsumerStatefulWidget {
   const AdminLogisticsScreen({super.key});
@@ -118,6 +121,13 @@ class _AdminLogisticsScreenState extends ConsumerState<AdminLogisticsScreen> {
                                 DataCell(
                                   PopupMenuButton<String>(
                                     onSelected: (action) async {
+                                      if (action == 'inspect') {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AdminInspectProfileDialog(user: user),
+                                        );
+                                        return;
+                                      }
                                       if (action == 'verify' || action == 'suspend') {
                                         final isVerified = action == 'verify';
                                         try {
@@ -137,6 +147,7 @@ class _AdminLogisticsScreenState extends ConsumerState<AdminLogisticsScreen> {
                                       }
                                     },
                                     itemBuilder: (context) => [
+                                      const PopupMenuItem(value: 'inspect', child: Text('Inspect Profile')),
                                       if (!user.isVerified) const PopupMenuItem(value: 'verify', child: Text('Verify Documents')),
                                       if (user.isVerified) const PopupMenuItem(value: 'suspend', child: Text('Suspend Driver')),
                                     ],
