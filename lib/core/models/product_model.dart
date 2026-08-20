@@ -15,6 +15,7 @@ class ProductModel with _$ProductModel {
     required String title,
     @Default('') String description,
     @Default('other') String category,
+    @JsonKey(name: 'listing_type') @Default('retail') String listingType,
     @JsonKey(name: 'price_per_unit') required double pricePerUnit,
     @Default('kg') String unit,
     @JsonKey(name: 'min_order_quantity') @Default(1) double minOrderQuantity,

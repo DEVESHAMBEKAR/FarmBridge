@@ -5,13 +5,34 @@ class FirestoreCollections {
 
   // ─── Top-Level Collections ────────────────────────────────────
   static const String users = 'users';
+  
+  // Products & Marketplaces
   static const String products = 'products';
+  
+  // Consumer
   static const String orders = 'orders';
   static const String carts = 'carts';
+  
+  // Dealer / Bulk
+  static const String requirements = 'dealer_requirements';
+  static const String offers = 'dealer_offers';
+  static const String negotiations = 'negotiations';
+  static const String deals = 'deals';
+  
+  // Logistics
+  static const String logisticsRequests = 'logistics_requests';
+  static const String transportQuotes = 'transport_quotes';
+  static const String transportBookings = 'transport_bookings';
+  static const String deliveries = 'deliveries';
+
+  // Cross-Cutting
   static const String chats = 'chats';
   static const String wallets = 'wallets';
   static const String reviews = 'reviews';
   static const String notifications = 'notifications';
+  static const String auditLogs = 'audit_logs';
+  static const String supportTickets = 'support_tickets';
+  static const String platformSettings = 'platform_settings';
 
   // ─── Subcollections ───────────────────────────────────────────
   static const String orderItems = 'items';
@@ -37,7 +58,7 @@ class FirestoreFields {
   static const String displayName = 'display_name';
   static const String photoUrl = 'photo_url';
   static const String isProfileComplete = 'is_profile_complete';
-  static const String isVerified = 'is_verified';
+  static const String verificationStatus = 'verification_status';
   static const String fcmToken = 'fcm_token';
 
   // ─── Products ─────────────────────────────────────────────────
@@ -46,9 +67,11 @@ class FirestoreFields {
   static const String category = 'category';
   static const String pricePerUnit = 'price_per_unit';
   static const String availableQuantity = 'available_quantity';
+  static const String listingType = 'listing_type'; // e.g. retail, bulk, both
 
-  // ─── Orders ───────────────────────────────────────────────────
+  // ─── Orders/Deals ─────────────────────────────────────────────
   static const String buyerId = 'buyer_id';
+  static const String dealerId = 'dealer_id';
   static const String deliveryPartnerId = 'delivery_partner_id';
   static const String placedAt = 'placed_at';
   static const String paymentStatus = 'payment_status';
@@ -73,41 +96,77 @@ class UserRoles {
   UserRoles._();
 
   static const String farmer = 'farmer';
-  static const String buyer = 'buyer';
+  static const String buyer = 'buyer'; // Consumer
+  static const String dealer = 'dealer'; // Bulk Buyer
   static const String wholesaler = 'wholesaler';
+  static const String retailer = 'retailer';
   static const String logistics = 'logistics';
   static const String admin = 'admin';
+  static const String systemAdmin = 'system_admin';
+}
+
+/// Verification / User Status constants.
+class UserStatus {
+  UserStatus._();
+
+  static const String pending = 'PENDING';
+  static const String underReview = 'UNDER_REVIEW';
+  static const String approved = 'APPROVED';
+  static const String rejected = 'REJECTED';
+  static const String suspended = 'SUSPENDED';
+  static const String active = 'ACTIVE';
+  static const String inactive = 'INACTIVE';
+  static const String blocked = 'BLOCKED';
+  static const String archived = 'ARCHIVED';
 }
 
 /// Product status constants.
 class ProductStatus {
   ProductStatus._();
 
-  static const String active = 'active';
-  static const String soldOut = 'sold_out';
-  static const String draft = 'draft';
-  static const String removed = 'removed';
+  static const String active = 'ACTIVE';
+  static const String soldOut = 'SOLD_OUT';
+  static const String draft = 'DRAFT';
+  static const String removed = 'REMOVED';
 }
 
-/// Order status constants.
+/// Deal status constants (for B2B Negotiations/Deals).
+class DealStatus {
+  DealStatus._();
+
+  static const String negotiating = 'NEGOTIATING';
+  static const String agreed = 'AGREED';
+  static const String paymentPending = 'PAYMENT_PENDING';
+  static const String transportPending = 'TRANSPORT_PENDING';
+  static const String pickupScheduled = 'PICKUP_SCHEDULED';
+  static const String pickedUp = 'PICKED_UP';
+  static const String inTransit = 'IN_TRANSIT';
+  static const String delivered = 'DELIVERED';
+  static const String completed = 'COMPLETED';
+  static const String cancelled = 'CANCELLED';
+  static const String disputed = 'DISPUTED';
+  static const String expired = 'EXPIRED';
+}
+
+/// Order status constants (for Consumer Orders).
 class OrderStatus {
   OrderStatus._();
 
-  static const String placed = 'placed';
-  static const String confirmed = 'confirmed';
-  static const String packed = 'packed';
-  static const String inTransit = 'in_transit';
-  static const String delivered = 'delivered';
-  static const String cancelled = 'cancelled';
-  static const String disputed = 'disputed';
+  static const String placed = 'PLACED';
+  static const String confirmed = 'CONFIRMED';
+  static const String packed = 'PACKED';
+  static const String inTransit = 'IN_TRANSIT';
+  static const String delivered = 'DELIVERED';
+  static const String cancelled = 'CANCELLED';
+  static const String disputed = 'DISPUTED';
 }
 
 /// Payment status constants.
 class PaymentStatus {
   PaymentStatus._();
 
-  static const String pending = 'pending';
-  static const String paid = 'paid';
-  static const String refunded = 'refunded';
-  static const String failed = 'failed';
+  static const String pending = 'PENDING';
+  static const String paid = 'PAID';
+  static const String refunded = 'REFUNDED';
+  static const String failed = 'FAILED';
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../app/theme/app_colors.dart';
-import '../../../../app/theme/app_typography.dart';
+import 'package:intl/intl.dart';
+import '../../../app/theme/app_colors.dart';
+import '../../../app/theme/app_typography.dart';
+import 'providers/admin_providers.dart';
 import '../../../../core/models/user_model.dart';
-import 'providers/admin_farmers_provider.dart';
 
 class AdminFarmersScreen extends ConsumerStatefulWidget {
   const AdminFarmersScreen({super.key});
@@ -13,186 +14,128 @@ class AdminFarmersScreen extends ConsumerStatefulWidget {
 }
 
 class _AdminFarmersScreenState extends ConsumerState<AdminFarmersScreen> {
-  Future<void> _verifyFarmer(String userId, String farmName) async {
-    // We don't read the provider as a stream here, just call the future to update
-    final success = await ref.read(farmerVerificationProvider(userId).future);
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(success ? '$farmName has been verified!' : 'Failed to verify farmer'),
-          backgroundColor: success ? AppColors.primary : AppColors.error,
-        ),
-      );
-    }
-  }
-
+  String _searchQuery = '';
+  
   @override
   Widget build(BuildContext context) {
-    final pendingFarmersAsync = ref.watch(pendingFarmersProvider);
+    final farmersAsync = ref.watch(adminFarmersListProvider);
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text('Pending Approvals', style: AppTypography.titleLarge.copyWith(color: AppColors.primary)),
-        backgroundColor: AppColors.surface,
-        elevation: 0,
-      ),
-      body: pendingFarmersAsync.when(
-        data: (farmers) {
-          if (farmers.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.verified, size: 80, color: AppColors.primary.withOpacity(0.5)),
-                  const SizedBox(height: 16),
-                  Text(
-                    'All caught up!',
-                    style: AppTypography.headlineMedium.copyWith(color: AppColors.onSurface),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'No farmers waiting for verification.',
-                    style: AppTypography.bodyMedium.copyWith(color: AppColors.onSurfaceVariant),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: farmers.length,
-            itemBuilder: (context, index) {
-              final farmer = farmers[index];
-              return _buildFarmerVerificationCard(context, farmer);
-            },
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err', style: const TextStyle(color: AppColors.error))),
-      ),
-    );
-  }
-
-  Widget _buildFarmerVerificationCard(BuildContext context, UserModel user) {
-    final profile = user.farmerProfile;
-    final farmName = profile?.farmName ?? user.displayName;
-    
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 16,
+              runSpacing: 16,
               children: [
-                CircleAvatar(
-                  backgroundColor: AppColors.primaryContainer,
-                  radius: 24,
-                  child: Text(
-                    farmName.isNotEmpty ? farmName[0].toUpperCase() : 'F',
-                    style: const TextStyle(color: AppColors.onPrimaryContainer, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(farmName, style: AppTypography.titleLarge.copyWith(color: AppColors.onSurface)),
-                      if (user.phone != null)
-                        Text(user.phone!, style: AppTypography.bodyMedium.copyWith(color: AppColors.onSurfaceVariant)),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.errorContainer,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    'Pending',
-                    style: AppTypography.labelSmall.copyWith(color: AppColors.onErrorContainer),
+                Text('Farmer Verification', style: AppTypography.headlineMedium.copyWith(fontWeight: FontWeight.bold)),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search by farm name...',
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                    ),
+                    onChanged: (val) => setState(() => _searchQuery = val.toLowerCase()),
                   ),
                 ),
               ],
             ),
-            const Divider(height: 32),
-            if (profile != null) ...[
-              _buildInfoRow(Icons.location_on, 'Address', profile.farmAddress),
-              const SizedBox(height: 8),
-              _buildInfoRow(Icons.landscape, 'Size', '${profile.farmSizeAcres} Acres'),
-              const SizedBox(height: 8),
-              _buildInfoRow(Icons.eco, 'Crops', profile.cropsGrown.join(', ')),
-              const SizedBox(height: 8),
-              _buildInfoRow(
-                Icons.verified_user, 
-                'Organic', 
-                profile.organicCertified ? 'Yes - Claimed' : 'No',
-              ),
-            ],
             const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      // Logic for rejecting or contacting could go here
-                    },
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.error,
-                      side: const BorderSide(color: AppColors.error),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    child: const Text('Reject'),
-                  ),
+            
+            Expanded(
+              child: Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(color: AppColors.outlineVariant.withOpacity(0.5)),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => _verifyFarmer(user.uid, farmName),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    child: const Text('Approve & Verify'),
-                  ),
+                child: farmersAsync.when(
+                  data: (farmers) {
+                    final filteredFarmers = farmers.where((u) {
+                      final nameMatch = u.displayName.toLowerCase().contains(_searchQuery);
+                      final farmNameMatch = (u.farmerProfile?.farmName ?? '').toLowerCase().contains(_searchQuery);
+                      return nameMatch || farmNameMatch;
+                    }).toList();
+                    
+                    if (filteredFarmers.isEmpty) {
+                      return const Center(child: Text('No farmers found.'));
+                    }
+                    
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SingleChildScrollView(
+                        child: DataTable(
+                          headingTextStyle: AppTypography.titleSmall.copyWith(fontWeight: FontWeight.bold),
+                          dataRowMinHeight: 60,
+                          dataRowMaxHeight: 60,
+                          columns: const [
+                            DataColumn(label: Text('Farm Name')),
+                            DataColumn(label: Text('Farmer Name')),
+                            DataColumn(label: Text('Size (Acres)')),
+                            DataColumn(label: Text('Bank Linked')),
+                            DataColumn(label: Text('Verification')),
+                            DataColumn(label: Text('Actions')),
+                          ],
+                          rows: filteredFarmers.map((user) {
+                            final profile = user.farmerProfile;
+                            return DataRow(
+                              cells: [
+                                DataCell(Text(profile?.farmName ?? 'N/A', style: const TextStyle(fontWeight: FontWeight.bold))),
+                                DataCell(Text(user.displayName)),
+                                DataCell(Text(profile?.farmSizeAcres.toString() ?? 'N/A')),
+                                DataCell(
+                                  Icon(
+                                    profile?.bankAccountLinked == true ? Icons.check_circle : Icons.cancel,
+                                    color: profile?.bankAccountLinked == true ? AppColors.primary : AppColors.error,
+                                  )
+                                ),
+                                DataCell(
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: user.isVerified ? AppColors.primary.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Text(
+                                      user.isVerified ? 'VERIFIED' : 'PENDING', 
+                                      style: TextStyle(color: user.isVerified ? AppColors.primary : Colors.orange, fontSize: 12, fontWeight: FontWeight.bold)
+                                    ),
+                                  )
+                                ),
+                                DataCell(
+                                  PopupMenuButton<String>(
+                                    onSelected: (action) {
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$action: ${user.displayName}')));
+                                    },
+                                    itemBuilder: (context) => [
+                                      const PopupMenuItem(value: 'verify', child: Text('Verify Documents')),
+                                      const PopupMenuItem(value: 'suspend', child: Text('Suspend')),
+                                    ],
+                                  )
+                                ),
+                              ]
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    );
+                  },
+                  loading: () => const Center(child: CircularProgressIndicator()),
+                  error: (err, _) => Center(child: Text('Error loading farmers: $err')),
                 ),
-              ],
+              )
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildInfoRow(IconData icon, String label, String value) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, size: 20, color: AppColors.onSurfaceVariant),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(label, style: AppTypography.labelSmall.copyWith(color: AppColors.onSurfaceVariant)),
-              Text(
-                value.isEmpty ? 'Not Provided' : value, 
-                style: AppTypography.bodyMedium.copyWith(color: AppColors.onSurface),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

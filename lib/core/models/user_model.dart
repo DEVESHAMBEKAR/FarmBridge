@@ -17,8 +17,12 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'is_profile_complete') @Default(false) bool isProfileComplete,
     @JsonKey(name: 'is_verified') @Default(false) bool isVerified,
     @JsonKey(name: 'fcm_token') String? fcmToken,
+    @JsonKey(name: 'verification_status') @Default('PENDING') String verificationStatus,
     @JsonKey(name: 'farmer_profile') FarmerProfile? farmerProfile,
     @JsonKey(name: 'buyer_profile') BuyerProfile? buyerProfile,
+    @JsonKey(name: 'dealer_profile') DealerProfile? dealerProfile,
+    @JsonKey(name: 'wholesaler_profile') WholesalerProfile? wholesalerProfile,
+    @JsonKey(name: 'retailer_profile') RetailerProfile? retailerProfile,
     @JsonKey(name: 'logistics_profile') LogisticsProfile? logisticsProfile,
     @JsonKey(name: 'created_at') @TimestampConverter() DateTime? createdAt,
     @JsonKey(name: 'updated_at') @TimestampConverter() DateTime? updatedAt,
@@ -64,4 +68,49 @@ class LogisticsProfile with _$LogisticsProfile {
   }) = _LogisticsProfile;
 
   factory LogisticsProfile.fromJson(Map<String, dynamic> json) => _$LogisticsProfileFromJson(json);
+}
+
+@freezed
+class DealerProfile with _$DealerProfile {
+  const factory DealerProfile({
+    @JsonKey(name: 'delivery_address') @Default('') String deliveryAddress,
+    @Default('') String city,
+    @Default('') String pincode,
+    @JsonKey(name: 'preferred_categories') @Default([]) List<String> preferredCategories,
+    @JsonKey(name: 'gst_number') @Default('') String gstNumber,
+    @JsonKey(name: 'business_name') @Default('') String businessName,
+    @JsonKey(name: 'business_type') @Default('') String businessType,
+  }) = _DealerProfile;
+
+  factory DealerProfile.fromJson(Map<String, dynamic> json) => _$DealerProfileFromJson(json);
+}
+
+@freezed
+class WholesalerProfile with _$WholesalerProfile {
+  const factory WholesalerProfile({
+    @JsonKey(name: 'delivery_address') @Default('') String deliveryAddress,
+    @Default('') String city,
+    @Default('') String pincode,
+    @JsonKey(name: 'preferred_categories') @Default([]) List<String> preferredCategories,
+    @JsonKey(name: 'gst_number') @Default('') String gstNumber,
+    @JsonKey(name: 'business_name') @Default('') String businessName,
+    @JsonKey(name: 'business_type') @Default('') String businessType,
+  }) = _WholesalerProfile;
+
+  factory WholesalerProfile.fromJson(Map<String, dynamic> json) => _$WholesalerProfileFromJson(json);
+}
+
+@freezed
+class RetailerProfile with _$RetailerProfile {
+  const factory RetailerProfile({
+    @JsonKey(name: 'delivery_address') @Default('') String deliveryAddress,
+    @Default('') String city,
+    @Default('') String pincode,
+    @JsonKey(name: 'preferred_categories') @Default([]) List<String> preferredCategories,
+    @JsonKey(name: 'gst_number') @Default('') String gstNumber,
+    @JsonKey(name: 'business_name') @Default('') String businessName,
+    @JsonKey(name: 'business_type') @Default('') String businessType,
+  }) = _RetailerProfile;
+
+  factory RetailerProfile.fromJson(Map<String, dynamic> json) => _$RetailerProfileFromJson(json);
 }

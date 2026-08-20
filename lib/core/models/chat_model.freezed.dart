@@ -42,12 +42,8 @@ mixin _$ChatModel {
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
-  /// Serializes this ChatModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ChatModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ChatModelCopyWith<ChatModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -82,8 +78,6 @@ class _$ChatModelCopyWithImpl<$Res, $Val extends ChatModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ChatModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -169,8 +163,6 @@ class __$$ChatModelImplCopyWithImpl<$Res>
       _$ChatModelImpl _value, $Res Function(_$ChatModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ChatModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -334,7 +326,7 @@ class _$ChatModelImpl implements _ChatModel {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -348,9 +340,7 @@ class _$ChatModelImpl implements _ChatModel {
       const DeepCollectionEquality().hash(_unreadCount),
       createdAt);
 
-  /// Create a copy of ChatModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ChatModelImplCopyWith<_$ChatModelImpl> get copyWith =>
@@ -413,11 +403,8 @@ abstract class _ChatModel implements ChatModel {
   @JsonKey(name: 'created_at')
   @TimestampConverter()
   DateTime? get createdAt;
-
-  /// Create a copy of ChatModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ChatModelImplCopyWith<_$ChatModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -439,12 +426,8 @@ mixin _$MessageModel {
   @TimestampConverter()
   DateTime? get sentAt => throw _privateConstructorUsedError;
 
-  /// Serializes this MessageModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of MessageModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MessageModelCopyWith<MessageModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -473,8 +456,6 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MessageModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -533,8 +514,6 @@ class __$$MessageModelImplCopyWithImpl<$Res>
       _$MessageModelImpl _value, $Res Function(_$MessageModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MessageModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -618,14 +597,12 @@ class _$MessageModelImpl implements _MessageModel {
             (identical(other.sentAt, sentAt) || other.sentAt == sentAt));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, senderId, text, imageUrl, isRead, sentAt);
 
-  /// Create a copy of MessageModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MessageModelImplCopyWith<_$MessageModelImpl> get copyWith =>
@@ -667,11 +644,8 @@ abstract class _MessageModel implements MessageModel {
   @JsonKey(name: 'sent_at')
   @TimestampConverter()
   DateTime? get sentAt;
-
-  /// Create a copy of MessageModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MessageModelImplCopyWith<_$MessageModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

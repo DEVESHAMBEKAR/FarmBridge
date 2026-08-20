@@ -42,6 +42,7 @@ import '../../features/farmer/presentation/farmer_products_screen.dart';
 import '../../features/farmer/presentation/add_new_crop_screen.dart';
 import '../../features/farmer/presentation/farmer_orders_screen.dart';
 import '../../features/farmer/presentation/farmer_analytics_dashboard_screen.dart';
+import '../../features/farmer/presentation/farmer_negotiations_screen.dart';
 
 // Delivery
 import '../../features/delivery/presentation/delivery_dashboard_screen.dart';
@@ -50,14 +51,25 @@ import '../../features/delivery/presentation/delivery_map_screen.dart';
 import '../../features/delivery/presentation/delivery_history_screen.dart';
 import '../../features/profile/presentation/delivery_profile_screen.dart';
 
+// Dealer
+import '../../features/dealer/presentation/dealer_home_screen.dart';
+import '../../features/dealer/presentation/bulk_search_screen.dart';
+import '../../features/dealer/presentation/post_requirement_screen.dart';
+import '../../features/dealer/presentation/negotiation_screen.dart';
+import '../../features/profile/presentation/dealer_profile_screen.dart';
+import '../../features/auth/presentation/dealer_profile_setup_screen.dart';
+import 'shells/dealer_shell.dart';
+
 // Admin
 import '../../features/admin/presentation/admin_dashboard_screen.dart';
 import '../../features/admin/presentation/admin_users_screen.dart';
 import '../../features/admin/presentation/admin_farmers_screen.dart';
 import '../../features/admin/presentation/admin_orders_screen.dart';
-import '../../features/admin/presentation/admin_disputes_screen.dart';
-
-// Premium / Other
+import '../../features/admin/presentation/admin_products_screen.dart';
+import '../../features/admin/presentation/admin_logistics_screen.dart';
+import '../../features/admin/presentation/admin_audit_logs_screen.dart';
+import '../../features/admin/presentation/admin_settings_screen.dart';
+import 'shells/admin_shell.dart';
 
 // Routes that don't require authentication
 const _publicRoutes = ['/splash', '/auth', '/otp', '/language', '/onboarding'];
@@ -73,6 +85,7 @@ final GlobalKey<NavigatorState> _farmerDashKey = GlobalKey<NavigatorState>(debug
 final GlobalKey<NavigatorState> _farmerProdKey = GlobalKey<NavigatorState>(debugLabel: 'farmerProd');
 final GlobalKey<NavigatorState> _farmerOrdersKey = GlobalKey<NavigatorState>(debugLabel: 'farmerOrders');
 final GlobalKey<NavigatorState> _farmerAnalyticsKey = GlobalKey<NavigatorState>(debugLabel: 'farmerAnalytics');
+final GlobalKey<NavigatorState> _farmerNegotiationsKey = GlobalKey<NavigatorState>(debugLabel: 'farmerNegotiations');
 final GlobalKey<NavigatorState> _farmerProfileKey = GlobalKey<NavigatorState>(debugLabel: 'farmerProfile');
 
 final GlobalKey<NavigatorState> _deliveryDashKey = GlobalKey<NavigatorState>(debugLabel: 'deliveryDash');
@@ -80,6 +93,20 @@ final GlobalKey<NavigatorState> _deliveryAssignedKey = GlobalKey<NavigatorState>
 final GlobalKey<NavigatorState> _deliveryMapKey = GlobalKey<NavigatorState>(debugLabel: 'deliveryMap');
 final GlobalKey<NavigatorState> _deliveryHistoryKey = GlobalKey<NavigatorState>(debugLabel: 'deliveryHistory');
 final GlobalKey<NavigatorState> _deliveryProfileKey = GlobalKey<NavigatorState>(debugLabel: 'deliveryProfile');
+
+final GlobalKey<NavigatorState> _dealerHomeKey = GlobalKey<NavigatorState>(debugLabel: 'dealerHome');
+final GlobalKey<NavigatorState> _dealerSearchKey = GlobalKey<NavigatorState>(debugLabel: 'dealerSearch');
+final GlobalKey<NavigatorState> _dealerPostKey = GlobalKey<NavigatorState>(debugLabel: 'dealerPost');
+final GlobalKey<NavigatorState> _dealerProfileKey = GlobalKey<NavigatorState>(debugLabel: 'dealerProfile');
+
+final GlobalKey<NavigatorState> _adminDashKey = GlobalKey<NavigatorState>(debugLabel: 'adminDash');
+final GlobalKey<NavigatorState> _adminUsersKey = GlobalKey<NavigatorState>(debugLabel: 'adminUsers');
+final GlobalKey<NavigatorState> _adminFarmersKey = GlobalKey<NavigatorState>(debugLabel: 'adminFarmers');
+final GlobalKey<NavigatorState> _adminLogisticsKey = GlobalKey<NavigatorState>(debugLabel: 'adminLogistics');
+final GlobalKey<NavigatorState> _adminProductsKey = GlobalKey<NavigatorState>(debugLabel: 'adminProducts');
+final GlobalKey<NavigatorState> _adminOrdersKey = GlobalKey<NavigatorState>(debugLabel: 'adminOrders');
+final GlobalKey<NavigatorState> _adminAuditLogsKey = GlobalKey<NavigatorState>(debugLabel: 'adminAuditLogs');
+final GlobalKey<NavigatorState> _adminSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'adminSettings');
 
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -104,13 +131,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       // All other routes require authentication
       if (!isLoggedIn) {
         return '/auth';
-      }
-
-      // Enforce Admin Web-Only constraint
-      if (currentPath.startsWith('/admin') && currentPath != '/admin/web-only') {
-        if (!kIsWeb) {
-          return '/admin/web-only';
-        }
       }
 
       return null; // Allow access
@@ -168,6 +188,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/buyer/profile-setup',
         builder: (context, state) => const BuyerProfileSetupScreen(),
+      ),
+      GoRoute(
+        path: '/dealer/profile-setup',
+        builder: (context, state) => const DealerProfileSetupScreen(),
       ),
       GoRoute(
         path: '/delivery/profile-setup',
@@ -302,6 +326,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _farmerNegotiationsKey,
+            routes: [
+              GoRoute(
+                path: '/farmer/negotiations',
+                builder: (context, state) => const FarmerNegotiationsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
             navigatorKey: _farmerProfileKey,
             routes: [
               GoRoute(
@@ -370,27 +403,142 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       // ==========================================
-      // ADMIN APP
+      // DEALER APP (StatefulShellRoute)
       // ==========================================
-      GoRoute(
-        path: '/admin/dashboard',
-        builder: (context, state) => const AdminDashboardScreen(),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return DealerShell(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _dealerHomeKey,
+            routes: [
+              GoRoute(
+                path: '/dealer/home',
+                builder: (context, state) => const DealerHomeScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _dealerSearchKey,
+            routes: [
+              GoRoute(
+                path: '/dealer/search',
+                builder: (context, state) => const BulkSearchScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'negotiate/:productId/:farmerId',
+                    builder: (context, state) => NegotiationScreen(
+                      productId: state.pathParameters['productId']!,
+                      farmerId: state.pathParameters['farmerId']!,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _dealerPostKey,
+            routes: [
+              GoRoute(
+                path: '/dealer/post',
+                builder: (context, state) => const PostRequirementScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _dealerProfileKey,
+            routes: [
+              GoRoute(
+                path: '/dealer/profile',
+                builder: (context, state) => const DealerProfileScreen(),
+              ),
+            ],
+          ),
+        ],
       ),
-      GoRoute(
-        path: '/admin/users',
-        builder: (context, state) => const AdminUsersScreen(),
-      ),
-      GoRoute(
-        path: '/admin/farmers',
-        builder: (context, state) => const AdminFarmersScreen(),
-      ),
-      GoRoute(
-        path: '/admin/orders',
-        builder: (context, state) => const AdminOrdersScreen(),
-      ),
-      GoRoute(
-        path: '/admin/disputes',
-        builder: (context, state) => const AdminDisputesScreen(),
+
+      // ==========================================
+      // ADMIN APP (StatefulShellRoute)
+      // ==========================================
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return AdminShell(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _adminDashKey,
+            routes: [
+              GoRoute(
+                path: '/admin/dashboard',
+                builder: (context, state) => const AdminDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _adminUsersKey,
+            routes: [
+              GoRoute(
+                path: '/admin/users',
+                builder: (context, state) => const AdminUsersScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _adminFarmersKey,
+            routes: [
+              GoRoute(
+                path: '/admin/farmers',
+                builder: (context, state) => const AdminFarmersScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _adminLogisticsKey,
+            routes: [
+              GoRoute(
+                path: '/admin/logistics',
+                builder: (context, state) => const AdminLogisticsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _adminProductsKey,
+            routes: [
+              GoRoute(
+                path: '/admin/products',
+                builder: (context, state) => const AdminProductsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _adminOrdersKey,
+            routes: [
+              GoRoute(
+                path: '/admin/orders',
+                builder: (context, state) => const AdminOrdersScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _adminAuditLogsKey,
+            routes: [
+              GoRoute(
+                path: '/admin/audit-logs',
+                builder: (context, state) => const AdminAuditLogsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _adminSettingsKey,
+            routes: [
+              GoRoute(
+                path: '/admin/settings',
+                builder: (context, state) => const AdminSettingsScreen(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );

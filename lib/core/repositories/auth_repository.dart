@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// Production-grade authentication repository.
@@ -24,6 +25,18 @@ class AuthRepository {
   // ─── Phone OTP Authentication (+91 Only) ──────────────────────
 
   ConfirmationResult? webConfirmationResult;
+  RecaptchaVerifier? _recaptchaVerifier;
+
+  /// Creates a fresh RecaptchaVerifier, clearing any stale one.
+  RecaptchaVerifier _getRecaptchaVerifier() {
+    try {
+      _recaptchaVerifier?.clear();
+    } catch (_) {}
+    _recaptchaVerifier = RecaptchaVerifier(
+      auth: FirebaseAuthPlatform.instance,
+    );
+    return _recaptchaVerifier!;
+  }
 
   Future<void> verifyPhoneNumber({
     required String phoneNumber,
@@ -50,8 +63,8 @@ class AuthRepository {
 
     if (kIsWeb) {
       try {
-        webConfirmationResult = await _auth.signInWithPhoneNumber(formattedNumber);
-        // On web, we immediately trigger codeSent to move the UI to the OTP screen
+        final verifier = _getRecaptchaVerifier();
+        webConfirmationResult = await _auth.signInWithPhoneNumber(formattedNumber, verifier);
         codeSent('web_verification_id', null);
       } on FirebaseAuthException catch (e) {
         verificationFailed(e);
@@ -61,6 +74,7 @@ class AuthRepository {
       return;
     }
 
+    // Android/iOS — native phone auth (no reCAPTCHA needed)
     await _auth.verifyPhoneNumber(
       phoneNumber: formattedNumber,
       verificationCompleted: verificationCompleted,
@@ -78,22 +92,29 @@ class AuthRepository {
   // ─── Google Sign-In ───────────────────────────────────────────
 
   Future<UserCredential?> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) return null; // User canceled
+    if (kIsWeb) {
+      final provider = GoogleAuthProvider();
+      return await _auth.signInWithPopup(provider);
+    } else {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return null;
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    return await _auth.signInWithCredential(credential);
+      return await _auth.signInWithCredential(credential);
+    }
   }
 
   // ─── Sign Out ─────────────────────────────────────────────────
 
   Future<void> signOut() async {
+    try { _recaptchaVerifier?.clear(); } catch (_) {}
+    _recaptchaVerifier = null;
     await _auth.signOut();
     try {
       await GoogleSignIn().signOut();

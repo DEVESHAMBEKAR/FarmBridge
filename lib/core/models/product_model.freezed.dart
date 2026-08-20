@@ -31,6 +31,8 @@ mixin _$ProductModel {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
+  @JsonKey(name: 'listing_type')
+  String get listingType => throw _privateConstructorUsedError;
   @JsonKey(name: 'price_per_unit')
   double get pricePerUnit => throw _privateConstructorUsedError;
   String get unit => throw _privateConstructorUsedError;
@@ -63,12 +65,8 @@ mixin _$ProductModel {
   @TimestampConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
-  /// Serializes this ProductModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ProductModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ProductModelCopyWith<ProductModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -87,6 +85,7 @@ abstract class $ProductModelCopyWith<$Res> {
       String title,
       String description,
       String category,
+      @JsonKey(name: 'listing_type') String listingType,
       @JsonKey(name: 'price_per_unit') double pricePerUnit,
       String unit,
       @JsonKey(name: 'min_order_quantity') double minOrderQuantity,
@@ -116,8 +115,6 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ProductModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,6 +125,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? title = null,
     Object? description = null,
     Object? category = null,
+    Object? listingType = null,
     Object? pricePerUnit = null,
     Object? unit = null,
     Object? minOrderQuantity = null,
@@ -172,6 +170,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      listingType: null == listingType
+          ? _value.listingType
+          : listingType // ignore: cast_nullable_to_non_nullable
               as String,
       pricePerUnit: null == pricePerUnit
           ? _value.pricePerUnit
@@ -253,6 +255,7 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       String title,
       String description,
       String category,
+      @JsonKey(name: 'listing_type') String listingType,
       @JsonKey(name: 'price_per_unit') double pricePerUnit,
       String unit,
       @JsonKey(name: 'min_order_quantity') double minOrderQuantity,
@@ -280,8 +283,6 @@ class __$$ProductModelImplCopyWithImpl<$Res>
       _$ProductModelImpl _value, $Res Function(_$ProductModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ProductModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -292,6 +293,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? category = null,
+    Object? listingType = null,
     Object? pricePerUnit = null,
     Object? unit = null,
     Object? minOrderQuantity = null,
@@ -336,6 +338,10 @@ class __$$ProductModelImplCopyWithImpl<$Res>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      listingType: null == listingType
+          ? _value.listingType
+          : listingType // ignore: cast_nullable_to_non_nullable
               as String,
       pricePerUnit: null == pricePerUnit
           ? _value.pricePerUnit
@@ -412,6 +418,7 @@ class _$ProductModelImpl implements _ProductModel {
       required this.title,
       this.description = '',
       this.category = 'other',
+      @JsonKey(name: 'listing_type') this.listingType = 'retail',
       @JsonKey(name: 'price_per_unit') required this.pricePerUnit,
       this.unit = 'kg',
       @JsonKey(name: 'min_order_quantity') this.minOrderQuantity = 1,
@@ -452,6 +459,9 @@ class _$ProductModelImpl implements _ProductModel {
   @override
   @JsonKey()
   final String category;
+  @override
+  @JsonKey(name: 'listing_type')
+  final String listingType;
   @override
   @JsonKey(name: 'price_per_unit')
   final double pricePerUnit;
@@ -510,7 +520,7 @@ class _$ProductModelImpl implements _ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(productId: $productId, farmerId: $farmerId, farmerName: $farmerName, farmerPhotoUrl: $farmerPhotoUrl, title: $title, description: $description, category: $category, pricePerUnit: $pricePerUnit, unit: $unit, minOrderQuantity: $minOrderQuantity, availableQuantity: $availableQuantity, images: $images, isOrganic: $isOrganic, harvestDate: $harvestDate, expiryDate: $expiryDate, locationName: $locationName, status: $status, totalSold: $totalSold, averageRating: $averageRating, reviewCount: $reviewCount, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProductModel(productId: $productId, farmerId: $farmerId, farmerName: $farmerName, farmerPhotoUrl: $farmerPhotoUrl, title: $title, description: $description, category: $category, listingType: $listingType, pricePerUnit: $pricePerUnit, unit: $unit, minOrderQuantity: $minOrderQuantity, availableQuantity: $availableQuantity, images: $images, isOrganic: $isOrganic, harvestDate: $harvestDate, expiryDate: $expiryDate, locationName: $locationName, status: $status, totalSold: $totalSold, averageRating: $averageRating, reviewCount: $reviewCount, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -531,6 +541,8 @@ class _$ProductModelImpl implements _ProductModel {
                 other.description == description) &&
             (identical(other.category, category) ||
                 other.category == category) &&
+            (identical(other.listingType, listingType) ||
+                other.listingType == listingType) &&
             (identical(other.pricePerUnit, pricePerUnit) ||
                 other.pricePerUnit == pricePerUnit) &&
             (identical(other.unit, unit) || other.unit == unit) &&
@@ -560,7 +572,7 @@ class _$ProductModelImpl implements _ProductModel {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -571,6 +583,7 @@ class _$ProductModelImpl implements _ProductModel {
         title,
         description,
         category,
+        listingType,
         pricePerUnit,
         unit,
         minOrderQuantity,
@@ -588,9 +601,7 @@ class _$ProductModelImpl implements _ProductModel {
         updatedAt
       ]);
 
-  /// Create a copy of ProductModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>
@@ -613,6 +624,7 @@ abstract class _ProductModel implements ProductModel {
       required final String title,
       final String description,
       final String category,
+      @JsonKey(name: 'listing_type') final String listingType,
       @JsonKey(name: 'price_per_unit') required final double pricePerUnit,
       final String unit,
       @JsonKey(name: 'min_order_quantity') final double minOrderQuantity,
@@ -659,6 +671,9 @@ abstract class _ProductModel implements ProductModel {
   @override
   String get category;
   @override
+  @JsonKey(name: 'listing_type')
+  String get listingType;
+  @override
   @JsonKey(name: 'price_per_unit')
   double get pricePerUnit;
   @override
@@ -704,11 +719,8 @@ abstract class _ProductModel implements ProductModel {
   @JsonKey(name: 'updated_at')
   @TimestampConverter()
   DateTime? get updatedAt;
-
-  /// Create a copy of ProductModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

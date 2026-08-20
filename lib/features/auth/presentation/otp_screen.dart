@@ -47,7 +47,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     final authNotifier = ref.read(authNotifierProvider.notifier);
     authNotifier.verifyOtp(
       _otpCode,
-      onSuccess: () => context.go('/role-selection'),
+      onSuccess: () => context.go('/splash'),
     );
   }
 
@@ -66,7 +66,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
         ),
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +104,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 64),
               SizedBox(
                 width: double.infinity,
                 height: 56,

@@ -25,6 +25,7 @@ class FarmerShell extends StatelessWidget {
           NavigationDestination(icon: Icon(Icons.inventory_2), label: 'Products'),
           NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Orders'),
           NavigationDestination(icon: Icon(Icons.analytics), label: 'Analytics'),
+          NavigationDestination(icon: Icon(Icons.handshake), label: 'B2B Offers'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),

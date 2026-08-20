@@ -19,7 +19,7 @@ class BuyerHomeScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         elevation: 0,
-        title: Text('Welcome, ${user?.displayName.split(' ').first ?? 'User'}', style: AppTypography.titleLarge.copyWith(color: AppColors.primary)),
+        title: Text('Welcome, ${(user?.displayName.isNotEmpty == true) ? user!.displayName.split(' ').first : 'User'}', style: AppTypography.titleLarge.copyWith(color: AppColors.primary)),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_none, color: AppColors.onSurfaceVariant),

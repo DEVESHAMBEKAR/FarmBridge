@@ -19,9 +19,9 @@ class LogisticsProfileSetupNotifier extends StateNotifier<LogisticsProfileSetupS
     state = const LogisticsProfileSetupState(isLoading: true);
     
     try {
-      final user = ref.read(currentUserProvider);
+      final user = ref.read(authStateProvider).value;
       if (user == null) {
-        throw Exception('User not found');
+        throw Exception('User not authenticated');
       }
 
       final firestoreRepo = ref.read(firestoreRepositoryProvider);

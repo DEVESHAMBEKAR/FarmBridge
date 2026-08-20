@@ -27,7 +27,7 @@ class _MarketplaceScreenState extends ConsumerState<MarketplaceScreen> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(currentUserProvider);
-    final productsAsync = ref.watch(allActiveProductsProvider);
+    final productsAsync = ref.watch(consumerProductsProvider);
     final cartAsync = ref.watch(cartProvider);
 
     int cartItemCount = 0;
@@ -68,7 +68,7 @@ class _MarketplaceScreenState extends ConsumerState<MarketplaceScreen> {
                 return RefreshIndicator(
                   onRefresh: () async {
                     // ignore: unused_result
-                    ref.refresh(allActiveProductsProvider);
+                    ref.refresh(consumerProductsProvider);
                   },
                   child: GridView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),

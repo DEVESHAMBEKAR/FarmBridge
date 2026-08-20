@@ -34,10 +34,19 @@ mixin _$UserModel {
   bool get isVerified => throw _privateConstructorUsedError;
   @JsonKey(name: 'fcm_token')
   String? get fcmToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'verification_status')
+  String get verificationStatus => throw _privateConstructorUsedError;
   @JsonKey(name: 'farmer_profile')
   FarmerProfile? get farmerProfile => throw _privateConstructorUsedError;
   @JsonKey(name: 'buyer_profile')
   BuyerProfile? get buyerProfile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'dealer_profile')
+  DealerProfile? get dealerProfile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wholesaler_profile')
+  WholesalerProfile? get wholesalerProfile =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'retailer_profile')
+  RetailerProfile? get retailerProfile => throw _privateConstructorUsedError;
   @JsonKey(name: 'logistics_profile')
   LogisticsProfile? get logisticsProfile => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -47,12 +56,8 @@ mixin _$UserModel {
   @TimestampConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
-  /// Serializes this UserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $UserModelCopyWith<UserModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,14 +77,21 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'is_profile_complete') bool isProfileComplete,
       @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'fcm_token') String? fcmToken,
+      @JsonKey(name: 'verification_status') String verificationStatus,
       @JsonKey(name: 'farmer_profile') FarmerProfile? farmerProfile,
       @JsonKey(name: 'buyer_profile') BuyerProfile? buyerProfile,
+      @JsonKey(name: 'dealer_profile') DealerProfile? dealerProfile,
+      @JsonKey(name: 'wholesaler_profile') WholesalerProfile? wholesalerProfile,
+      @JsonKey(name: 'retailer_profile') RetailerProfile? retailerProfile,
       @JsonKey(name: 'logistics_profile') LogisticsProfile? logisticsProfile,
       @JsonKey(name: 'created_at') @TimestampConverter() DateTime? createdAt,
       @JsonKey(name: 'updated_at') @TimestampConverter() DateTime? updatedAt});
 
   $FarmerProfileCopyWith<$Res>? get farmerProfile;
   $BuyerProfileCopyWith<$Res>? get buyerProfile;
+  $DealerProfileCopyWith<$Res>? get dealerProfile;
+  $WholesalerProfileCopyWith<$Res>? get wholesalerProfile;
+  $RetailerProfileCopyWith<$Res>? get retailerProfile;
   $LogisticsProfileCopyWith<$Res>? get logisticsProfile;
 }
 
@@ -93,8 +105,6 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -107,8 +117,12 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? isProfileComplete = null,
     Object? isVerified = null,
     Object? fcmToken = freezed,
+    Object? verificationStatus = null,
     Object? farmerProfile = freezed,
     Object? buyerProfile = freezed,
+    Object? dealerProfile = freezed,
+    Object? wholesalerProfile = freezed,
+    Object? retailerProfile = freezed,
     Object? logisticsProfile = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -150,6 +164,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.fcmToken
           : fcmToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      verificationStatus: null == verificationStatus
+          ? _value.verificationStatus
+          : verificationStatus // ignore: cast_nullable_to_non_nullable
+              as String,
       farmerProfile: freezed == farmerProfile
           ? _value.farmerProfile
           : farmerProfile // ignore: cast_nullable_to_non_nullable
@@ -158,6 +176,18 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.buyerProfile
           : buyerProfile // ignore: cast_nullable_to_non_nullable
               as BuyerProfile?,
+      dealerProfile: freezed == dealerProfile
+          ? _value.dealerProfile
+          : dealerProfile // ignore: cast_nullable_to_non_nullable
+              as DealerProfile?,
+      wholesalerProfile: freezed == wholesalerProfile
+          ? _value.wholesalerProfile
+          : wholesalerProfile // ignore: cast_nullable_to_non_nullable
+              as WholesalerProfile?,
+      retailerProfile: freezed == retailerProfile
+          ? _value.retailerProfile
+          : retailerProfile // ignore: cast_nullable_to_non_nullable
+              as RetailerProfile?,
       logisticsProfile: freezed == logisticsProfile
           ? _value.logisticsProfile
           : logisticsProfile // ignore: cast_nullable_to_non_nullable
@@ -173,8 +203,6 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     ) as $Val);
   }
 
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FarmerProfileCopyWith<$Res>? get farmerProfile {
@@ -187,8 +215,6 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     });
   }
 
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BuyerProfileCopyWith<$Res>? get buyerProfile {
@@ -201,8 +227,42 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     });
   }
 
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DealerProfileCopyWith<$Res>? get dealerProfile {
+    if (_value.dealerProfile == null) {
+      return null;
+    }
+
+    return $DealerProfileCopyWith<$Res>(_value.dealerProfile!, (value) {
+      return _then(_value.copyWith(dealerProfile: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $WholesalerProfileCopyWith<$Res>? get wholesalerProfile {
+    if (_value.wholesalerProfile == null) {
+      return null;
+    }
+
+    return $WholesalerProfileCopyWith<$Res>(_value.wholesalerProfile!, (value) {
+      return _then(_value.copyWith(wholesalerProfile: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RetailerProfileCopyWith<$Res>? get retailerProfile {
+    if (_value.retailerProfile == null) {
+      return null;
+    }
+
+    return $RetailerProfileCopyWith<$Res>(_value.retailerProfile!, (value) {
+      return _then(_value.copyWith(retailerProfile: value) as $Val);
+    });
+  }
+
   @override
   @pragma('vm:prefer-inline')
   $LogisticsProfileCopyWith<$Res>? get logisticsProfile {
@@ -234,8 +294,12 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: 'is_profile_complete') bool isProfileComplete,
       @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'fcm_token') String? fcmToken,
+      @JsonKey(name: 'verification_status') String verificationStatus,
       @JsonKey(name: 'farmer_profile') FarmerProfile? farmerProfile,
       @JsonKey(name: 'buyer_profile') BuyerProfile? buyerProfile,
+      @JsonKey(name: 'dealer_profile') DealerProfile? dealerProfile,
+      @JsonKey(name: 'wholesaler_profile') WholesalerProfile? wholesalerProfile,
+      @JsonKey(name: 'retailer_profile') RetailerProfile? retailerProfile,
       @JsonKey(name: 'logistics_profile') LogisticsProfile? logisticsProfile,
       @JsonKey(name: 'created_at') @TimestampConverter() DateTime? createdAt,
       @JsonKey(name: 'updated_at') @TimestampConverter() DateTime? updatedAt});
@@ -244,6 +308,12 @@ abstract class _$$UserModelImplCopyWith<$Res>
   $FarmerProfileCopyWith<$Res>? get farmerProfile;
   @override
   $BuyerProfileCopyWith<$Res>? get buyerProfile;
+  @override
+  $DealerProfileCopyWith<$Res>? get dealerProfile;
+  @override
+  $WholesalerProfileCopyWith<$Res>? get wholesalerProfile;
+  @override
+  $RetailerProfileCopyWith<$Res>? get retailerProfile;
   @override
   $LogisticsProfileCopyWith<$Res>? get logisticsProfile;
 }
@@ -256,8 +326,6 @@ class __$$UserModelImplCopyWithImpl<$Res>
       _$UserModelImpl _value, $Res Function(_$UserModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -270,8 +338,12 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? isProfileComplete = null,
     Object? isVerified = null,
     Object? fcmToken = freezed,
+    Object? verificationStatus = null,
     Object? farmerProfile = freezed,
     Object? buyerProfile = freezed,
+    Object? dealerProfile = freezed,
+    Object? wholesalerProfile = freezed,
+    Object? retailerProfile = freezed,
     Object? logisticsProfile = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -313,6 +385,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.fcmToken
           : fcmToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      verificationStatus: null == verificationStatus
+          ? _value.verificationStatus
+          : verificationStatus // ignore: cast_nullable_to_non_nullable
+              as String,
       farmerProfile: freezed == farmerProfile
           ? _value.farmerProfile
           : farmerProfile // ignore: cast_nullable_to_non_nullable
@@ -321,6 +397,18 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.buyerProfile
           : buyerProfile // ignore: cast_nullable_to_non_nullable
               as BuyerProfile?,
+      dealerProfile: freezed == dealerProfile
+          ? _value.dealerProfile
+          : dealerProfile // ignore: cast_nullable_to_non_nullable
+              as DealerProfile?,
+      wholesalerProfile: freezed == wholesalerProfile
+          ? _value.wholesalerProfile
+          : wholesalerProfile // ignore: cast_nullable_to_non_nullable
+              as WholesalerProfile?,
+      retailerProfile: freezed == retailerProfile
+          ? _value.retailerProfile
+          : retailerProfile // ignore: cast_nullable_to_non_nullable
+              as RetailerProfile?,
       logisticsProfile: freezed == logisticsProfile
           ? _value.logisticsProfile
           : logisticsProfile // ignore: cast_nullable_to_non_nullable
@@ -350,8 +438,12 @@ class _$UserModelImpl implements _UserModel {
       @JsonKey(name: 'is_profile_complete') this.isProfileComplete = false,
       @JsonKey(name: 'is_verified') this.isVerified = false,
       @JsonKey(name: 'fcm_token') this.fcmToken,
+      @JsonKey(name: 'verification_status') this.verificationStatus = 'PENDING',
       @JsonKey(name: 'farmer_profile') this.farmerProfile,
       @JsonKey(name: 'buyer_profile') this.buyerProfile,
+      @JsonKey(name: 'dealer_profile') this.dealerProfile,
+      @JsonKey(name: 'wholesaler_profile') this.wholesalerProfile,
+      @JsonKey(name: 'retailer_profile') this.retailerProfile,
       @JsonKey(name: 'logistics_profile') this.logisticsProfile,
       @JsonKey(name: 'created_at') @TimestampConverter() this.createdAt,
       @JsonKey(name: 'updated_at') @TimestampConverter() this.updatedAt});
@@ -384,11 +476,23 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey(name: 'fcm_token')
   final String? fcmToken;
   @override
+  @JsonKey(name: 'verification_status')
+  final String verificationStatus;
+  @override
   @JsonKey(name: 'farmer_profile')
   final FarmerProfile? farmerProfile;
   @override
   @JsonKey(name: 'buyer_profile')
   final BuyerProfile? buyerProfile;
+  @override
+  @JsonKey(name: 'dealer_profile')
+  final DealerProfile? dealerProfile;
+  @override
+  @JsonKey(name: 'wholesaler_profile')
+  final WholesalerProfile? wholesalerProfile;
+  @override
+  @JsonKey(name: 'retailer_profile')
+  final RetailerProfile? retailerProfile;
   @override
   @JsonKey(name: 'logistics_profile')
   final LogisticsProfile? logisticsProfile;
@@ -403,7 +507,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, phone: $phone, email: $email, displayName: $displayName, photoUrl: $photoUrl, role: $role, isProfileComplete: $isProfileComplete, isVerified: $isVerified, fcmToken: $fcmToken, farmerProfile: $farmerProfile, buyerProfile: $buyerProfile, logisticsProfile: $logisticsProfile, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserModel(uid: $uid, phone: $phone, email: $email, displayName: $displayName, photoUrl: $photoUrl, role: $role, isProfileComplete: $isProfileComplete, isVerified: $isVerified, fcmToken: $fcmToken, verificationStatus: $verificationStatus, farmerProfile: $farmerProfile, buyerProfile: $buyerProfile, dealerProfile: $dealerProfile, wholesalerProfile: $wholesalerProfile, retailerProfile: $retailerProfile, logisticsProfile: $logisticsProfile, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -425,10 +529,18 @@ class _$UserModelImpl implements _UserModel {
                 other.isVerified == isVerified) &&
             (identical(other.fcmToken, fcmToken) ||
                 other.fcmToken == fcmToken) &&
+            (identical(other.verificationStatus, verificationStatus) ||
+                other.verificationStatus == verificationStatus) &&
             (identical(other.farmerProfile, farmerProfile) ||
                 other.farmerProfile == farmerProfile) &&
             (identical(other.buyerProfile, buyerProfile) ||
                 other.buyerProfile == buyerProfile) &&
+            (identical(other.dealerProfile, dealerProfile) ||
+                other.dealerProfile == dealerProfile) &&
+            (identical(other.wholesalerProfile, wholesalerProfile) ||
+                other.wholesalerProfile == wholesalerProfile) &&
+            (identical(other.retailerProfile, retailerProfile) ||
+                other.retailerProfile == retailerProfile) &&
             (identical(other.logisticsProfile, logisticsProfile) ||
                 other.logisticsProfile == logisticsProfile) &&
             (identical(other.createdAt, createdAt) ||
@@ -437,7 +549,7 @@ class _$UserModelImpl implements _UserModel {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -450,15 +562,17 @@ class _$UserModelImpl implements _UserModel {
       isProfileComplete,
       isVerified,
       fcmToken,
+      verificationStatus,
       farmerProfile,
       buyerProfile,
+      dealerProfile,
+      wholesalerProfile,
+      retailerProfile,
       logisticsProfile,
       createdAt,
       updatedAt);
 
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
@@ -483,8 +597,13 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: 'is_profile_complete') final bool isProfileComplete,
       @JsonKey(name: 'is_verified') final bool isVerified,
       @JsonKey(name: 'fcm_token') final String? fcmToken,
+      @JsonKey(name: 'verification_status') final String verificationStatus,
       @JsonKey(name: 'farmer_profile') final FarmerProfile? farmerProfile,
       @JsonKey(name: 'buyer_profile') final BuyerProfile? buyerProfile,
+      @JsonKey(name: 'dealer_profile') final DealerProfile? dealerProfile,
+      @JsonKey(name: 'wholesaler_profile')
+      final WholesalerProfile? wholesalerProfile,
+      @JsonKey(name: 'retailer_profile') final RetailerProfile? retailerProfile,
       @JsonKey(name: 'logistics_profile')
       final LogisticsProfile? logisticsProfile,
       @JsonKey(name: 'created_at')
@@ -521,11 +640,23 @@ abstract class _UserModel implements UserModel {
   @JsonKey(name: 'fcm_token')
   String? get fcmToken;
   @override
+  @JsonKey(name: 'verification_status')
+  String get verificationStatus;
+  @override
   @JsonKey(name: 'farmer_profile')
   FarmerProfile? get farmerProfile;
   @override
   @JsonKey(name: 'buyer_profile')
   BuyerProfile? get buyerProfile;
+  @override
+  @JsonKey(name: 'dealer_profile')
+  DealerProfile? get dealerProfile;
+  @override
+  @JsonKey(name: 'wholesaler_profile')
+  WholesalerProfile? get wholesalerProfile;
+  @override
+  @JsonKey(name: 'retailer_profile')
+  RetailerProfile? get retailerProfile;
   @override
   @JsonKey(name: 'logistics_profile')
   LogisticsProfile? get logisticsProfile;
@@ -537,11 +668,8 @@ abstract class _UserModel implements UserModel {
   @JsonKey(name: 'updated_at')
   @TimestampConverter()
   DateTime? get updatedAt;
-
-  /// Create a copy of UserModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -565,12 +693,8 @@ mixin _$FarmerProfile {
   @JsonKey(name: 'bank_account_linked')
   bool get bankAccountLinked => throw _privateConstructorUsedError;
 
-  /// Serializes this FarmerProfile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of FarmerProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $FarmerProfileCopyWith<FarmerProfile> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -600,8 +724,6 @@ class _$FarmerProfileCopyWithImpl<$Res, $Val extends FarmerProfile>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of FarmerProfile
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -666,8 +788,6 @@ class __$$FarmerProfileImplCopyWithImpl<$Res>
       _$FarmerProfileImpl _value, $Res Function(_$FarmerProfileImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FarmerProfile
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -771,7 +891,7 @@ class _$FarmerProfileImpl implements _FarmerProfile {
                 other.bankAccountLinked == bankAccountLinked));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -782,9 +902,7 @@ class _$FarmerProfileImpl implements _FarmerProfile {
       organicCertified,
       bankAccountLinked);
 
-  /// Create a copy of FarmerProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FarmerProfileImplCopyWith<_$FarmerProfileImpl> get copyWith =>
@@ -829,11 +947,8 @@ abstract class _FarmerProfile implements FarmerProfile {
   @override
   @JsonKey(name: 'bank_account_linked')
   bool get bankAccountLinked;
-
-  /// Create a copy of FarmerProfile
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FarmerProfileImplCopyWith<_$FarmerProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -851,12 +966,8 @@ mixin _$BuyerProfile {
   @JsonKey(name: 'preferred_categories')
   List<String> get preferredCategories => throw _privateConstructorUsedError;
 
-  /// Serializes this BuyerProfile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of BuyerProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BuyerProfileCopyWith<BuyerProfile> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -884,8 +995,6 @@ class _$BuyerProfileCopyWithImpl<$Res, $Val extends BuyerProfile>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BuyerProfile
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -938,8 +1047,6 @@ class __$$BuyerProfileImplCopyWithImpl<$Res>
       _$BuyerProfileImpl _value, $Res Function(_$BuyerProfileImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BuyerProfile
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1020,14 +1127,12 @@ class _$BuyerProfileImpl implements _BuyerProfile {
                 .equals(other._preferredCategories, _preferredCategories));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, deliveryAddress, city, pincode,
       const DeepCollectionEquality().hash(_preferredCategories));
 
-  /// Create a copy of BuyerProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BuyerProfileImplCopyWith<_$BuyerProfileImpl> get copyWith =>
@@ -1062,11 +1167,8 @@ abstract class _BuyerProfile implements BuyerProfile {
   @override
   @JsonKey(name: 'preferred_categories')
   List<String> get preferredCategories;
-
-  /// Create a copy of BuyerProfile
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$BuyerProfileImplCopyWith<_$BuyerProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1088,12 +1190,8 @@ mixin _$LogisticsProfile {
   @JsonKey(name: 'is_available')
   bool get isAvailable => throw _privateConstructorUsedError;
 
-  /// Serializes this LogisticsProfile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of LogisticsProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $LogisticsProfileCopyWith<LogisticsProfile> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1122,8 +1220,6 @@ class _$LogisticsProfileCopyWithImpl<$Res, $Val extends LogisticsProfile>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of LogisticsProfile
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1182,8 +1278,6 @@ class __$$LogisticsProfileImplCopyWithImpl<$Res>
       $Res Function(_$LogisticsProfileImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of LogisticsProfile
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1276,7 +1370,7 @@ class _$LogisticsProfileImpl implements _LogisticsProfile {
                 other.isAvailable == isAvailable));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1286,9 +1380,7 @@ class _$LogisticsProfileImpl implements _LogisticsProfile {
       const DeepCollectionEquality().hash(_serviceArea),
       isAvailable);
 
-  /// Create a copy of LogisticsProfile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$LogisticsProfileImplCopyWith<_$LogisticsProfileImpl> get copyWith =>
@@ -1330,11 +1422,913 @@ abstract class _LogisticsProfile implements LogisticsProfile {
   @override
   @JsonKey(name: 'is_available')
   bool get isAvailable;
-
-  /// Create a copy of LogisticsProfile
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$LogisticsProfileImplCopyWith<_$LogisticsProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+DealerProfile _$DealerProfileFromJson(Map<String, dynamic> json) {
+  return _DealerProfile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$DealerProfile {
+  @JsonKey(name: 'delivery_address')
+  String get deliveryAddress => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
+  String get pincode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories => throw _privateConstructorUsedError;
+  @JsonKey(name: 'gst_number')
+  String get gstNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'business_name')
+  String get businessName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'business_type')
+  String get businessType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DealerProfileCopyWith<DealerProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DealerProfileCopyWith<$Res> {
+  factory $DealerProfileCopyWith(
+          DealerProfile value, $Res Function(DealerProfile) then) =
+      _$DealerProfileCopyWithImpl<$Res, DealerProfile>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'delivery_address') String deliveryAddress,
+      String city,
+      String pincode,
+      @JsonKey(name: 'preferred_categories') List<String> preferredCategories,
+      @JsonKey(name: 'gst_number') String gstNumber,
+      @JsonKey(name: 'business_name') String businessName,
+      @JsonKey(name: 'business_type') String businessType});
+}
+
+/// @nodoc
+class _$DealerProfileCopyWithImpl<$Res, $Val extends DealerProfile>
+    implements $DealerProfileCopyWith<$Res> {
+  _$DealerProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryAddress = null,
+    Object? city = null,
+    Object? pincode = null,
+    Object? preferredCategories = null,
+    Object? gstNumber = null,
+    Object? businessName = null,
+    Object? businessType = null,
+  }) {
+    return _then(_value.copyWith(
+      deliveryAddress: null == deliveryAddress
+          ? _value.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      preferredCategories: null == preferredCategories
+          ? _value.preferredCategories
+          : preferredCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      gstNumber: null == gstNumber
+          ? _value.gstNumber
+          : gstNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessName: null == businessName
+          ? _value.businessName
+          : businessName // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessType: null == businessType
+          ? _value.businessType
+          : businessType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DealerProfileImplCopyWith<$Res>
+    implements $DealerProfileCopyWith<$Res> {
+  factory _$$DealerProfileImplCopyWith(
+          _$DealerProfileImpl value, $Res Function(_$DealerProfileImpl) then) =
+      __$$DealerProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'delivery_address') String deliveryAddress,
+      String city,
+      String pincode,
+      @JsonKey(name: 'preferred_categories') List<String> preferredCategories,
+      @JsonKey(name: 'gst_number') String gstNumber,
+      @JsonKey(name: 'business_name') String businessName,
+      @JsonKey(name: 'business_type') String businessType});
+}
+
+/// @nodoc
+class __$$DealerProfileImplCopyWithImpl<$Res>
+    extends _$DealerProfileCopyWithImpl<$Res, _$DealerProfileImpl>
+    implements _$$DealerProfileImplCopyWith<$Res> {
+  __$$DealerProfileImplCopyWithImpl(
+      _$DealerProfileImpl _value, $Res Function(_$DealerProfileImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryAddress = null,
+    Object? city = null,
+    Object? pincode = null,
+    Object? preferredCategories = null,
+    Object? gstNumber = null,
+    Object? businessName = null,
+    Object? businessType = null,
+  }) {
+    return _then(_$DealerProfileImpl(
+      deliveryAddress: null == deliveryAddress
+          ? _value.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      preferredCategories: null == preferredCategories
+          ? _value._preferredCategories
+          : preferredCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      gstNumber: null == gstNumber
+          ? _value.gstNumber
+          : gstNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessName: null == businessName
+          ? _value.businessName
+          : businessName // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessType: null == businessType
+          ? _value.businessType
+          : businessType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DealerProfileImpl implements _DealerProfile {
+  const _$DealerProfileImpl(
+      {@JsonKey(name: 'delivery_address') this.deliveryAddress = '',
+      this.city = '',
+      this.pincode = '',
+      @JsonKey(name: 'preferred_categories')
+      final List<String> preferredCategories = const [],
+      @JsonKey(name: 'gst_number') this.gstNumber = '',
+      @JsonKey(name: 'business_name') this.businessName = '',
+      @JsonKey(name: 'business_type') this.businessType = ''})
+      : _preferredCategories = preferredCategories;
+
+  factory _$DealerProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DealerProfileImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'delivery_address')
+  final String deliveryAddress;
+  @override
+  @JsonKey()
+  final String city;
+  @override
+  @JsonKey()
+  final String pincode;
+  final List<String> _preferredCategories;
+  @override
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories {
+    if (_preferredCategories is EqualUnmodifiableListView)
+      return _preferredCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_preferredCategories);
+  }
+
+  @override
+  @JsonKey(name: 'gst_number')
+  final String gstNumber;
+  @override
+  @JsonKey(name: 'business_name')
+  final String businessName;
+  @override
+  @JsonKey(name: 'business_type')
+  final String businessType;
+
+  @override
+  String toString() {
+    return 'DealerProfile(deliveryAddress: $deliveryAddress, city: $city, pincode: $pincode, preferredCategories: $preferredCategories, gstNumber: $gstNumber, businessName: $businessName, businessType: $businessType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DealerProfileImpl &&
+            (identical(other.deliveryAddress, deliveryAddress) ||
+                other.deliveryAddress == deliveryAddress) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.pincode, pincode) || other.pincode == pincode) &&
+            const DeepCollectionEquality()
+                .equals(other._preferredCategories, _preferredCategories) &&
+            (identical(other.gstNumber, gstNumber) ||
+                other.gstNumber == gstNumber) &&
+            (identical(other.businessName, businessName) ||
+                other.businessName == businessName) &&
+            (identical(other.businessType, businessType) ||
+                other.businessType == businessType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      deliveryAddress,
+      city,
+      pincode,
+      const DeepCollectionEquality().hash(_preferredCategories),
+      gstNumber,
+      businessName,
+      businessType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DealerProfileImplCopyWith<_$DealerProfileImpl> get copyWith =>
+      __$$DealerProfileImplCopyWithImpl<_$DealerProfileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DealerProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _DealerProfile implements DealerProfile {
+  const factory _DealerProfile(
+          {@JsonKey(name: 'delivery_address') final String deliveryAddress,
+          final String city,
+          final String pincode,
+          @JsonKey(name: 'preferred_categories')
+          final List<String> preferredCategories,
+          @JsonKey(name: 'gst_number') final String gstNumber,
+          @JsonKey(name: 'business_name') final String businessName,
+          @JsonKey(name: 'business_type') final String businessType}) =
+      _$DealerProfileImpl;
+
+  factory _DealerProfile.fromJson(Map<String, dynamic> json) =
+      _$DealerProfileImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'delivery_address')
+  String get deliveryAddress;
+  @override
+  String get city;
+  @override
+  String get pincode;
+  @override
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories;
+  @override
+  @JsonKey(name: 'gst_number')
+  String get gstNumber;
+  @override
+  @JsonKey(name: 'business_name')
+  String get businessName;
+  @override
+  @JsonKey(name: 'business_type')
+  String get businessType;
+  @override
+  @JsonKey(ignore: true)
+  _$$DealerProfileImplCopyWith<_$DealerProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+WholesalerProfile _$WholesalerProfileFromJson(Map<String, dynamic> json) {
+  return _WholesalerProfile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$WholesalerProfile {
+  @JsonKey(name: 'delivery_address')
+  String get deliveryAddress => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
+  String get pincode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories => throw _privateConstructorUsedError;
+  @JsonKey(name: 'gst_number')
+  String get gstNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'business_name')
+  String get businessName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'business_type')
+  String get businessType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $WholesalerProfileCopyWith<WholesalerProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $WholesalerProfileCopyWith<$Res> {
+  factory $WholesalerProfileCopyWith(
+          WholesalerProfile value, $Res Function(WholesalerProfile) then) =
+      _$WholesalerProfileCopyWithImpl<$Res, WholesalerProfile>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'delivery_address') String deliveryAddress,
+      String city,
+      String pincode,
+      @JsonKey(name: 'preferred_categories') List<String> preferredCategories,
+      @JsonKey(name: 'gst_number') String gstNumber,
+      @JsonKey(name: 'business_name') String businessName,
+      @JsonKey(name: 'business_type') String businessType});
+}
+
+/// @nodoc
+class _$WholesalerProfileCopyWithImpl<$Res, $Val extends WholesalerProfile>
+    implements $WholesalerProfileCopyWith<$Res> {
+  _$WholesalerProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryAddress = null,
+    Object? city = null,
+    Object? pincode = null,
+    Object? preferredCategories = null,
+    Object? gstNumber = null,
+    Object? businessName = null,
+    Object? businessType = null,
+  }) {
+    return _then(_value.copyWith(
+      deliveryAddress: null == deliveryAddress
+          ? _value.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      preferredCategories: null == preferredCategories
+          ? _value.preferredCategories
+          : preferredCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      gstNumber: null == gstNumber
+          ? _value.gstNumber
+          : gstNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessName: null == businessName
+          ? _value.businessName
+          : businessName // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessType: null == businessType
+          ? _value.businessType
+          : businessType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$WholesalerProfileImplCopyWith<$Res>
+    implements $WholesalerProfileCopyWith<$Res> {
+  factory _$$WholesalerProfileImplCopyWith(_$WholesalerProfileImpl value,
+          $Res Function(_$WholesalerProfileImpl) then) =
+      __$$WholesalerProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'delivery_address') String deliveryAddress,
+      String city,
+      String pincode,
+      @JsonKey(name: 'preferred_categories') List<String> preferredCategories,
+      @JsonKey(name: 'gst_number') String gstNumber,
+      @JsonKey(name: 'business_name') String businessName,
+      @JsonKey(name: 'business_type') String businessType});
+}
+
+/// @nodoc
+class __$$WholesalerProfileImplCopyWithImpl<$Res>
+    extends _$WholesalerProfileCopyWithImpl<$Res, _$WholesalerProfileImpl>
+    implements _$$WholesalerProfileImplCopyWith<$Res> {
+  __$$WholesalerProfileImplCopyWithImpl(_$WholesalerProfileImpl _value,
+      $Res Function(_$WholesalerProfileImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryAddress = null,
+    Object? city = null,
+    Object? pincode = null,
+    Object? preferredCategories = null,
+    Object? gstNumber = null,
+    Object? businessName = null,
+    Object? businessType = null,
+  }) {
+    return _then(_$WholesalerProfileImpl(
+      deliveryAddress: null == deliveryAddress
+          ? _value.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      preferredCategories: null == preferredCategories
+          ? _value._preferredCategories
+          : preferredCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      gstNumber: null == gstNumber
+          ? _value.gstNumber
+          : gstNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessName: null == businessName
+          ? _value.businessName
+          : businessName // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessType: null == businessType
+          ? _value.businessType
+          : businessType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$WholesalerProfileImpl implements _WholesalerProfile {
+  const _$WholesalerProfileImpl(
+      {@JsonKey(name: 'delivery_address') this.deliveryAddress = '',
+      this.city = '',
+      this.pincode = '',
+      @JsonKey(name: 'preferred_categories')
+      final List<String> preferredCategories = const [],
+      @JsonKey(name: 'gst_number') this.gstNumber = '',
+      @JsonKey(name: 'business_name') this.businessName = '',
+      @JsonKey(name: 'business_type') this.businessType = ''})
+      : _preferredCategories = preferredCategories;
+
+  factory _$WholesalerProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WholesalerProfileImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'delivery_address')
+  final String deliveryAddress;
+  @override
+  @JsonKey()
+  final String city;
+  @override
+  @JsonKey()
+  final String pincode;
+  final List<String> _preferredCategories;
+  @override
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories {
+    if (_preferredCategories is EqualUnmodifiableListView)
+      return _preferredCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_preferredCategories);
+  }
+
+  @override
+  @JsonKey(name: 'gst_number')
+  final String gstNumber;
+  @override
+  @JsonKey(name: 'business_name')
+  final String businessName;
+  @override
+  @JsonKey(name: 'business_type')
+  final String businessType;
+
+  @override
+  String toString() {
+    return 'WholesalerProfile(deliveryAddress: $deliveryAddress, city: $city, pincode: $pincode, preferredCategories: $preferredCategories, gstNumber: $gstNumber, businessName: $businessName, businessType: $businessType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$WholesalerProfileImpl &&
+            (identical(other.deliveryAddress, deliveryAddress) ||
+                other.deliveryAddress == deliveryAddress) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.pincode, pincode) || other.pincode == pincode) &&
+            const DeepCollectionEquality()
+                .equals(other._preferredCategories, _preferredCategories) &&
+            (identical(other.gstNumber, gstNumber) ||
+                other.gstNumber == gstNumber) &&
+            (identical(other.businessName, businessName) ||
+                other.businessName == businessName) &&
+            (identical(other.businessType, businessType) ||
+                other.businessType == businessType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      deliveryAddress,
+      city,
+      pincode,
+      const DeepCollectionEquality().hash(_preferredCategories),
+      gstNumber,
+      businessName,
+      businessType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WholesalerProfileImplCopyWith<_$WholesalerProfileImpl> get copyWith =>
+      __$$WholesalerProfileImplCopyWithImpl<_$WholesalerProfileImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$WholesalerProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _WholesalerProfile implements WholesalerProfile {
+  const factory _WholesalerProfile(
+          {@JsonKey(name: 'delivery_address') final String deliveryAddress,
+          final String city,
+          final String pincode,
+          @JsonKey(name: 'preferred_categories')
+          final List<String> preferredCategories,
+          @JsonKey(name: 'gst_number') final String gstNumber,
+          @JsonKey(name: 'business_name') final String businessName,
+          @JsonKey(name: 'business_type') final String businessType}) =
+      _$WholesalerProfileImpl;
+
+  factory _WholesalerProfile.fromJson(Map<String, dynamic> json) =
+      _$WholesalerProfileImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'delivery_address')
+  String get deliveryAddress;
+  @override
+  String get city;
+  @override
+  String get pincode;
+  @override
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories;
+  @override
+  @JsonKey(name: 'gst_number')
+  String get gstNumber;
+  @override
+  @JsonKey(name: 'business_name')
+  String get businessName;
+  @override
+  @JsonKey(name: 'business_type')
+  String get businessType;
+  @override
+  @JsonKey(ignore: true)
+  _$$WholesalerProfileImplCopyWith<_$WholesalerProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RetailerProfile _$RetailerProfileFromJson(Map<String, dynamic> json) {
+  return _RetailerProfile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RetailerProfile {
+  @JsonKey(name: 'delivery_address')
+  String get deliveryAddress => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
+  String get pincode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories => throw _privateConstructorUsedError;
+  @JsonKey(name: 'gst_number')
+  String get gstNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'business_name')
+  String get businessName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'business_type')
+  String get businessType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RetailerProfileCopyWith<RetailerProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RetailerProfileCopyWith<$Res> {
+  factory $RetailerProfileCopyWith(
+          RetailerProfile value, $Res Function(RetailerProfile) then) =
+      _$RetailerProfileCopyWithImpl<$Res, RetailerProfile>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'delivery_address') String deliveryAddress,
+      String city,
+      String pincode,
+      @JsonKey(name: 'preferred_categories') List<String> preferredCategories,
+      @JsonKey(name: 'gst_number') String gstNumber,
+      @JsonKey(name: 'business_name') String businessName,
+      @JsonKey(name: 'business_type') String businessType});
+}
+
+/// @nodoc
+class _$RetailerProfileCopyWithImpl<$Res, $Val extends RetailerProfile>
+    implements $RetailerProfileCopyWith<$Res> {
+  _$RetailerProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryAddress = null,
+    Object? city = null,
+    Object? pincode = null,
+    Object? preferredCategories = null,
+    Object? gstNumber = null,
+    Object? businessName = null,
+    Object? businessType = null,
+  }) {
+    return _then(_value.copyWith(
+      deliveryAddress: null == deliveryAddress
+          ? _value.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      preferredCategories: null == preferredCategories
+          ? _value.preferredCategories
+          : preferredCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      gstNumber: null == gstNumber
+          ? _value.gstNumber
+          : gstNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessName: null == businessName
+          ? _value.businessName
+          : businessName // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessType: null == businessType
+          ? _value.businessType
+          : businessType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$RetailerProfileImplCopyWith<$Res>
+    implements $RetailerProfileCopyWith<$Res> {
+  factory _$$RetailerProfileImplCopyWith(_$RetailerProfileImpl value,
+          $Res Function(_$RetailerProfileImpl) then) =
+      __$$RetailerProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'delivery_address') String deliveryAddress,
+      String city,
+      String pincode,
+      @JsonKey(name: 'preferred_categories') List<String> preferredCategories,
+      @JsonKey(name: 'gst_number') String gstNumber,
+      @JsonKey(name: 'business_name') String businessName,
+      @JsonKey(name: 'business_type') String businessType});
+}
+
+/// @nodoc
+class __$$RetailerProfileImplCopyWithImpl<$Res>
+    extends _$RetailerProfileCopyWithImpl<$Res, _$RetailerProfileImpl>
+    implements _$$RetailerProfileImplCopyWith<$Res> {
+  __$$RetailerProfileImplCopyWithImpl(
+      _$RetailerProfileImpl _value, $Res Function(_$RetailerProfileImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryAddress = null,
+    Object? city = null,
+    Object? pincode = null,
+    Object? preferredCategories = null,
+    Object? gstNumber = null,
+    Object? businessName = null,
+    Object? businessType = null,
+  }) {
+    return _then(_$RetailerProfileImpl(
+      deliveryAddress: null == deliveryAddress
+          ? _value.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      preferredCategories: null == preferredCategories
+          ? _value._preferredCategories
+          : preferredCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      gstNumber: null == gstNumber
+          ? _value.gstNumber
+          : gstNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessName: null == businessName
+          ? _value.businessName
+          : businessName // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessType: null == businessType
+          ? _value.businessType
+          : businessType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RetailerProfileImpl implements _RetailerProfile {
+  const _$RetailerProfileImpl(
+      {@JsonKey(name: 'delivery_address') this.deliveryAddress = '',
+      this.city = '',
+      this.pincode = '',
+      @JsonKey(name: 'preferred_categories')
+      final List<String> preferredCategories = const [],
+      @JsonKey(name: 'gst_number') this.gstNumber = '',
+      @JsonKey(name: 'business_name') this.businessName = '',
+      @JsonKey(name: 'business_type') this.businessType = ''})
+      : _preferredCategories = preferredCategories;
+
+  factory _$RetailerProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RetailerProfileImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'delivery_address')
+  final String deliveryAddress;
+  @override
+  @JsonKey()
+  final String city;
+  @override
+  @JsonKey()
+  final String pincode;
+  final List<String> _preferredCategories;
+  @override
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories {
+    if (_preferredCategories is EqualUnmodifiableListView)
+      return _preferredCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_preferredCategories);
+  }
+
+  @override
+  @JsonKey(name: 'gst_number')
+  final String gstNumber;
+  @override
+  @JsonKey(name: 'business_name')
+  final String businessName;
+  @override
+  @JsonKey(name: 'business_type')
+  final String businessType;
+
+  @override
+  String toString() {
+    return 'RetailerProfile(deliveryAddress: $deliveryAddress, city: $city, pincode: $pincode, preferredCategories: $preferredCategories, gstNumber: $gstNumber, businessName: $businessName, businessType: $businessType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RetailerProfileImpl &&
+            (identical(other.deliveryAddress, deliveryAddress) ||
+                other.deliveryAddress == deliveryAddress) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.pincode, pincode) || other.pincode == pincode) &&
+            const DeepCollectionEquality()
+                .equals(other._preferredCategories, _preferredCategories) &&
+            (identical(other.gstNumber, gstNumber) ||
+                other.gstNumber == gstNumber) &&
+            (identical(other.businessName, businessName) ||
+                other.businessName == businessName) &&
+            (identical(other.businessType, businessType) ||
+                other.businessType == businessType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      deliveryAddress,
+      city,
+      pincode,
+      const DeepCollectionEquality().hash(_preferredCategories),
+      gstNumber,
+      businessName,
+      businessType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RetailerProfileImplCopyWith<_$RetailerProfileImpl> get copyWith =>
+      __$$RetailerProfileImplCopyWithImpl<_$RetailerProfileImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RetailerProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RetailerProfile implements RetailerProfile {
+  const factory _RetailerProfile(
+          {@JsonKey(name: 'delivery_address') final String deliveryAddress,
+          final String city,
+          final String pincode,
+          @JsonKey(name: 'preferred_categories')
+          final List<String> preferredCategories,
+          @JsonKey(name: 'gst_number') final String gstNumber,
+          @JsonKey(name: 'business_name') final String businessName,
+          @JsonKey(name: 'business_type') final String businessType}) =
+      _$RetailerProfileImpl;
+
+  factory _RetailerProfile.fromJson(Map<String, dynamic> json) =
+      _$RetailerProfileImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'delivery_address')
+  String get deliveryAddress;
+  @override
+  String get city;
+  @override
+  String get pincode;
+  @override
+  @JsonKey(name: 'preferred_categories')
+  List<String> get preferredCategories;
+  @override
+  @JsonKey(name: 'gst_number')
+  String get gstNumber;
+  @override
+  @JsonKey(name: 'business_name')
+  String get businessName;
+  @override
+  @JsonKey(name: 'business_type')
+  String get businessType;
+  @override
+  @JsonKey(ignore: true)
+  _$$RetailerProfileImplCopyWith<_$RetailerProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

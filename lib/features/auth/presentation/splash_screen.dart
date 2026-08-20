@@ -90,30 +90,41 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
           if (snapshot.exists && snapshot.data() != null) {
             final userModel = UserModel.fromJson(snapshot.data()!);
             final role = userModel.role.toLowerCase();
+
+            // Auto-promotion for Super Admin accounts
+            if (((user.phoneNumber != null && user.phoneNumber!.contains('7972327984')) || (user.email != null && user.email == 'ambekardevesh2@gmail.com')) && role != 'system_admin') {
+              await firestoreRepo.updateDocument(
+                collection: 'users',
+                documentId: user.uid,
+                data: {'role': 'system_admin'},
+              );
+              if (mounted) context.go('/splash'); // Reload to apply new role
+              return;
+            }
             
             if (!userModel.isProfileComplete) {
               if (role == 'farmer') {
                 context.go('/farmer/profile-setup');
               } else if (role == 'logistics') {
                 context.go('/delivery/profile-setup');
+              } else if (['dealer', 'wholesaler', 'retailer'].contains(role)) {
+                context.go('/dealer/profile-setup');
               } else {
                 context.go('/buyer/profile-setup');
               }
             } else {
-              if ((role == 'farmer' || role == 'logistics') && !userModel.isVerified) {
+              if ((role == 'farmer' || role == 'logistics' || ['dealer', 'wholesaler', 'retailer'].contains(role)) && !userModel.isVerified) {
                 context.go('/verification-pending');
               } else if (role == 'farmer') {
                 context.go('/farmer/dashboard');
-              } else if (role == 'buyer' || role == 'wholesaler') {
+              } else if (['dealer', 'wholesaler', 'retailer'].contains(role)) {
+                context.go('/dealer/home');
+              } else if (role == 'buyer') {
                 context.go('/buyer/home');
               } else if (role == 'logistics') {
                 context.go('/delivery/dashboard');
-              } else if (role == 'admin') {
-                if (kIsWeb) {
-                  context.go('/admin/dashboard');
-                } else {
-                  context.go('/admin/web-only');
-                }
+              } else if (role == 'admin' || role == 'system_admin') {
+                context.go('/admin/dashboard');
               } else {
                 context.go('/buyer/home');
               }

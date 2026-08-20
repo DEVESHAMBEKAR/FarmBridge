@@ -17,6 +17,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       isProfileComplete: json['is_profile_complete'] as bool? ?? false,
       isVerified: json['is_verified'] as bool? ?? false,
       fcmToken: json['fcm_token'] as String?,
+      verificationStatus: json['verification_status'] as String? ?? 'PENDING',
       farmerProfile: json['farmer_profile'] == null
           ? null
           : FarmerProfile.fromJson(
@@ -25,6 +26,18 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : BuyerProfile.fromJson(
               json['buyer_profile'] as Map<String, dynamic>),
+      dealerProfile: json['dealer_profile'] == null
+          ? null
+          : DealerProfile.fromJson(
+              json['dealer_profile'] as Map<String, dynamic>),
+      wholesalerProfile: json['wholesaler_profile'] == null
+          ? null
+          : WholesalerProfile.fromJson(
+              json['wholesaler_profile'] as Map<String, dynamic>),
+      retailerProfile: json['retailer_profile'] == null
+          ? null
+          : RetailerProfile.fromJson(
+              json['retailer_profile'] as Map<String, dynamic>),
       logisticsProfile: json['logistics_profile'] == null
           ? null
           : LogisticsProfile.fromJson(
@@ -46,8 +59,12 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'is_profile_complete': instance.isProfileComplete,
       'is_verified': instance.isVerified,
       'fcm_token': instance.fcmToken,
+      'verification_status': instance.verificationStatus,
       'farmer_profile': instance.farmerProfile,
       'buyer_profile': instance.buyerProfile,
+      'dealer_profile': instance.dealerProfile,
+      'wholesaler_profile': instance.wholesalerProfile,
+      'retailer_profile': instance.retailerProfile,
       'logistics_profile': instance.logisticsProfile,
       'created_at': const TimestampConverter().toJson(instance.createdAt),
       'updated_at': const TimestampConverter().toJson(instance.updatedAt),
@@ -116,4 +133,83 @@ Map<String, dynamic> _$$LogisticsProfileImplToJson(
       'license_number': instance.licenseNumber,
       'service_area': instance.serviceArea,
       'is_available': instance.isAvailable,
+    };
+
+_$DealerProfileImpl _$$DealerProfileImplFromJson(Map<String, dynamic> json) =>
+    _$DealerProfileImpl(
+      deliveryAddress: json['delivery_address'] as String? ?? '',
+      city: json['city'] as String? ?? '',
+      pincode: json['pincode'] as String? ?? '',
+      preferredCategories: (json['preferred_categories'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      gstNumber: json['gst_number'] as String? ?? '',
+      businessName: json['business_name'] as String? ?? '',
+      businessType: json['business_type'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$$DealerProfileImplToJson(_$DealerProfileImpl instance) =>
+    <String, dynamic>{
+      'delivery_address': instance.deliveryAddress,
+      'city': instance.city,
+      'pincode': instance.pincode,
+      'preferred_categories': instance.preferredCategories,
+      'gst_number': instance.gstNumber,
+      'business_name': instance.businessName,
+      'business_type': instance.businessType,
+    };
+
+_$WholesalerProfileImpl _$$WholesalerProfileImplFromJson(
+        Map<String, dynamic> json) =>
+    _$WholesalerProfileImpl(
+      deliveryAddress: json['delivery_address'] as String? ?? '',
+      city: json['city'] as String? ?? '',
+      pincode: json['pincode'] as String? ?? '',
+      preferredCategories: (json['preferred_categories'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      gstNumber: json['gst_number'] as String? ?? '',
+      businessName: json['business_name'] as String? ?? '',
+      businessType: json['business_type'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$$WholesalerProfileImplToJson(
+        _$WholesalerProfileImpl instance) =>
+    <String, dynamic>{
+      'delivery_address': instance.deliveryAddress,
+      'city': instance.city,
+      'pincode': instance.pincode,
+      'preferred_categories': instance.preferredCategories,
+      'gst_number': instance.gstNumber,
+      'business_name': instance.businessName,
+      'business_type': instance.businessType,
+    };
+
+_$RetailerProfileImpl _$$RetailerProfileImplFromJson(
+        Map<String, dynamic> json) =>
+    _$RetailerProfileImpl(
+      deliveryAddress: json['delivery_address'] as String? ?? '',
+      city: json['city'] as String? ?? '',
+      pincode: json['pincode'] as String? ?? '',
+      preferredCategories: (json['preferred_categories'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      gstNumber: json['gst_number'] as String? ?? '',
+      businessName: json['business_name'] as String? ?? '',
+      businessType: json['business_type'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$$RetailerProfileImplToJson(
+        _$RetailerProfileImpl instance) =>
+    <String, dynamic>{
+      'delivery_address': instance.deliveryAddress,
+      'city': instance.city,
+      'pincode': instance.pincode,
+      'preferred_categories': instance.preferredCategories,
+      'gst_number': instance.gstNumber,
+      'business_name': instance.businessName,
+      'business_type': instance.businessType,
     };
