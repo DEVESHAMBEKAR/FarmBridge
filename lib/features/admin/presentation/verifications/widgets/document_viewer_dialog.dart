@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/models/verification_document_model.dart';
-import '../../../../app/theme/app_colors.dart';
+import '../../../../../core/models/verification_document_model.dart';
+import '../../../../../app/theme/app_colors.dart';
 import 'package:intl/intl.dart';
 
 class DocumentViewerDialog extends StatelessWidget {
