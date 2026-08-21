@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/firestore_collections.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/providers/providers.dart';
+import '../../../../../core/constants/firestore_collections.dart';
+import '../../../../../core/models/user_model.dart';
+import '../../../../../core/providers/providers.dart';
 
 final adminVerificationsListProvider = StreamProvider.autoDispose<List<UserModel>>((ref) {
   final firestore = ref.watch(firestoreRepositoryProvider).firestore;

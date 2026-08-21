@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/trip_model.dart';
 import '../constants/firestore_collections.dart';
 import 'firestore_repository.dart';
+import '../providers/providers.dart';
 
 final tripRepositoryProvider = Provider<TripRepository>((ref) {
-  final firestore = ref.watch(firestoreProvider);
+  final firestore = ref.watch(firestoreRepositoryProvider).firestore;
   return TripRepository(firestore);
 });
 

@@ -46,8 +46,8 @@ class BuyerOrdersScreen extends ConsumerWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      _buildOrdersList(activeOrders, isActive: true),
-                      _buildOrdersList(pastOrders, isActive: false),
+                      _buildOrdersList(context, activeOrders, isActive: true),
+                      _buildOrdersList(context, pastOrders, isActive: false),
                     ],
                   ),
                 ),

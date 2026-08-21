@@ -150,9 +150,6 @@ class _DeliveryDashboardScreenState extends ConsumerState<DeliveryDashboardScree
                 initialCenter: center,
                 initialZoom: 13.0,
                 markers: markers,
-                onMapReady: (controller) {
-                  // Keep reference if needed
-                },
               );
             },
           ),

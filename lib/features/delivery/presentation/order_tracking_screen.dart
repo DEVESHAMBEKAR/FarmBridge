@@ -6,6 +6,7 @@ import 'package:flutter_map/flutter_map.dart';
 import '../../../core/constants/firestore_collections.dart';
 import '../../../core/models/trip_model.dart';
 import '../../../core/repositories/firestore_repository.dart';
+import '../../../core/providers/providers.dart';
 import '../../../core/widgets/farm_bridge_map.dart';
 import '../../../app/theme/app_colors.dart';
 
