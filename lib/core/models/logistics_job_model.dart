@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+﻿import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'converters.dart';
 // import '../constants/firestore_collections.dart'; // Uncomment if there's LogisticsStatus
@@ -14,6 +14,8 @@ class LogisticsJobModel with _$LogisticsJobModel {
     @JsonKey(name: 'transporter_id') String? transporterId,
     @JsonKey(name: 'pickup_location') required String pickupLocation,
     @JsonKey(name: 'drop_location') required String dropLocation,
+    @JsonKey(name: 'delivery_latitude') double? deliveryLatitude,
+    @JsonKey(name: 'delivery_longitude') double? deliveryLongitude,
     @JsonKey(name: 'distance_km') required double distanceKm,
     @JsonKey(name: 'required_vehicle_type') required String requiredVehicleType,
     @JsonKey(name: 'expected_pickup_time') @TimestampNonNullConverter() required DateTime expectedPickupTime,
@@ -28,3 +30,4 @@ class LogisticsJobModel with _$LogisticsJobModel {
 
   factory LogisticsJobModel.fromJson(Map<String, dynamic> json) => _$LogisticsJobModelFromJson(json);
 }
+

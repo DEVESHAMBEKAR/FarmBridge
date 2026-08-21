@@ -30,6 +30,10 @@ mixin _$LogisticsJobModel {
   String get pickupLocation => throw _privateConstructorUsedError;
   @JsonKey(name: 'drop_location')
   String get dropLocation => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_latitude')
+  double? get deliveryLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_longitude')
+  double? get deliveryLongitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'distance_km')
   double get distanceKm => throw _privateConstructorUsedError;
   @JsonKey(name: 'required_vehicle_type')
@@ -72,6 +76,8 @@ abstract class $LogisticsJobModelCopyWith<$Res> {
       @JsonKey(name: 'transporter_id') String? transporterId,
       @JsonKey(name: 'pickup_location') String pickupLocation,
       @JsonKey(name: 'drop_location') String dropLocation,
+      @JsonKey(name: 'delivery_latitude') double? deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') double? deliveryLongitude,
       @JsonKey(name: 'distance_km') double distanceKm,
       @JsonKey(name: 'required_vehicle_type') String requiredVehicleType,
       @JsonKey(name: 'expected_pickup_time')
@@ -106,6 +112,8 @@ class _$LogisticsJobModelCopyWithImpl<$Res, $Val extends LogisticsJobModel>
     Object? transporterId = freezed,
     Object? pickupLocation = null,
     Object? dropLocation = null,
+    Object? deliveryLatitude = freezed,
+    Object? deliveryLongitude = freezed,
     Object? distanceKm = null,
     Object? requiredVehicleType = null,
     Object? expectedPickupTime = null,
@@ -138,6 +146,14 @@ class _$LogisticsJobModelCopyWithImpl<$Res, $Val extends LogisticsJobModel>
           ? _value.dropLocation
           : dropLocation // ignore: cast_nullable_to_non_nullable
               as String,
+      deliveryLatitude: freezed == deliveryLatitude
+          ? _value.deliveryLatitude
+          : deliveryLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryLongitude: freezed == deliveryLongitude
+          ? _value.deliveryLongitude
+          : deliveryLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       distanceKm: null == distanceKm
           ? _value.distanceKm
           : distanceKm // ignore: cast_nullable_to_non_nullable
@@ -196,6 +212,8 @@ abstract class _$$LogisticsJobModelImplCopyWith<$Res>
       @JsonKey(name: 'transporter_id') String? transporterId,
       @JsonKey(name: 'pickup_location') String pickupLocation,
       @JsonKey(name: 'drop_location') String dropLocation,
+      @JsonKey(name: 'delivery_latitude') double? deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') double? deliveryLongitude,
       @JsonKey(name: 'distance_km') double distanceKm,
       @JsonKey(name: 'required_vehicle_type') String requiredVehicleType,
       @JsonKey(name: 'expected_pickup_time')
@@ -228,6 +246,8 @@ class __$$LogisticsJobModelImplCopyWithImpl<$Res>
     Object? transporterId = freezed,
     Object? pickupLocation = null,
     Object? dropLocation = null,
+    Object? deliveryLatitude = freezed,
+    Object? deliveryLongitude = freezed,
     Object? distanceKm = null,
     Object? requiredVehicleType = null,
     Object? expectedPickupTime = null,
@@ -260,6 +280,14 @@ class __$$LogisticsJobModelImplCopyWithImpl<$Res>
           ? _value.dropLocation
           : dropLocation // ignore: cast_nullable_to_non_nullable
               as String,
+      deliveryLatitude: freezed == deliveryLatitude
+          ? _value.deliveryLatitude
+          : deliveryLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryLongitude: freezed == deliveryLongitude
+          ? _value.deliveryLongitude
+          : deliveryLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       distanceKm: null == distanceKm
           ? _value.distanceKm
           : distanceKm // ignore: cast_nullable_to_non_nullable
@@ -313,6 +341,8 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
       @JsonKey(name: 'transporter_id') this.transporterId,
       @JsonKey(name: 'pickup_location') required this.pickupLocation,
       @JsonKey(name: 'drop_location') required this.dropLocation,
+      @JsonKey(name: 'delivery_latitude') this.deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') this.deliveryLongitude,
       @JsonKey(name: 'distance_km') required this.distanceKm,
       @JsonKey(name: 'required_vehicle_type') required this.requiredVehicleType,
       @JsonKey(name: 'expected_pickup_time')
@@ -347,6 +377,12 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
   @override
   @JsonKey(name: 'drop_location')
   final String dropLocation;
+  @override
+  @JsonKey(name: 'delivery_latitude')
+  final double? deliveryLatitude;
+  @override
+  @JsonKey(name: 'delivery_longitude')
+  final double? deliveryLongitude;
   @override
   @JsonKey(name: 'distance_km')
   final double distanceKm;
@@ -384,7 +420,7 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
 
   @override
   String toString() {
-    return 'LogisticsJobModel(jobId: $jobId, dealId: $dealId, transporterId: $transporterId, pickupLocation: $pickupLocation, dropLocation: $dropLocation, distanceKm: $distanceKm, requiredVehicleType: $requiredVehicleType, expectedPickupTime: $expectedPickupTime, expectedDeliveryTime: $expectedDeliveryTime, status: $status, offeredFreightAmount: $offeredFreightAmount, agreedFreightAmount: $agreedFreightAmount, proofOfDeliveryUrl: $proofOfDeliveryUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'LogisticsJobModel(jobId: $jobId, dealId: $dealId, transporterId: $transporterId, pickupLocation: $pickupLocation, dropLocation: $dropLocation, deliveryLatitude: $deliveryLatitude, deliveryLongitude: $deliveryLongitude, distanceKm: $distanceKm, requiredVehicleType: $requiredVehicleType, expectedPickupTime: $expectedPickupTime, expectedDeliveryTime: $expectedDeliveryTime, status: $status, offeredFreightAmount: $offeredFreightAmount, agreedFreightAmount: $agreedFreightAmount, proofOfDeliveryUrl: $proofOfDeliveryUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -400,6 +436,10 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
                 other.pickupLocation == pickupLocation) &&
             (identical(other.dropLocation, dropLocation) ||
                 other.dropLocation == dropLocation) &&
+            (identical(other.deliveryLatitude, deliveryLatitude) ||
+                other.deliveryLatitude == deliveryLatitude) &&
+            (identical(other.deliveryLongitude, deliveryLongitude) ||
+                other.deliveryLongitude == deliveryLongitude) &&
             (identical(other.distanceKm, distanceKm) ||
                 other.distanceKm == distanceKm) &&
             (identical(other.requiredVehicleType, requiredVehicleType) ||
@@ -430,6 +470,8 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
       transporterId,
       pickupLocation,
       dropLocation,
+      deliveryLatitude,
+      deliveryLongitude,
       distanceKm,
       requiredVehicleType,
       expectedPickupTime,
@@ -463,6 +505,8 @@ abstract class _LogisticsJobModel implements LogisticsJobModel {
       @JsonKey(name: 'transporter_id') final String? transporterId,
       @JsonKey(name: 'pickup_location') required final String pickupLocation,
       @JsonKey(name: 'drop_location') required final String dropLocation,
+      @JsonKey(name: 'delivery_latitude') final double? deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') final double? deliveryLongitude,
       @JsonKey(name: 'distance_km') required final double distanceKm,
       @JsonKey(name: 'required_vehicle_type')
       required final String requiredVehicleType,
@@ -502,6 +546,12 @@ abstract class _LogisticsJobModel implements LogisticsJobModel {
   @override
   @JsonKey(name: 'drop_location')
   String get dropLocation;
+  @override
+  @JsonKey(name: 'delivery_latitude')
+  double? get deliveryLatitude;
+  @override
+  @JsonKey(name: 'delivery_longitude')
+  double? get deliveryLongitude;
   @override
   @JsonKey(name: 'distance_km')
   double get distanceKm;

@@ -1,5 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import '../../../../core/providers/providers.dart';
 import '../../../../core/constants/firestore_collections.dart';
 import '../../../../core/repositories/firestore_repository.dart';
@@ -33,7 +35,6 @@ class FarmerOrderNotifier extends StateNotifier<FarmerOrderState> {
     }
   }
 
-  /// Phase 8/9: Mark order READY_FOR_PICKUP and auto-create transport_request
   Future<void> markReadyForPickup({
     required String orderId,
     required String farmerId,
@@ -49,6 +50,36 @@ class FarmerOrderNotifier extends StateNotifier<FarmerOrderState> {
   }) async {
     state = const FarmerOrderState(isLoading: true);
     try {
+      // 1. Get real geo locations
+      double? pickupLat, pickupLng, deliveryLat, deliveryLng;
+      
+      try {
+        // Request location permission for pickup coordinates
+        LocationPermission permission = await Geolocator.checkPermission();
+        if (permission == LocationPermission.denied) {
+          permission = await Geolocator.requestPermission();
+        }
+        
+        if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+          final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+          pickupLat = position.latitude;
+          pickupLng = position.longitude;
+        }
+      } catch (e) {
+        print('Error getting pickup GPS: $e');
+      }
+
+      try {
+        // Attempt to geocode delivery address
+        final locations = await Geocoding().locationFromAddress(deliveryLocation);
+        if (locations.isNotEmpty) {
+          deliveryLat = locations.first.latitude;
+          deliveryLng = locations.first.longitude;
+        }
+      } catch (e) {
+        print('Error geocoding delivery location: $e');
+      }
+
       final firestoreRepo = ref.read(firestoreRepositoryProvider);
       final requestId = firestoreRepo.generateDocId(FirestoreCollections.transportRequests);
 
@@ -63,7 +94,6 @@ class FarmerOrderNotifier extends StateNotifier<FarmerOrderState> {
 
       final batch = <BatchOperation>[];
 
-      // Update order status to ready_for_pickup
       batch.add(BatchOperation.update(
         collection: FirestoreCollections.orders,
         documentId: orderId,
@@ -73,7 +103,6 @@ class FarmerOrderNotifier extends StateNotifier<FarmerOrderState> {
         },
       ));
 
-      // Create transport request
       batch.add(BatchOperation.set(
         collection: FirestoreCollections.transportRequests,
         documentId: requestId,
@@ -83,7 +112,11 @@ class FarmerOrderNotifier extends StateNotifier<FarmerOrderState> {
           'farmer_id': farmerId,
           'buyer_id': buyerId,
           'pickup_location': pickupLocation,
+          'pickup_latitude': pickupLat,
+          'pickup_longitude': pickupLng,
           'delivery_location': deliveryLocation,
+          'delivery_latitude': deliveryLat,
+          'delivery_longitude': deliveryLng,
           'product_type': productType,
           'total_weight': totalWeight,
           'package_count': packageCount,
@@ -109,3 +142,4 @@ class FarmerOrderNotifier extends StateNotifier<FarmerOrderState> {
 final farmerOrderNotifierProvider = StateNotifierProvider<FarmerOrderNotifier, FarmerOrderState>((ref) {
   return FarmerOrderNotifier(ref);
 });
+

@@ -34,6 +34,10 @@ mixin _$OrderModel {
   String get farmerName => throw _privateConstructorUsedError;
   @JsonKey(name: 'delivery_partner_id')
   String? get deliveryPartnerId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_latitude')
+  double? get deliveryLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_longitude')
+  double? get deliveryLongitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'delivery_address')
   String get deliveryAddress => throw _privateConstructorUsedError;
   @JsonKey(name: 'delivery_pincode')
@@ -85,6 +89,8 @@ abstract class $OrderModelCopyWith<$Res> {
       @JsonKey(name: 'farmer_id') String farmerId,
       @JsonKey(name: 'farmer_name') String farmerName,
       @JsonKey(name: 'delivery_partner_id') String? deliveryPartnerId,
+      @JsonKey(name: 'delivery_latitude') double? deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') double? deliveryLongitude,
       @JsonKey(name: 'delivery_address') String deliveryAddress,
       @JsonKey(name: 'delivery_pincode') String deliveryPincode,
       String status,
@@ -127,6 +133,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? farmerId = null,
     Object? farmerName = null,
     Object? deliveryPartnerId = freezed,
+    Object? deliveryLatitude = freezed,
+    Object? deliveryLongitude = freezed,
     Object? deliveryAddress = null,
     Object? deliveryPincode = null,
     Object? status = null,
@@ -171,6 +179,14 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.deliveryPartnerId
           : deliveryPartnerId // ignore: cast_nullable_to_non_nullable
               as String?,
+      deliveryLatitude: freezed == deliveryLatitude
+          ? _value.deliveryLatitude
+          : deliveryLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryLongitude: freezed == deliveryLongitude
+          ? _value.deliveryLongitude
+          : deliveryLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       deliveryAddress: null == deliveryAddress
           ? _value.deliveryAddress
           : deliveryAddress // ignore: cast_nullable_to_non_nullable
@@ -247,6 +263,8 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       @JsonKey(name: 'farmer_id') String farmerId,
       @JsonKey(name: 'farmer_name') String farmerName,
       @JsonKey(name: 'delivery_partner_id') String? deliveryPartnerId,
+      @JsonKey(name: 'delivery_latitude') double? deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') double? deliveryLongitude,
       @JsonKey(name: 'delivery_address') String deliveryAddress,
       @JsonKey(name: 'delivery_pincode') String deliveryPincode,
       String status,
@@ -287,6 +305,8 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? farmerId = null,
     Object? farmerName = null,
     Object? deliveryPartnerId = freezed,
+    Object? deliveryLatitude = freezed,
+    Object? deliveryLongitude = freezed,
     Object? deliveryAddress = null,
     Object? deliveryPincode = null,
     Object? status = null,
@@ -331,6 +351,14 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.deliveryPartnerId
           : deliveryPartnerId // ignore: cast_nullable_to_non_nullable
               as String?,
+      deliveryLatitude: freezed == deliveryLatitude
+          ? _value.deliveryLatitude
+          : deliveryLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryLongitude: freezed == deliveryLongitude
+          ? _value.deliveryLongitude
+          : deliveryLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       deliveryAddress: null == deliveryAddress
           ? _value.deliveryAddress
           : deliveryAddress // ignore: cast_nullable_to_non_nullable
@@ -402,6 +430,8 @@ class _$OrderModelImpl implements _OrderModel {
       @JsonKey(name: 'farmer_id') required this.farmerId,
       @JsonKey(name: 'farmer_name') this.farmerName = '',
       @JsonKey(name: 'delivery_partner_id') this.deliveryPartnerId,
+      @JsonKey(name: 'delivery_latitude') this.deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') this.deliveryLongitude,
       @JsonKey(name: 'delivery_address') this.deliveryAddress = '',
       @JsonKey(name: 'delivery_pincode') this.deliveryPincode = '',
       this.status = 'placed',
@@ -441,6 +471,12 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   @JsonKey(name: 'delivery_partner_id')
   final String? deliveryPartnerId;
+  @override
+  @JsonKey(name: 'delivery_latitude')
+  final double? deliveryLatitude;
+  @override
+  @JsonKey(name: 'delivery_longitude')
+  final double? deliveryLongitude;
   @override
   @JsonKey(name: 'delivery_address')
   final String deliveryAddress;
@@ -490,7 +526,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(orderId: $orderId, buyerId: $buyerId, buyerName: $buyerName, buyerPhone: $buyerPhone, farmerId: $farmerId, farmerName: $farmerName, deliveryPartnerId: $deliveryPartnerId, deliveryAddress: $deliveryAddress, deliveryPincode: $deliveryPincode, status: $status, paymentStatus: $paymentStatus, paymentMethod: $paymentMethod, subtotal: $subtotal, deliveryFee: $deliveryFee, totalAmount: $totalAmount, notes: $notes, placedAt: $placedAt, confirmedAt: $confirmedAt, deliveredAt: $deliveredAt, cancelledAt: $cancelledAt, updatedAt: $updatedAt)';
+    return 'OrderModel(orderId: $orderId, buyerId: $buyerId, buyerName: $buyerName, buyerPhone: $buyerPhone, farmerId: $farmerId, farmerName: $farmerName, deliveryPartnerId: $deliveryPartnerId, deliveryLatitude: $deliveryLatitude, deliveryLongitude: $deliveryLongitude, deliveryAddress: $deliveryAddress, deliveryPincode: $deliveryPincode, status: $status, paymentStatus: $paymentStatus, paymentMethod: $paymentMethod, subtotal: $subtotal, deliveryFee: $deliveryFee, totalAmount: $totalAmount, notes: $notes, placedAt: $placedAt, confirmedAt: $confirmedAt, deliveredAt: $deliveredAt, cancelledAt: $cancelledAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -510,6 +546,10 @@ class _$OrderModelImpl implements _OrderModel {
                 other.farmerName == farmerName) &&
             (identical(other.deliveryPartnerId, deliveryPartnerId) ||
                 other.deliveryPartnerId == deliveryPartnerId) &&
+            (identical(other.deliveryLatitude, deliveryLatitude) ||
+                other.deliveryLatitude == deliveryLatitude) &&
+            (identical(other.deliveryLongitude, deliveryLongitude) ||
+                other.deliveryLongitude == deliveryLongitude) &&
             (identical(other.deliveryAddress, deliveryAddress) ||
                 other.deliveryAddress == deliveryAddress) &&
             (identical(other.deliveryPincode, deliveryPincode) ||
@@ -549,6 +589,8 @@ class _$OrderModelImpl implements _OrderModel {
         farmerId,
         farmerName,
         deliveryPartnerId,
+        deliveryLatitude,
+        deliveryLongitude,
         deliveryAddress,
         deliveryPincode,
         status,
@@ -588,6 +630,8 @@ abstract class _OrderModel implements OrderModel {
       @JsonKey(name: 'farmer_id') required final String farmerId,
       @JsonKey(name: 'farmer_name') final String farmerName,
       @JsonKey(name: 'delivery_partner_id') final String? deliveryPartnerId,
+      @JsonKey(name: 'delivery_latitude') final double? deliveryLatitude,
+      @JsonKey(name: 'delivery_longitude') final double? deliveryLongitude,
       @JsonKey(name: 'delivery_address') final String deliveryAddress,
       @JsonKey(name: 'delivery_pincode') final String deliveryPincode,
       final String status,
@@ -637,6 +681,12 @@ abstract class _OrderModel implements OrderModel {
   @override
   @JsonKey(name: 'delivery_partner_id')
   String? get deliveryPartnerId;
+  @override
+  @JsonKey(name: 'delivery_latitude')
+  double? get deliveryLatitude;
+  @override
+  @JsonKey(name: 'delivery_longitude')
+  double? get deliveryLongitude;
   @override
   @JsonKey(name: 'delivery_address')
   String get deliveryAddress;

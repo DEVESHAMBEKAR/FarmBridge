@@ -14,6 +14,8 @@ _$LogisticsJobModelImpl _$$LogisticsJobModelImplFromJson(
       transporterId: json['transporter_id'] as String?,
       pickupLocation: json['pickup_location'] as String,
       dropLocation: json['drop_location'] as String,
+      deliveryLatitude: (json['delivery_latitude'] as num?)?.toDouble(),
+      deliveryLongitude: (json['delivery_longitude'] as num?)?.toDouble(),
       distanceKm: (json['distance_km'] as num).toDouble(),
       requiredVehicleType: json['required_vehicle_type'] as String,
       expectedPickupTime: const TimestampNonNullConverter()
@@ -38,6 +40,8 @@ Map<String, dynamic> _$$LogisticsJobModelImplToJson(
       'transporter_id': instance.transporterId,
       'pickup_location': instance.pickupLocation,
       'drop_location': instance.dropLocation,
+      'delivery_latitude': instance.deliveryLatitude,
+      'delivery_longitude': instance.deliveryLongitude,
       'distance_km': instance.distanceKm,
       'required_vehicle_type': instance.requiredVehicleType,
       'expected_pickup_time':

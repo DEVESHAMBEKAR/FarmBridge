@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+﻿import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'converters.dart';
 
@@ -15,6 +15,8 @@ class OrderModel with _$OrderModel {
     @JsonKey(name: 'farmer_id') required String farmerId,
     @JsonKey(name: 'farmer_name') @Default('') String farmerName,
     @JsonKey(name: 'delivery_partner_id') String? deliveryPartnerId,
+    @JsonKey(name: 'delivery_latitude') double? deliveryLatitude,
+    @JsonKey(name: 'delivery_longitude') double? deliveryLongitude,
     @JsonKey(name: 'delivery_address') @Default('') String deliveryAddress,
     @JsonKey(name: 'delivery_pincode') @Default('') String deliveryPincode,
     @Default('placed') String status,
@@ -48,3 +50,4 @@ class OrderItemModel with _$OrderItemModel {
 
   factory OrderItemModel.fromJson(Map<String, dynamic> json) => _$OrderItemModelFromJson(json);
 }
+
