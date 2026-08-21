@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/providers/providers.dart';
 import '../providers/dealer_negotiations_provider.dart';
 import '../../../../core/widgets/async_value_widget.dart';
@@ -54,7 +55,7 @@ class DealerHomeScreen extends ConsumerWidget {
                         trailing: const Icon(Icons.chevron_right),
                         isThreeLine: true,
                         onTap: () {
-                          // TODO: Open Negotiation Chat
+                          context.go('/dealer/home/negotiation/${neg.negotiationId}');
                         },
                       ),
                     );

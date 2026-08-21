@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
 import '../../../core/models/order_model.dart';
@@ -88,7 +89,21 @@ class AdminDashboardScreen extends ConsumerWidget {
             ),
             
             const SizedBox(height: 48),
-            
+
+            // Quick Actions
+            Text('Quick Actions', style: AppTypography.titleLarge.copyWith(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                _buildActionButton(context, 'Dispatch Center', Icons.local_shipping, Colors.green, '/admin/dashboard/dispatch'),
+                _buildActionButton(context, 'Audit Logs', Icons.history, Colors.indigo, '/admin/audit-logs'),
+              ],
+            ),
+
+            const SizedBox(height: 48),
+
             // Detailed Sections
             if (isMobile)
               Column(
@@ -251,6 +266,19 @@ class AdminDashboardScreen extends ConsumerWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+  Widget _buildActionButton(BuildContext context, String label, IconData icon, Color color, String route) {
+    return ElevatedButton.icon(
+      onPressed: () => context.push(route),
+      icon: Icon(icon, size: 18),
+      label: Text(label),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }

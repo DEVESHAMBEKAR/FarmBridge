@@ -19,7 +19,7 @@ class BuyerProfileSetupNotifier extends StateNotifier<BuyerProfileSetupState> {
     state = const BuyerProfileSetupState(isLoading: true);
     
     try {
-      final user = ref.read(authStateProvider).value;
+      final user = ref.read(authRepositoryProvider).currentUser;
       if (user == null) {
         throw Exception('User not authenticated');
       }

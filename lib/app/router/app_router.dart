@@ -56,6 +56,7 @@ import '../../features/dealer/presentation/dealer_home_screen.dart';
 import '../../features/dealer/presentation/bulk_search_screen.dart';
 import '../../features/dealer/presentation/post_requirement_screen.dart';
 import '../../features/dealer/presentation/negotiation_screen.dart';
+import '../../features/dealer/presentation/negotiation_chat_screen.dart';
 import '../../features/profile/presentation/dealer_profile_screen.dart';
 import '../../features/auth/presentation/dealer_profile_setup_screen.dart';
 import 'shells/dealer_shell.dart';
@@ -69,6 +70,9 @@ import '../../features/admin/presentation/admin_products_screen.dart';
 import '../../features/admin/presentation/admin_logistics_screen.dart';
 import '../../features/admin/presentation/admin_audit_logs_screen.dart';
 import '../../features/admin/presentation/admin_settings_screen.dart';
+import '../../features/admin/presentation/admin_dispatch_screen.dart';
+import '../../features/admin/presentation/admin_partner_selection_screen.dart';
+import '../../features/admin/presentation/admin_third_party_screen.dart';
 import 'shells/admin_shell.dart';
 
 // Routes that don't require authentication
@@ -179,7 +183,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       // ==========================================
-      // ─── ROOT ROUTES ──────────────────────────────────────────────
+      // â”€â”€â”€ ROOT ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
       GoRoute(
         path: '/farmer/profile-setup',
@@ -206,7 +210,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const AdminWebOnlyScreen(),
       ),
 
-      // ─── BUYER APP ────────────────────────────────────────────────
+      // â”€â”€â”€ BUYER APP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       // ==========================================
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -416,6 +420,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/dealer/home',
                 builder: (context, state) => const DealerHomeScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'negotiation/:negotiationId',
+                    builder: (context, state) => NegotiationChatScreen(
+                      negotiationId: state.pathParameters['negotiationId']!,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -472,6 +484,26 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/admin/dashboard',
                 builder: (context, state) => const AdminDashboardScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'dispatch',
+                    builder: (context, state) => const AdminDispatchScreen(),
+                    routes: [
+                      GoRoute(
+                        path: 'assign-partner/:requestId',
+                        builder: (context, state) => AdminPartnerSelectionScreen(
+                          transportRequestId: state.pathParameters['requestId']!,
+                        ),
+                      ),
+                      GoRoute(
+                        path: 'third-party/:requestId',
+                        builder: (context, state) => AdminThirdPartyScreen(
+                          transportRequestId: state.pathParameters['requestId']!,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -543,3 +575,4 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
+

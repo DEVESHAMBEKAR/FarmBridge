@@ -5,6 +5,7 @@ import '../../../app/theme/app_typography.dart';
 import 'providers/admin_providers.dart';
 import '../../../../core/models/product_model.dart';
 import '../../../../core/constants/firestore_collections.dart';
+import '../../../../core/providers/providers.dart';
 
 class AdminProductsScreen extends ConsumerStatefulWidget {
   const AdminProductsScreen({super.key});
@@ -130,7 +131,7 @@ class _AdminProductsScreenState extends ConsumerState<AdminProductsScreen> {
                                           await firestore.updateDocument(
                                             collection: FirestoreCollections.products,
                                             documentId: p.productId,
-                                            data: {'status': ProductStatus.inactive},
+                                            data: {'status': ProductStatus.removed},
                                           );
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Unlisted: ${p.title}')));
                                         } else if (action == 'unhide') {
