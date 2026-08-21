@@ -11,7 +11,7 @@ import 'providers/farmer_order_notifier.dart';
 class FarmerOrdersScreen extends ConsumerWidget {
   const FarmerOrdersScreen({super.key});
 
-  void _showReadyForPickupSheet(WidgetRef ref, OrderModel order) {
+  void _showReadyForPickupSheet(BuildContext context, WidgetRef ref, OrderModel order) {
     final packageCountCtrl = TextEditingController(text: '1');
     final weightCtrl = TextEditingController();
     final dimensionsCtrl = TextEditingController();
@@ -20,7 +20,7 @@ class FarmerOrdersScreen extends ConsumerWidget {
     final user = ref.read(currentUserProvider);
 
     showModalBottomSheet(
-      context: ref.context,
+      context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (ctx) => StatefulBuilder(
@@ -128,9 +128,9 @@ class FarmerOrdersScreen extends ConsumerWidget {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          _buildOrdersList(newOrders, ref),
-                          _buildOrdersList(inProgressOrders, ref),
-                          _buildOrdersList(completedOrders, ref, isCompleted: true),
+                          _buildOrdersList(context, newOrders, ref),
+                          _buildOrdersList(context, inProgressOrders, ref),
+                          _buildOrdersList(context, completedOrders, ref, isCompleted: true),
                         ],
                       ),
                     ),
@@ -151,7 +151,7 @@ class FarmerOrdersScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildOrdersList(List<OrderModel> orders, WidgetRef ref, {bool isCompleted = false}) {
+  Widget _buildOrdersList(BuildContext context, List<OrderModel> orders, WidgetRef ref, {bool isCompleted = false}) {
     if (orders.isEmpty) {
       return Center(
         child: Text(
@@ -168,12 +168,12 @@ class FarmerOrdersScreen extends ConsumerWidget {
       itemBuilder: (context, index) {
         final order = orders[index];
         final dateStr = order.placedAt != null ? DateFormat('MMM dd, yyyy').format(order.placedAt!) : 'Unknown date';
-        return _buildOrderCard(order, dateStr, ref, isCompleted);
+        return _buildOrderCard(context, order, dateStr, ref, isCompleted);
       },
     );
   }
 
-  Widget _buildOrderCard(OrderModel order, String date, WidgetRef ref, bool isCompleted) {
+  Widget _buildOrderCard(BuildContext context, OrderModel order, String date, WidgetRef ref, bool isCompleted) {
     final statusColors = {
       'placed': Colors.orange,
       'packed': Colors.blue,
@@ -242,7 +242,7 @@ class FarmerOrdersScreen extends ConsumerWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: () => _showReadyForPickupSheet(ref, order),
+                  onPressed: () => _showReadyForPickupSheet(context, ref, order),
                   icon: const Icon(Icons.local_shipping_outlined),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white),
                   label: const Text('Mark Ready for Pickup'),

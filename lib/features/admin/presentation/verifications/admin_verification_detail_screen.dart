@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../core/providers/providers.dart';
 import '../../../../core/constants/firestore_collections.dart';
+import '../../../../core/repositories/firestore_repository.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/models/verification_document_model.dart';
 import '../../../verification/providers/verification_providers.dart';

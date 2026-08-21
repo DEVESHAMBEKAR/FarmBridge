@@ -52,7 +52,8 @@ class _AdminVerificationsScreenState extends ConsumerState<AdminVerificationsScr
             const SizedBox(height: 24),
             Expanded(
               child: verificationsAsync.when(
-                data: (users) {
+                data: (usersList) {
+                  final users = usersList.cast<UserModel>();
                   final filtered = users.where((u) {
                     final n = u.displayName.toLowerCase();
                     final e = (u.email ?? '').toLowerCase();

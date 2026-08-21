@@ -52,7 +52,7 @@ class OrderTrackingScreen extends ConsumerWidget {
           }
           final trip = TripModel.fromJson(tripData);
 
-          LatLng currentLoc = LatLng(trip.currentLatitude, trip.currentLongitude);
+          LatLng currentLoc = LatLng(trip.currentLatitude ?? 18.5204, trip.currentLongitude ?? 73.8567);
           
           final markers = <Marker>[
             Marker(
@@ -63,24 +63,12 @@ class OrderTrackingScreen extends ConsumerWidget {
             ),
           ];
 
-          if (trip.destinationLatitude != null && trip.destinationLongitude != null) {
-            markers.add(
-              Marker(
-                point: LatLng(trip.destinationLatitude!, trip.destinationLongitude!),
-                width: 40,
-                height: 40,
-                child: const FarmBridgeMapMarker(icon: Icons.flag, color: Colors.red),
-              )
-            );
-          }
-
           return Stack(
             children: [
               FarmBridgeMap(
                 initialCenter: currentLoc,
                 initialZoom: 14.0,
                 markers: markers,
-                onMapReady: (controller) {},
               ),
               Positioned(
                 bottom: 32,
@@ -96,9 +84,7 @@ class OrderTrackingScreen extends ConsumerWidget {
                       children: [
                         const Text('Driver is on the way', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                         const SizedBox(height: 8),
-                        Text('Driver: ${trip.driverName}', style: const TextStyle(fontSize: 16)),
-                        const SizedBox(height: 4),
-                        Text('Phone: ${trip.driverPhone}', style: const TextStyle(color: Colors.grey)),
+                        Text('Driver ID: ${trip.transporterId}', style: const TextStyle(fontSize: 14)),
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
