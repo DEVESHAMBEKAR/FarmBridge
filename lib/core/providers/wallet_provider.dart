@@ -40,10 +40,10 @@ final walletTransactionsProvider = StreamProvider<List<WalletTransactionModel>>(
         parentCollection: FirestoreCollections.wallets,
         parentDocId: authUser.uid,
         subCollection: FirestoreCollections.walletTransactions,
-        orderByField: 'created_at',
-        descending: true,
       )
       .map((snapshot) {
-    return snapshot.docs.map((doc) => WalletTransactionModel.fromJson(doc.data())).toList();
+    final docs = snapshot.docs.map((doc) => WalletTransactionModel.fromJson(doc.data())).toList();
+    docs.sort((a, b) => (b.createdAt ?? DateTime(0)).compareTo(a.createdAt ?? DateTime(0)));
+    return docs;
   });
 });
