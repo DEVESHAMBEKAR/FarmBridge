@@ -1,10 +1,12 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../core/providers/firebase_providers.dart';
 import '../../../core/providers/providers.dart';
 import '../../../core/constants/firestore_collections.dart';
 import '../../../core/models/user_model.dart';
+import '../../../core/models/transport_request_model.dart';
 import '../../../core/repositories/firestore_repository.dart';
 import '../../../app/theme/app_colors.dart';
 
@@ -95,43 +97,89 @@ class _AdminPartnerSelectionScreenState extends ConsumerState<AdminPartnerSelect
   @override
   Widget build(BuildContext context) {
     final firestoreRepo = ref.watch(firestoreRepositoryProvider);
+    
     return Scaffold(
       appBar: AppBar(title: const Text('Select Logistics Partner'), backgroundColor: AppColors.primary, foregroundColor: Colors.white),
       body: _isAssigning
           ? const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [CircularProgressIndicator(), SizedBox(height: 16), Text('Assigning partner...')]))
-          : StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: firestoreRepo.firestore.collection(FirestoreCollections.users).where('role', isEqualTo: 'logistics').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
-                final partners = snapshot.data!.docs.map((doc) {
-                  final data = doc.data();
-                  if (!data.containsKey('uid')) data['uid'] = doc.id;
-                  return UserModel.fromJson(data);
-                }).where((u) => u.isVerified || u.verificationStatus == 'APPROVED').toList();
+          : StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              stream: firestoreRepo.firestore.collection(FirestoreCollections.transportRequests).doc(widget.transportRequestId).snapshots(),
+              builder: (context, requestSnapshot) {
+                if (!requestSnapshot.hasData) return const Center(child: CircularProgressIndicator());
+                
+                final reqData = requestSnapshot.data!.data();
+                if (reqData == null) return const Center(child: Text('Request not found.'));
+                reqData['request_id'] = requestSnapshot.data!.id;
+                final request = TransportRequestModel.fromJson(reqData);
 
-                if (partners.isEmpty) {
-                  return const Center(child: Text('No verified logistics partners available.'));
-                }
+                return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  stream: firestoreRepo.firestore.collection(FirestoreCollections.users).where('role', isEqualTo: 'logistics').snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+                    
+                    final partners = snapshot.data!.docs.map((doc) {
+                      final data = doc.data();
+                      if (!data.containsKey('uid')) data['uid'] = doc.id;
+                      return UserModel.fromJson(data);
+                    }).where((u) => u.isVerified || u.verificationStatus == 'APPROVED').toList();
 
-                return ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: partners.length,
-                  itemBuilder: (context, i) {
-                    final p = partners[i];
-                    final profile = p.logisticsProfile;
-                    final isAvailable = profile?.isAvailable ?? true;
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      child: ListTile(
-                        leading: CircleAvatar(backgroundColor: isAvailable ? Colors.green : Colors.grey, child: Icon(Icons.local_shipping, color: Colors.white)),
-                        title: Text(p.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Text('${profile?.vehicleType ?? "Unknown"} | ${profile?.vehicleNumber ?? "N/A"}\n${isAvailable ? "Available" : "Busy"}'),
-                        isThreeLine: true,
-                        trailing: ElevatedButton(
-                          onPressed: isAvailable ? () => _assignPartner(p) : null,
-                          child: const Text('Assign'),
-                        ),
-                      ),
+                    if (partners.isEmpty) {
+                      return const Center(child: Text('No verified logistics partners available.'));
+                    }
+
+                    // Calculate distances
+                    final partnersWithDistance = partners.map((p) {
+                      double? distance;
+                      if (p.latitude != null && p.longitude != null && request.pickupLatitude != null && request.pickupLongitude != null) {
+                        distance = Geolocator.distanceBetween(
+                          request.pickupLatitude!, request.pickupLongitude!,
+                          p.latitude!, p.longitude!
+                        );
+                      }
+                      return (partner: p, distance: distance);
+                    }).toList();
+
+                    // Sort by distance
+                    partnersWithDistance.sort((a, b) {
+                      if (a.distance == null && b.distance == null) return 0;
+                      if (a.distance == null) return 1;
+                      if (b.distance == null) return -1;
+                      return a.distance!.compareTo(b.distance!);
+                    });
+
+                    return ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: partnersWithDistance.length,
+                      itemBuilder: (context, i) {
+                        final p = partnersWithDistance[i].partner;
+                        final distance = partnersWithDistance[i].distance;
+                        final profile = p.logisticsProfile;
+                        final isAvailable = profile?.isAvailable ?? true;
+                        
+                        String distanceStr = distance != null 
+                            ? '${(distance / 1000).toStringAsFixed(1)} km away' 
+                            : 'Distance unknown';
+
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          child: ListTile(
+                            leading: CircleAvatar(backgroundColor: isAvailable ? Colors.green : Colors.grey, child: Icon(Icons.local_shipping, color: Colors.white)),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(p.displayName, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                Text(distanceStr, style: TextStyle(color: distance != null ? Colors.blue : Colors.grey, fontSize: 12, fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            subtitle: Text('${profile?.vehicleType ?? "Unknown"} | ${profile?.vehicleNumber ?? "N/A"}\n${isAvailable ? "Available" : "Busy"}'),
+                            isThreeLine: true,
+                            trailing: ElevatedButton(
+                              onPressed: isAvailable ? () => _assignPartner(p) : null,
+                              child: const Text('Assign'),
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 );

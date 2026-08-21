@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,8 +27,7 @@ class _LogisticsProfileSetupScreenState extends ConsumerState<LogisticsProfileSe
   final _licenseNumberController = TextEditingController();
   final _serviceAreaController = TextEditingController(); // Using a single text field for now
 
-  @override
-    Future<void> _getCurrentLocation() async {
+  Future<void> _getCurrentLocation() async {
     setState(() => _isGettingLocation = true);
     try {
       LocationPermission permission = await Geolocator.checkPermission();
@@ -36,16 +35,23 @@ class _LogisticsProfileSetupScreenState extends ConsumerState<LogisticsProfileSe
         permission = await Geolocator.requestPermission();
       }
       if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
-        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high, timeLimit: const Duration(seconds: 10));
         _latitude = position.latitude;
         _longitude = position.longitude;
         
-        final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
-        if (placemarks.isNotEmpty) {
-          final place = placemarks.first;
+        try {
+          final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
+          if (placemarks.isNotEmpty) {
+            final place = placemarks.first;
+            setState(() {
+              _serviceAreaController.text = '${place.locality ?? ''}, ${place.administrativeArea ?? ''}'.trim();
+            });
+          }
+        } catch (e) {
           setState(() {
-            _serviceAreaController.text = '${place.locality ?? ''}, ${place.administrativeArea ?? ''}'.trim();
+            _serviceAreaController.text = 'Lat: ${position.latitude.toStringAsFixed(4)}, Lng: ${position.longitude.toStringAsFixed(4)}';
           });
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Could not fetch address. Using raw coordinates.')));
         }
       }
     } catch (e) {
@@ -235,4 +241,5 @@ class _LogisticsProfileSetupScreenState extends ConsumerState<LogisticsProfileSe
     );
   }
 }
+
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
@@ -60,7 +61,7 @@ class BuyerOrdersScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildOrdersList(List<OrderModel> orders, {required bool isActive}) {
+  Widget _buildOrdersList(BuildContext context, List<OrderModel> orders, {required bool isActive}) {
     if (orders.isEmpty) {
       return Center(
         child: Text(
@@ -79,6 +80,8 @@ class BuyerOrdersScreen extends ConsumerWidget {
         final dateStr = order.placedAt != null ? DateFormat('MMM dd, yyyy').format(order.placedAt!) : 'Unknown date';
         
         return _buildOrderCard(
+          context: context,
+          fullOrderId: order.orderId,
           orderId: order.orderId.substring(0, 8).toUpperCase(), // Short ID
           date: dateStr,
           status: order.status.toUpperCase(),
@@ -91,6 +94,8 @@ class BuyerOrdersScreen extends ConsumerWidget {
   }
 
   Widget _buildOrderCard({
+    required BuildContext context,
+    required String fullOrderId,
     required String orderId,
     required String date,
     required String status,
@@ -140,9 +145,11 @@ class BuyerOrdersScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Total: $total', style: AppTypography.titleMedium.copyWith(color: AppColors.primary, fontWeight: FontWeight.bold)),
-              if (isActive)
+              if (isActive && status != 'PENDING')
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     context.push('/buyer/orders/track/$fullOrderId');
+                  },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.primary,
                     side: const BorderSide(color: AppColors.primary),
@@ -150,6 +157,8 @@ class BuyerOrdersScreen extends ConsumerWidget {
                   ),
                   child: const Text('Track'),
                 )
+              else if (isActive)
+                 const SizedBox()
               else
                 TextButton(
                   onPressed: () {},

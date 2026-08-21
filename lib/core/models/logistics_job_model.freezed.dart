@@ -49,6 +49,12 @@ mixin _$LogisticsJobModel {
   double get offeredFreightAmount => throw _privateConstructorUsedError;
   @JsonKey(name: 'agreed_freight_amount')
   double? get agreedFreightAmount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'active_trip_id')
+  String? get activeTripId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_otp')
+  String? get pickupOtp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_otp')
+  String? get deliveryOtp => throw _privateConstructorUsedError;
   @JsonKey(name: 'proof_of_delivery_url')
   String? get proofOfDeliveryUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -89,6 +95,9 @@ abstract class $LogisticsJobModelCopyWith<$Res> {
       String status,
       @JsonKey(name: 'offered_freight_amount') double offeredFreightAmount,
       @JsonKey(name: 'agreed_freight_amount') double? agreedFreightAmount,
+      @JsonKey(name: 'active_trip_id') String? activeTripId,
+      @JsonKey(name: 'pickup_otp') String? pickupOtp,
+      @JsonKey(name: 'delivery_otp') String? deliveryOtp,
       @JsonKey(name: 'proof_of_delivery_url') String? proofOfDeliveryUrl,
       @JsonKey(name: 'created_at') @TimestampConverter() DateTime? createdAt,
       @JsonKey(name: 'updated_at') @TimestampConverter() DateTime? updatedAt});
@@ -121,6 +130,9 @@ class _$LogisticsJobModelCopyWithImpl<$Res, $Val extends LogisticsJobModel>
     Object? status = null,
     Object? offeredFreightAmount = null,
     Object? agreedFreightAmount = freezed,
+    Object? activeTripId = freezed,
+    Object? pickupOtp = freezed,
+    Object? deliveryOtp = freezed,
     Object? proofOfDeliveryUrl = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -182,6 +194,18 @@ class _$LogisticsJobModelCopyWithImpl<$Res, $Val extends LogisticsJobModel>
           ? _value.agreedFreightAmount
           : agreedFreightAmount // ignore: cast_nullable_to_non_nullable
               as double?,
+      activeTripId: freezed == activeTripId
+          ? _value.activeTripId
+          : activeTripId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupOtp: freezed == pickupOtp
+          ? _value.pickupOtp
+          : pickupOtp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deliveryOtp: freezed == deliveryOtp
+          ? _value.deliveryOtp
+          : deliveryOtp // ignore: cast_nullable_to_non_nullable
+              as String?,
       proofOfDeliveryUrl: freezed == proofOfDeliveryUrl
           ? _value.proofOfDeliveryUrl
           : proofOfDeliveryUrl // ignore: cast_nullable_to_non_nullable
@@ -225,6 +249,9 @@ abstract class _$$LogisticsJobModelImplCopyWith<$Res>
       String status,
       @JsonKey(name: 'offered_freight_amount') double offeredFreightAmount,
       @JsonKey(name: 'agreed_freight_amount') double? agreedFreightAmount,
+      @JsonKey(name: 'active_trip_id') String? activeTripId,
+      @JsonKey(name: 'pickup_otp') String? pickupOtp,
+      @JsonKey(name: 'delivery_otp') String? deliveryOtp,
       @JsonKey(name: 'proof_of_delivery_url') String? proofOfDeliveryUrl,
       @JsonKey(name: 'created_at') @TimestampConverter() DateTime? createdAt,
       @JsonKey(name: 'updated_at') @TimestampConverter() DateTime? updatedAt});
@@ -255,6 +282,9 @@ class __$$LogisticsJobModelImplCopyWithImpl<$Res>
     Object? status = null,
     Object? offeredFreightAmount = null,
     Object? agreedFreightAmount = freezed,
+    Object? activeTripId = freezed,
+    Object? pickupOtp = freezed,
+    Object? deliveryOtp = freezed,
     Object? proofOfDeliveryUrl = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -316,6 +346,18 @@ class __$$LogisticsJobModelImplCopyWithImpl<$Res>
           ? _value.agreedFreightAmount
           : agreedFreightAmount // ignore: cast_nullable_to_non_nullable
               as double?,
+      activeTripId: freezed == activeTripId
+          ? _value.activeTripId
+          : activeTripId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupOtp: freezed == pickupOtp
+          ? _value.pickupOtp
+          : pickupOtp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deliveryOtp: freezed == deliveryOtp
+          ? _value.deliveryOtp
+          : deliveryOtp // ignore: cast_nullable_to_non_nullable
+              as String?,
       proofOfDeliveryUrl: freezed == proofOfDeliveryUrl
           ? _value.proofOfDeliveryUrl
           : proofOfDeliveryUrl // ignore: cast_nullable_to_non_nullable
@@ -355,6 +397,9 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
       @JsonKey(name: 'offered_freight_amount')
       required this.offeredFreightAmount,
       @JsonKey(name: 'agreed_freight_amount') this.agreedFreightAmount,
+      @JsonKey(name: 'active_trip_id') this.activeTripId,
+      @JsonKey(name: 'pickup_otp') this.pickupOtp,
+      @JsonKey(name: 'delivery_otp') this.deliveryOtp,
       @JsonKey(name: 'proof_of_delivery_url') this.proofOfDeliveryUrl,
       @JsonKey(name: 'created_at') @TimestampConverter() this.createdAt,
       @JsonKey(name: 'updated_at') @TimestampConverter() this.updatedAt});
@@ -407,6 +452,15 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
   @JsonKey(name: 'agreed_freight_amount')
   final double? agreedFreightAmount;
   @override
+  @JsonKey(name: 'active_trip_id')
+  final String? activeTripId;
+  @override
+  @JsonKey(name: 'pickup_otp')
+  final String? pickupOtp;
+  @override
+  @JsonKey(name: 'delivery_otp')
+  final String? deliveryOtp;
+  @override
   @JsonKey(name: 'proof_of_delivery_url')
   final String? proofOfDeliveryUrl;
   @override
@@ -420,7 +474,7 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
 
   @override
   String toString() {
-    return 'LogisticsJobModel(jobId: $jobId, dealId: $dealId, transporterId: $transporterId, pickupLocation: $pickupLocation, dropLocation: $dropLocation, deliveryLatitude: $deliveryLatitude, deliveryLongitude: $deliveryLongitude, distanceKm: $distanceKm, requiredVehicleType: $requiredVehicleType, expectedPickupTime: $expectedPickupTime, expectedDeliveryTime: $expectedDeliveryTime, status: $status, offeredFreightAmount: $offeredFreightAmount, agreedFreightAmount: $agreedFreightAmount, proofOfDeliveryUrl: $proofOfDeliveryUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'LogisticsJobModel(jobId: $jobId, dealId: $dealId, transporterId: $transporterId, pickupLocation: $pickupLocation, dropLocation: $dropLocation, deliveryLatitude: $deliveryLatitude, deliveryLongitude: $deliveryLongitude, distanceKm: $distanceKm, requiredVehicleType: $requiredVehicleType, expectedPickupTime: $expectedPickupTime, expectedDeliveryTime: $expectedDeliveryTime, status: $status, offeredFreightAmount: $offeredFreightAmount, agreedFreightAmount: $agreedFreightAmount, activeTripId: $activeTripId, pickupOtp: $pickupOtp, deliveryOtp: $deliveryOtp, proofOfDeliveryUrl: $proofOfDeliveryUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -453,6 +507,12 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
                 other.offeredFreightAmount == offeredFreightAmount) &&
             (identical(other.agreedFreightAmount, agreedFreightAmount) ||
                 other.agreedFreightAmount == agreedFreightAmount) &&
+            (identical(other.activeTripId, activeTripId) ||
+                other.activeTripId == activeTripId) &&
+            (identical(other.pickupOtp, pickupOtp) ||
+                other.pickupOtp == pickupOtp) &&
+            (identical(other.deliveryOtp, deliveryOtp) ||
+                other.deliveryOtp == deliveryOtp) &&
             (identical(other.proofOfDeliveryUrl, proofOfDeliveryUrl) ||
                 other.proofOfDeliveryUrl == proofOfDeliveryUrl) &&
             (identical(other.createdAt, createdAt) ||
@@ -463,25 +523,29 @@ class _$LogisticsJobModelImpl implements _LogisticsJobModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      jobId,
-      dealId,
-      transporterId,
-      pickupLocation,
-      dropLocation,
-      deliveryLatitude,
-      deliveryLongitude,
-      distanceKm,
-      requiredVehicleType,
-      expectedPickupTime,
-      expectedDeliveryTime,
-      status,
-      offeredFreightAmount,
-      agreedFreightAmount,
-      proofOfDeliveryUrl,
-      createdAt,
-      updatedAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        jobId,
+        dealId,
+        transporterId,
+        pickupLocation,
+        dropLocation,
+        deliveryLatitude,
+        deliveryLongitude,
+        distanceKm,
+        requiredVehicleType,
+        expectedPickupTime,
+        expectedDeliveryTime,
+        status,
+        offeredFreightAmount,
+        agreedFreightAmount,
+        activeTripId,
+        pickupOtp,
+        deliveryOtp,
+        proofOfDeliveryUrl,
+        createdAt,
+        updatedAt
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -520,6 +584,9 @@ abstract class _LogisticsJobModel implements LogisticsJobModel {
       @JsonKey(name: 'offered_freight_amount')
       required final double offeredFreightAmount,
       @JsonKey(name: 'agreed_freight_amount') final double? agreedFreightAmount,
+      @JsonKey(name: 'active_trip_id') final String? activeTripId,
+      @JsonKey(name: 'pickup_otp') final String? pickupOtp,
+      @JsonKey(name: 'delivery_otp') final String? deliveryOtp,
       @JsonKey(name: 'proof_of_delivery_url') final String? proofOfDeliveryUrl,
       @JsonKey(name: 'created_at')
       @TimestampConverter()
@@ -574,6 +641,15 @@ abstract class _LogisticsJobModel implements LogisticsJobModel {
   @override
   @JsonKey(name: 'agreed_freight_amount')
   double? get agreedFreightAmount;
+  @override
+  @JsonKey(name: 'active_trip_id')
+  String? get activeTripId;
+  @override
+  @JsonKey(name: 'pickup_otp')
+  String? get pickupOtp;
+  @override
+  @JsonKey(name: 'delivery_otp')
+  String? get deliveryOtp;
   @override
   @JsonKey(name: 'proof_of_delivery_url')
   String? get proofOfDeliveryUrl;

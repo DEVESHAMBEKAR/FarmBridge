@@ -1,4 +1,4 @@
-﻿import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'converters.dart';
 // import '../constants/firestore_collections.dart'; // Uncomment if there's LogisticsStatus
@@ -23,6 +23,9 @@ class LogisticsJobModel with _$LogisticsJobModel {
     @Default('PENDING') String status,
     @JsonKey(name: 'offered_freight_amount') required double offeredFreightAmount,
     @JsonKey(name: 'agreed_freight_amount') double? agreedFreightAmount,
+    @JsonKey(name: 'active_trip_id') String? activeTripId,
+    @JsonKey(name: 'pickup_otp') String? pickupOtp,
+    @JsonKey(name: 'delivery_otp') String? deliveryOtp,
     @JsonKey(name: 'proof_of_delivery_url') String? proofOfDeliveryUrl,
     @JsonKey(name: 'created_at') @TimestampConverter() DateTime? createdAt,
     @JsonKey(name: 'updated_at') @TimestampConverter() DateTime? updatedAt,

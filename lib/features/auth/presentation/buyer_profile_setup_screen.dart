@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,8 +32,7 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
     'Vegetables', 'Fruits', 'Grains', 'Dairy', 'Spices',
   ];
 
-  @override
-    Future<void> _getCurrentLocation() async {
+  Future<void> _getCurrentLocation() async {
     setState(() => _isGettingLocation = true);
     try {
       LocationPermission permission = await Geolocator.checkPermission();
@@ -41,18 +40,25 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
         permission = await Geolocator.requestPermission();
       }
       if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
-        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high, timeLimit: const Duration(seconds: 10));
         _latitude = position.latitude;
         _longitude = position.longitude;
         
-        final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
-        if (placemarks.isNotEmpty) {
-          final place = placemarks.first;
+        try {
+          final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
+          if (placemarks.isNotEmpty) {
+            final place = placemarks.first;
+            setState(() {
+              _addressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
+              if (place.locality != null) _cityController.text = place.locality!;
+              if (place.postalCode != null) _pincodeController.text = place.postalCode!;
+            });
+          }
+        } catch (e) {
           setState(() {
-            _addressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
-            if (place.locality != null) _cityController.text = place.locality!;
-            if (place.postalCode != null) _pincodeController.text = place.postalCode!;
+            _addressController.text = 'Lat: ${position.latitude.toStringAsFixed(4)}, Lng: ${position.longitude.toStringAsFixed(4)}';
           });
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Could not fetch address. Using raw coordinates.')));
         }
       }
     } catch (e) {
@@ -267,4 +273,5 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
     );
   }
 }
+
 

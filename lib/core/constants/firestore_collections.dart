@@ -25,6 +25,7 @@ class FirestoreCollections {
   static const String transportQuotes = 'transport_quotes';
   static const String transportBookings = 'transport_bookings';
   static const String deliveries = 'deliveries';
+  static const String trips = 'trips'; // Map Live Tracking
   static const String logisticsProviders = 'logistics_providers'; // Phase 4 addition
 
   // Cross-Cutting

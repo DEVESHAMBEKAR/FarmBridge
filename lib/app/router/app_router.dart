@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,6 +35,7 @@ import '../../features/chat/presentation/chat_list_screen.dart';
 import '../../features/marketplace/presentation/product_details_screen.dart';
 import '../../features/cart/presentation/cart_screen.dart';
 import '../../features/marketplace/presentation/checkout_screen.dart';
+import '../../features/delivery/presentation/order_tracking_screen.dart';
 
 // Farmer
 import '../../features/dashboard/presentation/dashboard_screen.dart';
@@ -255,6 +256,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/buyer/orders',
                 builder: (context, state) => const BuyerOrdersScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'track/:orderId',
+                    builder: (context, state) => OrderTrackingScreen(
+                      orderId: state.pathParameters['orderId']!,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -317,6 +326,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/farmer/orders',
                 builder: (context, state) => const FarmerOrdersScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'track/:orderId',
+                    builder: (context, state) => OrderTrackingScreen(
+                      orderId: state.pathParameters['orderId']!,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -1,5 +1,6 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../app/theme/app_colors.dart';
 import '../../../app/theme/app_typography.dart';
@@ -256,6 +257,18 @@ class FarmerOrdersScreen extends ConsumerWidget {
                   SizedBox(width: 8),
                   Text('Admin notified — awaiting pickup dispatch', style: TextStyle(color: Colors.green, fontSize: 13)),
                 ]),
+              )
+            else if (order.status == 'in_transit')
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    context.push('/farmer/orders/track/${order.orderId}');
+                  },
+                  icon: const Icon(Icons.location_on),
+                  style: OutlinedButton.styleFrom(foregroundColor: AppColors.primary, side: const BorderSide(color: AppColors.primary)),
+                  label: const Text('Live Track Package'),
+                ),
               ),
           ]
         ],
