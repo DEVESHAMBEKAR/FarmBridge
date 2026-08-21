@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,9 +22,7 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
   bool _isGettingLocation = false;
   
   final _nameController = TextEditingController();
-  final _addressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
-              if (place.locality != null) _cityController.text = place.locality!;
-              if (place.postalCode != null) _pincodeController.text = place.postalCode!;();
+  final _addressController = TextEditingController();
   final _cityController = TextEditingController();
   final _pincodeController = TextEditingController();
   
@@ -35,8 +33,7 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
   ];
 
   @override
-  
-  Future<void> _getCurrentLocation() async {
+    Future<void> _getCurrentLocation() async {
     setState(() => _isGettingLocation = true);
     try {
       LocationPermission permission = await Geolocator.checkPermission();
@@ -52,16 +49,16 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
         if (placemarks.isNotEmpty) {
           final place = placemarks.first;
           setState(() {
-            if (this.mounted) {
-              _addressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
-              if (place.locality != null) _cityController.text = place.locality!;
-              if (place.postalCode != null) _pincodeController.text = place.postalCode!;(text: '${place.street}, ${place.subLocality}');
-            }
+            _addressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
+            if (place.locality != null) _cityController.text = place.locality!;
+            if (place.postalCode != null) _pincodeController.text = place.postalCode!;
           });
         }
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to get location: $e')));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to get location: $e')));
+      }
     } finally {
       if (mounted) setState(() => _isGettingLocation = false);
     }
@@ -156,14 +153,12 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
                   const SizedBox(height: 24),
 
                   // Address
-
                   OutlinedButton.icon(
                     onPressed: _isGettingLocation ? null : _getCurrentLocation,
                     icon: _isGettingLocation ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.my_location),
                     label: const Text('Use Current Location'),
                   ),
                   const SizedBox(height: 16),
-
                   TextFormField(
                     controller: _addressController,
                     maxLines: 2,
@@ -272,3 +267,4 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
     );
   }
 }
+
