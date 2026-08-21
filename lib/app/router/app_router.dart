@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,7 +31,7 @@ import '../../features/buyer/presentation/buyer_home_screen.dart';
 import '../../features/marketplace/presentation/marketplace_screen.dart';
 import '../../features/buyer/presentation/buyer_orders_screen.dart';
 import '../../features/chat/presentation/chat_list_screen.dart';
-import '../../features/profile/presentation/buyer_profile_screen.dart';
+
 import '../../features/marketplace/presentation/product_details_screen.dart';
 import '../../features/cart/presentation/cart_screen.dart';
 import '../../features/marketplace/presentation/checkout_screen.dart';
@@ -49,7 +49,7 @@ import '../../features/delivery/presentation/delivery_dashboard_screen.dart';
 import '../../features/delivery/presentation/delivery_assigned_screen.dart';
 import '../../features/delivery/presentation/delivery_map_screen.dart';
 import '../../features/delivery/presentation/delivery_history_screen.dart';
-import '../../features/profile/presentation/delivery_profile_screen.dart';
+import '../../features/profile/presentation/user_profile_screen.dart';
 
 // Dealer
 import '../../features/dealer/presentation/dealer_home_screen.dart';
@@ -57,7 +57,7 @@ import '../../features/dealer/presentation/bulk_search_screen.dart';
 import '../../features/dealer/presentation/post_requirement_screen.dart';
 import '../../features/dealer/presentation/negotiation_screen.dart';
 import '../../features/dealer/presentation/negotiation_chat_screen.dart';
-import '../../features/profile/presentation/dealer_profile_screen.dart';
+
 import '../../features/auth/presentation/dealer_profile_setup_screen.dart';
 import 'shells/dealer_shell.dart';
 
@@ -183,7 +183,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       // ==========================================
-      // â”€â”€â”€ ROOT ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ ROOT ROUTES Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 
       GoRoute(
         path: '/farmer/profile-setup',
@@ -210,7 +210,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const AdminWebOnlyScreen(),
       ),
 
-      // â”€â”€â”€ BUYER APP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ BUYER APP Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
       // ==========================================
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -272,7 +272,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/buyer/profile',
-                builder: (context, state) => const BuyerProfileScreen(),
+                builder: (context, state) => const UserProfileScreen(),
               ),
             ],
           ),
@@ -343,7 +343,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/farmer/profile',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Farmer Profile Screen'))),
+                builder: (context, state) => const UserProfileScreen(),
               ),
             ],
           ),
@@ -399,7 +399,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/delivery/profile',
-                builder: (context, state) => const DeliveryProfileScreen(),
+                builder: (context, state) => const UserProfileScreen(),
               ),
             ],
           ),
@@ -463,7 +463,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/dealer/profile',
-                builder: (context, state) => const DealerProfileScreen(),
+                builder: (context, state) => const UserProfileScreen(),
               ),
             ],
           ),
@@ -575,4 +575,5 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
+
 

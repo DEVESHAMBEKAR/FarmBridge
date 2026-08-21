@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -15,9 +17,14 @@ class FarmerProfileSetupScreen extends ConsumerStatefulWidget {
 
 class _FarmerProfileSetupScreenState extends ConsumerState<FarmerProfileSetupScreen> {
   final _formKey = GlobalKey<FormState>();
+  double? _latitude;
+  double? _longitude;
+  bool _isGettingLocation = false;
   
   final _farmNameController = TextEditingController();
-  final _farmAddressController = TextEditingController();
+  final _farmAddressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
+              if (place.locality != null) _cityController.text = place.locality!;
+              if (place.postalCode != null) _pincodeController.text = place.postalCode!;();
   final _farmSizeController = TextEditingController();
   
   bool _isOrganic = false;
@@ -28,6 +35,39 @@ class _FarmerProfileSetupScreenState extends ConsumerState<FarmerProfileSetupScr
     'Onions', 'Carrots', 'Apples', 'Bananas', 'Mangoes',
     'Cotton', 'Sugarcane',
   ];
+
+  @override
+  
+  Future<void> _getCurrentLocation() async {
+    setState(() => _isGettingLocation = true);
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        _latitude = position.latitude;
+        _longitude = position.longitude;
+        
+        final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
+        if (placemarks.isNotEmpty) {
+          final place = placemarks.first;
+          setState(() {
+            if (this.mounted) {
+              _farmAddressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
+              if (place.locality != null) _cityController.text = place.locality!;
+              if (place.postalCode != null) _pincodeController.text = place.postalCode!;(text: '${place.street}, ${place.subLocality}');
+            }
+          });
+        }
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to get location: $e')));
+    } finally {
+      if (mounted) setState(() => _isGettingLocation = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -126,6 +166,14 @@ class _FarmerProfileSetupScreenState extends ConsumerState<FarmerProfileSetupScr
                   const SizedBox(height: 24),
 
                   // Farm Address
+
+                  OutlinedButton.icon(
+                    onPressed: _isGettingLocation ? null : _getCurrentLocation,
+                    icon: _isGettingLocation ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.my_location),
+                    label: const Text('Use Current Location'),
+                  ),
+                  const SizedBox(height: 16),
+
                   TextFormField(
                     controller: _farmAddressController,
                     maxLines: 2,

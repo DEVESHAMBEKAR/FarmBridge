@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/providers.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/constants/firestore_collections.dart';
@@ -51,3 +51,5 @@ class FarmerProfileSetupNotifier extends StateNotifier<FarmerProfileSetupState> 
 final farmerProfileSetupNotifierProvider = StateNotifierProvider<FarmerProfileSetupNotifier, FarmerProfileSetupState>((ref) {
   return FarmerProfileSetupNotifier(ref);
 });
+
+

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -15,12 +17,46 @@ class LogisticsProfileSetupScreen extends ConsumerStatefulWidget {
 
 class _LogisticsProfileSetupScreenState extends ConsumerState<LogisticsProfileSetupScreen> {
   final _formKey = GlobalKey<FormState>();
+  double? _latitude;
+  double? _longitude;
+  bool _isGettingLocation = false;
   
   final _nameController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
   final _vehicleNumberController = TextEditingController();
   final _licenseNumberController = TextEditingController();
   final _serviceAreaController = TextEditingController(); // Using a single text field for now
+
+  @override
+  
+  Future<void> _getCurrentLocation() async {
+    setState(() => _isGettingLocation = true);
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        _latitude = position.latitude;
+        _longitude = position.longitude;
+        
+        final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
+        if (placemarks.isNotEmpty) {
+          final place = placemarks.first;
+          setState(() {
+            if (this.mounted) {
+              /* logistics area logic */ = TextEditingController(text: '${place.street}, ${place.subLocality}');
+            }
+          });
+        }
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to get location: $e')));
+    } finally {
+      if (mounted) setState(() => _isGettingLocation = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -45,7 +81,7 @@ class _LogisticsProfileSetupScreenState extends ConsumerState<LogisticsProfileSe
       isAvailable: true,
     );
 
-    final success = await ref.read(logisticsProfileSetupNotifierProvider.notifier).saveProfile(profile, _nameController.text.trim());
+    final success = await ref.read(logisticsProfileSetupNotifierProvider.notifier).saveProfile(profile, _nameController.text.trim(), latitude: _latitude, longitude: _longitude);
     
     if (success && mounted) {
       context.go('/verification-pending');

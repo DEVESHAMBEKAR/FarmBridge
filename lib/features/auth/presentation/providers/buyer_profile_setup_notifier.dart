@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/providers.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/constants/firestore_collections.dart';
@@ -15,7 +15,7 @@ class BuyerProfileSetupNotifier extends StateNotifier<BuyerProfileSetupState> {
 
   BuyerProfileSetupNotifier(this.ref) : super(const BuyerProfileSetupState());
 
-  Future<bool> saveProfile(BuyerProfile profile, String displayName) async {
+  Future<bool> saveProfile(BuyerProfile profile, String displayName, {double? latitude, double? longitude}) async {
     state = const BuyerProfileSetupState(isLoading: true);
     
     try {
@@ -50,3 +50,5 @@ class BuyerProfileSetupNotifier extends StateNotifier<BuyerProfileSetupState> {
 final buyerProfileSetupNotifierProvider = StateNotifierProvider<BuyerProfileSetupNotifier, BuyerProfileSetupState>((ref) {
   return BuyerProfileSetupNotifier(ref);
 });
+
+

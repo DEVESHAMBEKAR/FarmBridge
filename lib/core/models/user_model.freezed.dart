@@ -28,6 +28,10 @@ mixin _$UserModel {
   @JsonKey(name: 'photo_url')
   String? get photoUrl => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
+  @JsonKey(name: 'latitude')
+  double? get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'longitude')
+  double? get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_profile_complete')
   bool get isProfileComplete => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_verified')
@@ -75,6 +79,8 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'display_name') String displayName,
       @JsonKey(name: 'photo_url') String? photoUrl,
       String role,
+      @JsonKey(name: 'latitude') double? latitude,
+      @JsonKey(name: 'longitude') double? longitude,
       @JsonKey(name: 'is_profile_complete') bool isProfileComplete,
       @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'fcm_token') String? fcmToken,
@@ -116,6 +122,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? displayName = null,
     Object? photoUrl = freezed,
     Object? role = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? isProfileComplete = null,
     Object? isVerified = null,
     Object? fcmToken = freezed,
@@ -155,6 +163,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: freezed == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: freezed == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       isProfileComplete: null == isProfileComplete
           ? _value.isProfileComplete
           : isProfileComplete // ignore: cast_nullable_to_non_nullable
@@ -298,6 +314,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: 'display_name') String displayName,
       @JsonKey(name: 'photo_url') String? photoUrl,
       String role,
+      @JsonKey(name: 'latitude') double? latitude,
+      @JsonKey(name: 'longitude') double? longitude,
       @JsonKey(name: 'is_profile_complete') bool isProfileComplete,
       @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'fcm_token') String? fcmToken,
@@ -343,6 +361,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? displayName = null,
     Object? photoUrl = freezed,
     Object? role = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? isProfileComplete = null,
     Object? isVerified = null,
     Object? fcmToken = freezed,
@@ -382,6 +402,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: freezed == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: freezed == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       isProfileComplete: null == isProfileComplete
           ? _value.isProfileComplete
           : isProfileComplete // ignore: cast_nullable_to_non_nullable
@@ -448,6 +476,8 @@ class _$UserModelImpl implements _UserModel {
       @JsonKey(name: 'display_name') this.displayName = '',
       @JsonKey(name: 'photo_url') this.photoUrl,
       this.role = 'buyer',
+      @JsonKey(name: 'latitude') this.latitude,
+      @JsonKey(name: 'longitude') this.longitude,
       @JsonKey(name: 'is_profile_complete') this.isProfileComplete = false,
       @JsonKey(name: 'is_verified') this.isVerified = false,
       @JsonKey(name: 'fcm_token') this.fcmToken,
@@ -480,6 +510,12 @@ class _$UserModelImpl implements _UserModel {
   @override
   @JsonKey()
   final String role;
+  @override
+  @JsonKey(name: 'latitude')
+  final double? latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  final double? longitude;
   @override
   @JsonKey(name: 'is_profile_complete')
   final bool isProfileComplete;
@@ -524,7 +560,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, phone: $phone, email: $email, displayName: $displayName, photoUrl: $photoUrl, role: $role, isProfileComplete: $isProfileComplete, isVerified: $isVerified, fcmToken: $fcmToken, verificationStatus: $verificationStatus, status: $status, farmerProfile: $farmerProfile, buyerProfile: $buyerProfile, dealerProfile: $dealerProfile, wholesalerProfile: $wholesalerProfile, retailerProfile: $retailerProfile, logisticsProfile: $logisticsProfile, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserModel(uid: $uid, phone: $phone, email: $email, displayName: $displayName, photoUrl: $photoUrl, role: $role, latitude: $latitude, longitude: $longitude, isProfileComplete: $isProfileComplete, isVerified: $isVerified, fcmToken: $fcmToken, verificationStatus: $verificationStatus, status: $status, farmerProfile: $farmerProfile, buyerProfile: $buyerProfile, dealerProfile: $dealerProfile, wholesalerProfile: $wholesalerProfile, retailerProfile: $retailerProfile, logisticsProfile: $logisticsProfile, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -540,6 +576,10 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.photoUrl, photoUrl) ||
                 other.photoUrl == photoUrl) &&
             (identical(other.role, role) || other.role == role) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
             (identical(other.isProfileComplete, isProfileComplete) ||
                 other.isProfileComplete == isProfileComplete) &&
             (identical(other.isVerified, isVerified) ||
@@ -577,6 +617,8 @@ class _$UserModelImpl implements _UserModel {
         displayName,
         photoUrl,
         role,
+        latitude,
+        longitude,
         isProfileComplete,
         isVerified,
         fcmToken,
@@ -614,6 +656,8 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: 'display_name') final String displayName,
       @JsonKey(name: 'photo_url') final String? photoUrl,
       final String role,
+      @JsonKey(name: 'latitude') final double? latitude,
+      @JsonKey(name: 'longitude') final double? longitude,
       @JsonKey(name: 'is_profile_complete') final bool isProfileComplete,
       @JsonKey(name: 'is_verified') final bool isVerified,
       @JsonKey(name: 'fcm_token') final String? fcmToken,
@@ -651,6 +695,12 @@ abstract class _UserModel implements UserModel {
   String? get photoUrl;
   @override
   String get role;
+  @override
+  @JsonKey(name: 'latitude')
+  double? get latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  double? get longitude;
   @override
   @JsonKey(name: 'is_profile_complete')
   bool get isProfileComplete;

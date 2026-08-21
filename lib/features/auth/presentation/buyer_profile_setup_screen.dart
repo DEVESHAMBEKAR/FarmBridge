@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -15,9 +17,14 @@ class BuyerProfileSetupScreen extends ConsumerStatefulWidget {
 
 class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScreen> {
   final _formKey = GlobalKey<FormState>();
+  double? _latitude;
+  double? _longitude;
+  bool _isGettingLocation = false;
   
   final _nameController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _addressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
+              if (place.locality != null) _cityController.text = place.locality!;
+              if (place.postalCode != null) _pincodeController.text = place.postalCode!;();
   final _cityController = TextEditingController();
   final _pincodeController = TextEditingController();
   
@@ -26,6 +33,39 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
   final List<String> _availableCategories = [
     'Vegetables', 'Fruits', 'Grains', 'Dairy', 'Spices',
   ];
+
+  @override
+  
+  Future<void> _getCurrentLocation() async {
+    setState(() => _isGettingLocation = true);
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+        final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        _latitude = position.latitude;
+        _longitude = position.longitude;
+        
+        final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
+        if (placemarks.isNotEmpty) {
+          final place = placemarks.first;
+          setState(() {
+            if (this.mounted) {
+              _addressController.text = '${place.street ?? ''} ${place.subLocality ?? ''}'.trim();
+              if (place.locality != null) _cityController.text = place.locality!;
+              if (place.postalCode != null) _pincodeController.text = place.postalCode!;(text: '${place.street}, ${place.subLocality}');
+            }
+          });
+        }
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to get location: $e')));
+    } finally {
+      if (mounted) setState(() => _isGettingLocation = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -56,7 +96,7 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
       preferredCategories: _selectedCategories,
     );
 
-    final success = await ref.read(buyerProfileSetupNotifierProvider.notifier).saveProfile(profile, _nameController.text.trim());
+    final success = await ref.read(buyerProfileSetupNotifierProvider.notifier).saveProfile(profile, _nameController.text.trim(), latitude: _latitude, longitude: _longitude);
     
     if (success && mounted) {
       context.go('/buyer/home');
@@ -116,6 +156,14 @@ class _BuyerProfileSetupScreenState extends ConsumerState<BuyerProfileSetupScree
                   const SizedBox(height: 24),
 
                   // Address
+
+                  OutlinedButton.icon(
+                    onPressed: _isGettingLocation ? null : _getCurrentLocation,
+                    icon: _isGettingLocation ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.my_location),
+                    label: const Text('Use Current Location'),
+                  ),
+                  const SizedBox(height: 16),
+
                   TextFormField(
                     controller: _addressController,
                     maxLines: 2,

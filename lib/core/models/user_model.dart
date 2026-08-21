@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+﻿import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'converters.dart';
 
@@ -14,6 +14,8 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'display_name') @Default('') String displayName,
     @JsonKey(name: 'photo_url') String? photoUrl,
     @Default('buyer') String role,
+      @JsonKey(name: 'latitude') double? latitude,
+      @JsonKey(name: 'longitude') double? longitude,
     @JsonKey(name: 'is_profile_complete') @Default(false) bool isProfileComplete,
     @JsonKey(name: 'is_verified') @Default(false) bool isVerified,
     @JsonKey(name: 'fcm_token') String? fcmToken,
@@ -115,3 +117,4 @@ class RetailerProfile with _$RetailerProfile {
 
   factory RetailerProfile.fromJson(Map<String, dynamic> json) => _$RetailerProfileFromJson(json);
 }
+
