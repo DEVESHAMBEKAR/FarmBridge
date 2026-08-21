@@ -98,6 +98,7 @@ class AdminDashboardScreen extends ConsumerWidget {
               runSpacing: 12,
               children: [
                 _buildActionButton(context, 'Dispatch Center', Icons.local_shipping, Colors.green, '/admin/dashboard/dispatch'),
+                _buildActionButton(context, 'Verification Center', Icons.verified_user, Colors.blue, '/admin/dashboard/verifications'),
                 _buildActionButton(context, 'Audit Logs', Icons.history, Colors.indigo, '/admin/audit-logs'),
               ],
             ),

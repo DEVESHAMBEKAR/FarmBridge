@@ -114,7 +114,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
               }
             } else {
               if ((role == 'farmer' || role == 'logistics' || ['dealer', 'wholesaler', 'retailer'].contains(role)) && !userModel.isVerified) {
-                context.go('/verification-pending');
+                context.go('/verification/status');
               } else if (role == 'farmer') {
                 context.go('/farmer/dashboard');
               } else if (['dealer', 'wholesaler', 'retailer'].contains(role)) {

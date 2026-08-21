@@ -37,6 +37,11 @@ class FirestoreCollections {
   static const String supportTickets = 'support_tickets';
   static const String platformSettings = 'platform_settings';
 
+  // Verification System
+  static const String verificationDocuments = 'verification_documents';
+  static const String verificationChecklists = 'verification_checklists';
+  static const String verificationAuditLogs = 'verification_audit_logs';
+
   // ─── Subcollections ───────────────────────────────────────────
   static const String orderItems = 'items';
   static const String cartItems = 'items';

@@ -110,7 +110,7 @@ class _FarmerProfileSetupScreenState extends ConsumerState<FarmerProfileSetupScr
     final success = await ref.read(farmerProfileSetupNotifierProvider.notifier).saveProfile(profile);
     
     if (success && mounted) {
-      context.go('/verification-pending');
+      context.go('/verification/status');
     }
   }
 

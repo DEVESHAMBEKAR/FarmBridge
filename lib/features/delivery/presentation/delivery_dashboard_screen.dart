@@ -204,6 +204,9 @@ class _DeliveryDashboardScreenState extends ConsumerState<DeliveryDashboardScree
                                     children: orders.map((o) => _buildRetailOrderCard(o)).toList(),
                                   );
                                 },
+                              );
+                            },
+                          ),
                           const SizedBox(height: 24),
                           const Text('Available Loads', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 12),

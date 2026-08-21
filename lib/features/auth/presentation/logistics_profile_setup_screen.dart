@@ -89,7 +89,7 @@ class _LogisticsProfileSetupScreenState extends ConsumerState<LogisticsProfileSe
     final success = await ref.read(logisticsProfileSetupNotifierProvider.notifier).saveProfile(profile, _nameController.text.trim(), latitude: _latitude, longitude: _longitude);
     
     if (success && mounted) {
-      context.go('/verification-pending');
+      context.go('/verification/status');
     }
   }
 

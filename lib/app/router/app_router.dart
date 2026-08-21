@@ -37,6 +37,9 @@ import '../../features/cart/presentation/cart_screen.dart';
 import '../../features/marketplace/presentation/checkout_screen.dart';
 import '../../features/delivery/presentation/order_tracking_screen.dart';
 
+import '../../features/verification/presentation/verification_status_screen.dart';
+import '../../features/verification/presentation/document_upload_screen.dart';
+
 // Farmer
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/farmer/presentation/farmer_products_screen.dart';
@@ -73,6 +76,8 @@ import '../../features/admin/presentation/admin_audit_logs_screen.dart';
 import '../../features/admin/presentation/admin_settings_screen.dart';
 import '../../features/admin/presentation/admin_dispatch_screen.dart';
 import '../../features/admin/presentation/admin_partner_selection_screen.dart';
+import '../../features/admin/presentation/verifications/admin_verifications_screen.dart';
+import '../../features/admin/presentation/verifications/admin_verification_detail_screen.dart';
 import '../../features/admin/presentation/admin_third_party_screen.dart';
 import 'shells/admin_shell.dart';
 
@@ -163,6 +168,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/otp',
         builder: (context, state) => const OtpScreen(),
+      ),
+      GoRoute(
+        path: '/verification/status',
+        builder: (context, state) => const VerificationStatusScreen(),
+      ),
+      GoRoute(
+        path: '/verification/documents',
+        builder: (context, state) {
+          final entityType = state.extra as String? ?? 'farmer';
+          return DocumentUploadScreen(entityType: entityType);
+        },
       ),
       GoRoute(
         path: '/role-selection',
@@ -519,6 +535,16 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                         ),
                       ),
                     ],
+                  ),
+                  GoRoute(
+                    path: 'verifications',
+                    builder: (context, state) => const AdminVerificationsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'verifications/:userId',
+                    builder: (context, state) => AdminVerificationDetailScreen(
+                      userId: state.pathParameters['userId']!,
+                    ),
                   ),
                 ],
               ),
